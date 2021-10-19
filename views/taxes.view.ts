@@ -1,6 +1,6 @@
 import express from "express"
 import moment from "moment"
-import { TaxEntryList, TaxEntry, TaxEntryPaymentStatus } from "../taxes"
+import { TaxEntryList, TaxEntry, TaxEntryPaymentStatus } from "../net/taxes"
 
 const mapEntries = (c: Array<TaxEntry>) => {
     return c.map(r => {

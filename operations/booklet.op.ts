@@ -3,9 +3,9 @@ import * as T from 'fp-ts/lib/Task'
 import * as TE from 'fp-ts/lib/TaskEither'
 import * as E from 'fp-ts/lib/Either'
 import { handleError } from "../net"
-import { extractToken } from "../auth"
-import { getSecret } from "../config"
-import { BookletEntryList, fetchBooklet } from "../booklet"
+import { extractToken } from "../net/auth"
+import { getSecret } from "../utils/config"
+import { BookletEntryList, fetchBooklet } from "../net/booklet"
 import { pipe } from 'fp-ts/function'
 import { format } from "../views/booklet.view"
 

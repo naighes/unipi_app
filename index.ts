@@ -2,7 +2,7 @@ import EX from 'express'
 import { careersOp, bookletOp, taxesOp, coursesOp, authOp, planOp } from './operations'
 import { apiDoc } from './docs'
 import { initialize } from 'express-openapi'
-import { config, getSecret } from './config'
+import { config, getSecret } from './utils/config'
 import type { ErrorRequestHandler } from "express"
 import bodyParser from 'body-parser'
 
@@ -33,7 +33,7 @@ const safe = (f: (_req: EX.Request, _res: EX.Response) => Promise<EX.Response>) 
 }
 
 app.get('/:studentId/plan', safe(planOp))
-app.get('/sessions/:subject/calendar', safe(coursesOp))
+app.get('/courses/:subject/calendar', safe(coursesOp))
 app.get('/:studentId/taxes', safe(taxesOp))
 app.get('/:studentId/booklet', safe(bookletOp))
 app.get('/careers', safe(careersOp))

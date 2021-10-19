@@ -3,9 +3,9 @@ import * as T from 'fp-ts/lib/Task'
 import * as TE from 'fp-ts/lib/TaskEither'
 import * as E from 'fp-ts/lib/Either'
 import { handleError } from "../net"
-import { extractToken } from "../auth"
-import { fetchPlan, PlanGroup } from "../plan"
-import { getSecret } from "../config"
+import { extractToken } from "../net/auth"
+import { fetchPlan, PlanGroup } from "../net/plan"
+import { getSecret } from "../utils/config"
 import { pipe } from 'fp-ts/function'
 import { format } from "../views/plan.view"
 

@@ -1,7 +1,7 @@
 import url from 'url'
 import querystring from 'querystring'
 import { parse as parseHTML } from 'node-html-parser'
-import { followRedirect, formatCookie, userAgent, HTTPRequest, HTTPResponse, StringPairDictionary, ensureOk } from "./net"
+import { followRedirect, formatCookie, userAgent, HTTPRequest, HTTPResponse, StringPairDictionary, ensureOk } from "./index"
 import { either as E } from "fp-ts"
 import { pipe } from 'fp-ts/function'
 import * as TE from 'fp-ts/lib/TaskEither'

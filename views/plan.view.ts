@@ -1,5 +1,5 @@
 import express from "express"
-import { PlanEntry, PlanGroup } from "../plan"
+import { PlanEntry, PlanGroup } from "../net/plan"
 
 const mapEntries = (entries: Array<PlanEntry>) => entries.map(r => `<tr>
     <td>${r.code}</td>

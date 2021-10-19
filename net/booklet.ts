@@ -1,11 +1,11 @@
-import { formatCookie, userAgent, StringPairDictionary, HTTPRequest, followRedirect, ensureOk } from "./net"
-import { fetchCareer } from "./career_selection"
+import { formatCookie, userAgent, StringPairDictionary, HTTPRequest, followRedirect, ensureOk } from "./index"
+import { fetchCareer } from "./careers"
 import { parse as parseHTML, HTMLElement } from 'node-html-parser'
 import moment from 'moment'
 import { pipe } from 'fp-ts/function'
 import * as TE from 'fp-ts/lib/TaskEither'
 import { ensureSession } from "./auth"
-import { ensureGetElementsByTagName, ensureQuerySelectorAll } from "./diagnostic"
+import { ensureGetElementsByTagName, ensureQuerySelectorAll } from "../utils/diagnostic"
 
 const bookletReq = (cookie: StringPairDictionary): HTTPRequest => ({
     host: "www.studenti.unipi.it",

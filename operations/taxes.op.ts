@@ -3,9 +3,9 @@ import * as T from 'fp-ts/lib/Task'
 import * as TE from 'fp-ts/lib/TaskEither'
 import * as E from 'fp-ts/lib/Either'
 import { handleError } from "../net"
-import { extractToken } from "../auth"
-import { fetchTaxes, TaxEntryList } from "../taxes"
-import { getSecret } from "../config"
+import { extractToken } from "../net/auth"
+import { fetchTaxes, TaxEntryList } from "../net/taxes"
+import { getSecret } from "../utils/config"
 import { pipe } from 'fp-ts/function'
 import { format } from "../views/taxes.view"
 

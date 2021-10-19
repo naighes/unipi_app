@@ -1,6 +1,6 @@
 import express from "express"
 import moment from "moment"
-import { BookletEntry, BookletEntryList } from "../booklet"
+import { BookletEntry, BookletEntryList } from "../net/booklet"
 
 const mapRecords = (c: Array<BookletEntry>) => {
     return c.map(r => {

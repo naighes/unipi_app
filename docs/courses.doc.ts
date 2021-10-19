@@ -1,7 +1,7 @@
 import { OpenAPIV3 } from 'openapi-types'
 
 export const coursesDoc: OpenAPIV3.PathsObject = {
-  '/sessions/{subject}/calendar': {
+  '/courses/{subject}/calendar': {
     get: {
       operationId: 'coursesOp',
       description: 'get a list of exam sessions for a subject',

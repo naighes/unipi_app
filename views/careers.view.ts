@@ -1,5 +1,5 @@
 import express from "express"
-import { Careers } from "../career_selection"
+import { Careers } from "../net/careers"
 
 const mapCareers = (careers: Careers) => Object.keys(careers).reduce<Array<string>>((p, c) => {
     const id = parseInt(c)

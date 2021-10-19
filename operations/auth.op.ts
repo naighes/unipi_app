@@ -2,8 +2,8 @@ import express from "express"
 import * as T from 'fp-ts/lib/Task'
 import * as TE from 'fp-ts/lib/TaskEither'
 import { handleError, StringPairDictionary } from "../net"
-import { fetchAuthReq } from "../auth"
-import { getSecret } from "../config"
+import { fetchAuthReq } from "../net/auth"
+import { getSecret } from "../utils/config"
 import { sign } from 'jsonwebtoken'
 
 type AuthBody = {

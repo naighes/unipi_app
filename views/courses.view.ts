@@ -1,6 +1,6 @@
 import express from "express"
 import moment from "moment"
-import { Course, Call } from "../sessions_calendar"
+import { Course, Call } from "../net/courses"
 
 const mapCalls = (entries: Array<Call>) => entries.map(c => `<tr>
 <td>${c.date ? moment(c.date).format('MM/DD/YYYY hh:mm') || "-" : "-"}</td>

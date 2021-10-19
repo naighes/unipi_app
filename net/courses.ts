@@ -1,11 +1,11 @@
-import { formatCookie, userAgent, StringPairDictionary, HTTPRequest, followRedirect, ensureOk } from "./net"
+import { formatCookie, userAgent, StringPairDictionary, HTTPRequest, followRedirect, ensureOk } from "./index"
 import { parse as parseHTML, HTMLElement } from 'node-html-parser'
 import moment from 'moment'
 import { pipe } from 'fp-ts/function'
 import * as TE from 'fp-ts/lib/TaskEither'
 import { ensureSession } from "./auth"
 import { decode } from 'html-entities'
-import { ensureGetElementsByTagName, ensureQuerySelectorAll } from "./diagnostic"
+import { ensureGetElementsByTagName, ensureQuerySelectorAll } from "../utils/diagnostic"
 
 const coursesReq = (cookie: StringPairDictionary) => (subject: string): HTTPRequest => ({
     host: "esami.unipi.it",

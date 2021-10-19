@@ -2,11 +2,11 @@ import express from "express"
 import * as T from 'fp-ts/lib/Task'
 import * as TE from 'fp-ts/lib/TaskEither'
 import { handleError } from "../net"
-import { extractToken } from "../auth"
-import { fetchCourses, Course } from "../sessions_calendar"
-import { getSecret } from "../config"
+import { extractToken } from "../net/auth"
+import { fetchCourses, Course } from "../net/courses"
+import { getSecret } from "../utils/config"
 import { pipe } from 'fp-ts/function'
-import { format } from "../views/sessions_calendar.view"
+import { format } from "../views/courses.view"
 
 export const coursesOp = async (req: express.Request, res: express.Response) => {
     const subject = req.params['subject']

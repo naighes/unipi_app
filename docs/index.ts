@@ -3,7 +3,7 @@ import { bookletDoc } from './booklet.doc'
 import { careersDoc } from './careers.doc'
 import { taxesDoc } from './taxes.doc'
 import { planDoc } from './plan.doc'
-import { coursesDoc } from './sessions_calendar.doc'
+import { coursesDoc } from './courses.doc'
 import { authDoc } from './auth.doc'
 
 export const apiDoc: OpenAPIV3.Document = {

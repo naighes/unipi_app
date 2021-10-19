@@ -1,16 +1,16 @@
-import { userAgent as userAgent, formatCookie, followRedirect, StringPairDictionary, HTTPRequest, ensureOk } from "./net"
+import { userAgent as userAgent, formatCookie, followRedirect, StringPairDictionary, HTTPRequest, ensureOk } from "./index"
 import { parse as parseHTML, HTMLElement } from 'node-html-parser'
 import { ensureSession } from "./auth"
 import url from 'url'
 import querystring from 'querystring'
 import { pipe } from 'fp-ts/function'
 import * as TE from 'fp-ts/lib/TaskEither'
-import { ensureGetElementsByTagName } from "./diagnostic"
+import { ensureGetElementsByTagName } from "../utils/diagnostic"
 
-const careerSelectionReq = (cookie: StringPairDictionary): HTTPRequest => ({
+const careersReq = (cookie: StringPairDictionary): HTTPRequest => ({
     host: "www.studenti.unipi.it",
     path: "/auth/Logon.do",
-    query: "menu_opened_cod=",
+    query: "",
     method: "GET",
     headers: {
         'user-agent': userAgent,
@@ -76,9 +76,9 @@ const map = (body: string) => {
         }, {})
 }
 
-const fetchCareerSelection = (cookie: StringPairDictionary): TE.TaskEither<Error, Careers> => pipe(
+const fetchCareers = (cookie: StringPairDictionary): TE.TaskEither<Error, Careers> => pipe(
     TE.tryCatch(
-        () => followRedirect(careerSelectionReq(cookie)),
+        () => followRedirect(careersReq(cookie)),
         error => ({ name: "net_error", message: `${error}` })
     ),
     TE.chain(ensureOk),
@@ -101,7 +101,7 @@ const fetchCareer = (cookie: StringPairDictionary) => (studentId: number): TE.Ta
 )
 
 export {
-    fetchCareerSelection,
+    fetchCareers,
     fetchCareer,
     Careers
 }
