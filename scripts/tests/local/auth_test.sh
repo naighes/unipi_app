@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+if [ "$#" -ne 2 ]; then
+    echo "illegal number of parameters"
+    echo "command synopsis:"
+    echo "./auth_test.sh <user> <password>"
+    exit 2
+fi
+
 DATA="usr=$1&pwd=$2"
 TOKEN=$(curl -s "http://localhost:3000/auth" \
     -X POST \
