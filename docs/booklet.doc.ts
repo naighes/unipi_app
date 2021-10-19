@@ -1,13 +1,13 @@
 import { OpenAPIV3 } from 'openapi-types'
 
 export const bookletDoc: OpenAPIV3.PathsObject = {
-  '/{studentId}/booklet': {
+  '/{careerId}/booklet': {
     get: {
       operationId: 'bookletOp',
-      description: 'get a list of book entries for the student',
+      description: 'get a list of book entries for a career',
       parameters: [{
           in: 'path',
-          name: 'studentId',
+          name: 'careerId',
           required: true,
           schema: {
             type: 'integer'
@@ -24,7 +24,7 @@ export const bookletDoc: OpenAPIV3.PathsObject = {
           '$ref': '#/components/responses/NotAcceptable'
         },
         404: {
-          description: 'could not find a booklet for the student'
+          description: 'could not find a booklet for the career'
         },
         200: {
           description: 'successful response',

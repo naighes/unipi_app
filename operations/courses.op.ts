@@ -1,24 +1,41 @@
 import express from "express"
 import * as T from 'fp-ts/lib/Task'
 import * as TE from 'fp-ts/lib/TaskEither'
-import { handleError } from "../net"
+import { handleError, StringPairDictionary } from "../net"
 import { extractToken } from "../net/auth"
-import { fetchCourses, Course } from "../net/courses"
+import { fetchCourses, Course, fetchPaths } from "../net/courses"
 import { getSecret } from "../utils/config"
 import { pipe } from 'fp-ts/function'
-import { format } from "../views/courses.view"
+import { formatCourses, formatPaths } from "../views/courses.view"
 
-export const coursesOp = async (req: express.Request, res: express.Response) => {
-    const subject = req.params['subject']
+const pathsOp = async (req: express.Request, res: express.Response) => {
     return await TE.fold(
         (e: Error) => T.of(handleError(res)(e)),
-        (c: Array<Course>) => T.of(format(c)(res))
+        (c: StringPairDictionary) => T.of(formatPaths(c)(res))
     )
     (
         pipe(
             extractToken(req.headers)(getSecret()),
             TE.fromEither,
-            TE.chain(token => fetchCourses(token.cookie || {})(subject))
+            TE.chain(token => fetchPaths(token.cookie || {}))
         )
     )()
 }
+
+const coursesOp = async (req: express.Request, res: express.Response) => {
+    const subject = req.params['subject']
+    const path = req.params['path']
+    return await TE.fold(
+        (e: Error) => T.of(handleError(res)(e)),
+        (c: Array<Course>) => T.of(formatCourses(c)(res))
+    )
+    (
+        pipe(
+            extractToken(req.headers)(getSecret()),
+            TE.fromEither,
+            TE.chain(token => fetchCourses(token.cookie || {})(subject)(path))
+        )
+    )()
+}
+
+export { coursesOp, pathsOp }

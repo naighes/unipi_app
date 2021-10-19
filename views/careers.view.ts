@@ -1,23 +1,18 @@
 import express from "express"
-import { Careers } from "../net/careers"
+import { Career } from "../net/careers"
 
-const mapCareers = (careers: Careers) => Object.keys(careers).reduce<Array<string>>((p, c) => {
-    const id = parseInt(c)
-    if (!c) {
-        return p
-    }
-    return [
-    ...p,
-    `<tr>
-    <td>${careers[id].studentId}</td>
-    <td>${careers[id].name}</td>
-    <td>${careers[id].type}</td>
-    <td>${careers[id].active ? "active" : "inactive"}</td>
-</tr>`]
-    }, []).join("\n")
+const mapCareers = (careers: Array<Career>) => careers.map(c => {
+    return `<tr>
+    <td>${c.registrationNumber}</td>
+    <td>${c.careerId}</td>
+    <td>${c.name}</td>
+    <td>${c.type}</td>
+    <td>${c.active ? "active" : "inactive"}</td>
+</tr>`
+    }).join("\n")
 
 
-const map = (careers: Careers) => `<!DOCTYPE html>
+const map = (careers: Array<Career>) => `<!DOCTYPE html>
 <html>
 <head>
     <title>careers</title>
@@ -27,7 +22,8 @@ const map = (careers: Careers) => `<!DOCTYPE html>
     <table>
         <thead>
             <tr>
-                <th>student id</th>
+                <th>registration number</th>
+                <th>career id</th>
                 <th>name</th>
                 <th>type</th>
                 <th>status</th>
@@ -40,7 +36,7 @@ const map = (careers: Careers) => `<!DOCTYPE html>
 </body>
 </html>`
 
-export const format = (c: Careers) => (res: express.Response) => {
+export const format = (c: Array<Career>) => (res: express.Response) => {
     return res.format({
         'application/json': () => res.status(200).json(c),
         'text/html': () => res.status(200).send(map(c)),

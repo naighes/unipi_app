@@ -1,13 +1,13 @@
 import { OpenAPIV3 } from 'openapi-types'
 
 export const taxesDoc: OpenAPIV3.PathsObject = {
-  '/{studentId}/taxes': {
+  '/{careerId}/taxes': {
     get: {
       operationId: 'taxesOp',
-      description: 'get a list of taxes for the student',
+      description: 'get a list of taxes for the career',
       parameters: [{
         in: 'path',
-        name: 'studentId',
+        name: 'careerId',
         required: true,
         schema: {
           type: 'integer'
@@ -21,7 +21,7 @@ export const taxesDoc: OpenAPIV3.PathsObject = {
           '$ref': '#/components/responses/UnauthorizedError'
         },
         404: {
-          description: 'could not find taxes for the student'
+          description: 'could not find taxes for the career'
         },
         406: {
           '$ref': '#/components/responses/NotAcceptable'

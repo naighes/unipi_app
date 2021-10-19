@@ -21,31 +21,31 @@ export const careersDoc: OpenAPIV3.PathsObject = {
             'text/html': { },
             'application/json': {
               schema: {
-                type: 'object',
-                additionalProperties: {
+                type: 'array',
+                items: {
                   type: 'object',
                   properties: {
+                    registrationNumber: { type: 'string', nullable: true },
                     type: { type: 'string', nullable: true },
                     name: { type: 'string', nullable: true },
                     active: { type: 'boolean', nullable: true },
-                    studentId: { type: 'integer', nullable: true }
+                    careerId: { type: 'integer', nullable: true }
                   }
                 }
               },
-              example: {
-                "777777": {
+              example: [{
+                  "registrationNumber": "777777",
                   "type": "Diploma Universitario",
                   "name": "INGEGNERIA LOGISTICA E DELLA PRODUZIONE",
                   "active": false,
-                  "studentId": 9999999
-                },
-                "11111111": {
+                  "careerId": 9999999
+                }, {
+                  "registrationNumber": "11111111",
                   "type": "Corso di Laurea",
                   "name": "INFORMATICA",
                   "active": true,
-                  "studentId": 8888888
-                }
-              }
+                  "careerId": 8888888
+                }]
             }
           }
         }

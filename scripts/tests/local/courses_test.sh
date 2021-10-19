@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-if [ "$#" -ne 3 ]; then
+if [ "$#" -ne 4 ]; then
     echo "illegal number of parameters"
     echo "command synopsis:"
-    echo "./courses_test.sh <user> <password> <subjectName>"
+    echo "./courses_test.sh <user> <password> <path> <subject>"
     exit 2
 fi
 
@@ -13,4 +13,4 @@ TOKEN=$(${SCRIPT_DIR}/auth_test.sh $1 $2)
 
 curl -s -H "Authorization: Bearer ${TOKEN}" \
     -H "Accept: application/json" \
-    "http://localhost:3000/courses/$3/calendar" | jq .
+    "http://localhost:3000/courses/$3/$4/calendar" | jq .

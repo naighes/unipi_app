@@ -9,8 +9,8 @@ import { getSecret } from "../utils/config"
 import { pipe } from 'fp-ts/function'
 import { format } from "../views/plan.view"
 
-const parseStudentId = (r: express.Request) => {
-    const n = parseInt(r.params['studentId'] || "")
+const parseCareerId = (r: express.Request) => {
+    const n = parseInt(r.params['careerId'] || "")
     return isNaN(n)
         ? E.left({ name: "not_found", message: "resource could not be found" })
         : E.right(n)
@@ -22,7 +22,7 @@ export const planOp = async (req: express.Request, res: express.Response) => awa
 )
 (
     pipe(
-        parseStudentId(req),
+        parseCareerId(req),
         E.chain(id => pipe(
             extractToken(req.headers)(getSecret()),
             E.map(token => ({ id: id, token: token})))

@@ -1,5 +1,6 @@
 import express from "express"
 import moment from "moment"
+import { StringPairDictionary } from "../net"
 import { Course, Call } from "../net/courses"
 
 const mapCalls = (entries: Array<Call>) => entries.map(c => `<tr>
@@ -13,7 +14,7 @@ const mapCalls = (entries: Array<Call>) => entries.map(c => `<tr>
 <td>${c.notes}</td>
 </tr>`).join("\n")
 
-const mapCourses = (courses: Array<Course>) => courses.map(c => {
+const mapCourse = (courses: Array<Course>) => courses.map(c => {
     return `
     <h2>${c.code} ${c.subject} ${c.academicYear} (${c.weight} credits)</h2>
     <h3>teacher ${c.teacher}</h3>
@@ -36,21 +37,46 @@ const mapCourses = (courses: Array<Course>) => courses.map(c => {
     </table>`
 }).join("\n")
 
-const map = (courses: Array<Course>) => `<!DOCTYPE html>
+const mapCourses = (courses: Array<Course>) => `<!DOCTYPE html>
 <html>
 <head>
     <title>courses</title>
 </head>
 <body>
     <h1>courses</h1>
-    ${mapCourses(courses)}
+    ${mapCourse(courses)}
 </body>
 </html>`
 
-export const format = (c: Array<Course>) => (res: express.Response) => {
+const mapPath = (key: string, value: string) => `<li>${key}: ${value}</li>`
+
+const mapPaths = (paths: StringPairDictionary) => `<!DOCTYPE html>
+<html>
+<head>
+    <title>courses</title>
+</head>
+<body>
+    <h1>courses</h1>
+    <ul>
+    ${Object.keys(paths).map(c => mapPath(c, paths[c]))}
+    </ul>
+</body>
+</html>`
+
+const formatCourses = (c: Array<Course>) => (res: express.Response) => {
     return res.format({
         'application/json': () => res.status(200).json(c),
-        'text/html': () => res.status(200).send(map(c)),
+        'text/html': () => res.status(200).send(mapCourses(c)),
         default: () => res.status(406).send()
     })
 }
+
+const formatPaths = (c: StringPairDictionary) => (res: express.Response) => {
+    return res.format({
+        'application/json': () => res.status(200).json(c),
+        'text/html': () => res.status(200).send(mapPaths(c)),
+        default: () => res.status(406).send()
+    })
+}
+
+export { formatCourses, formatPaths }

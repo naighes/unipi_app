@@ -1,13 +1,20 @@
 import { OpenAPIV3 } from 'openapi-types'
 
 export const coursesDoc: OpenAPIV3.PathsObject = {
-  '/courses/{subject}/calendar': {
+  '/courses/{path}/{subject}/calendar': {
     get: {
       operationId: 'coursesOp',
       description: 'get a list of exam sessions for a subject',
       parameters: [{
         in: 'path',
         name: 'subject',
+        required: true,
+        schema: {
+          type: 'string'
+        }
+      }, {
+        in: 'path',
+        name: 'path',
         required: true,
         schema: {
           type: 'string'
@@ -81,6 +88,39 @@ export const coursesDoc: OpenAPIV3.PathsObject = {
                   }
                 ]
               }]
+            }
+          }
+        }
+      }
+    }
+  }, 
+  '/courses': {
+    get: {
+      operationId: 'pathsOp',
+      description: 'get a list of available courses',
+      security: [{
+        bearerAuth: []
+      }],
+      responses: {
+        406: {
+          '$ref': '#/components/responses/NotAcceptable'
+        },
+        200: {
+          description: 'successful response',
+          content: {
+            'text/html': { },
+            'application/json': {
+              schema: {
+                type: 'object',
+                additionalProperties: {
+                  type: 'string'
+                }
+              },
+              example: {
+                "WAR-LM": "ARCHEOLOGIA  (Magistrale)",
+                "WAI-LM": "ARTIFICIAL INTELLIGENCE AND DATA ENGINEERING (Magistrale)",
+                "WBF-LM": "BANCA, FINANZA AZIENDALE E MERCATI FINANZIARI (Magistrale)"
+              }
             }
           }
         }

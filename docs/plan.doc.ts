@@ -1,13 +1,13 @@
 import { OpenAPIV3 } from 'openapi-types'
 
 export const planDoc: OpenAPIV3.PathsObject = {
-  '/{studentId}/plan': {
+  '/{careerId}/plan': {
     get: {
       operationId: 'planOp',
-      description: "get the student's plan",
+      description: "get the career's plan",
       parameters: [{
         in: 'path',
-        name: 'studentId',
+        name: 'careerId',
         required: true,
         schema: {
           type: 'integer'
@@ -24,7 +24,7 @@ export const planDoc: OpenAPIV3.PathsObject = {
           '$ref': '#/components/responses/UnauthorizedError'
         },
         404: {
-          description: 'could not find a plan for the student'
+          description: 'could not find a plan for the career'
         },
         200: {
           description: 'successful response',

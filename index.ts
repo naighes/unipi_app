@@ -1,5 +1,5 @@
 import EX from 'express'
-import { careersOp, bookletOp, taxesOp, coursesOp, authOp, planOp } from './operations'
+import { careersOp, bookletOp, taxesOp, coursesOp, authOp, planOp, pathsOp } from './operations'
 import { apiDoc } from './docs'
 import { initialize } from 'express-openapi'
 import { config, getSecret } from './utils/config'
@@ -19,6 +19,7 @@ initialize({
         taxesOp,
         planOp,
         coursesOp,
+        pathsOp,
         authOp
     },
     promiseMode: true
@@ -32,17 +33,31 @@ const safe = (f: (_req: EX.Request, _res: EX.Response) => Promise<EX.Response>) 
     }
 }
 
-app.get('/:studentId/plan', safe(planOp))
-app.get('/courses/:subject/calendar', safe(coursesOp))
-app.get('/:studentId/taxes', safe(taxesOp))
-app.get('/:studentId/booklet', safe(bookletOp))
+app.get('/:careerId/plan', safe(planOp))
+app.get('/courses/:path/:subject/calendar', safe(coursesOp))
+app.get('/courses', safe(pathsOp))
+app.get('/:careerId/taxes', safe(taxesOp))
+app.get('/:careerId/booklet', safe(bookletOp))
 app.get('/careers', safe(careersOp))
 app.post('/auth', safe(authOp))
 
-const errorHandler: ErrorRequestHandler = (err, _, res, _next) => res.status(500).send({
-    name: "unhandled error",
-    message: err && (typeof err === 'object' || Array.isArray(err)) ? err : `${err}`
-})
+const errorHandler: ErrorRequestHandler = (err, _, res, _next) => {
+    // const status = res.statusCode === 400 ? 400 : 500
+    const tryParseStatus = () => err && err.status && typeof err.status === 'number' ? parseInt(err.status) : 500
+    const tryParseMessage = () => {
+        if (err && typeof err === 'object') {
+            return err.errors ? err.errors : err
+        }
+        if (Array.isArray(err)) {
+            return err
+        }
+        return `${err}`
+    }
+    return res.status(tryParseStatus()).send({
+        name: "unhandled error",
+        message: tryParseMessage()
+    })
+}
 
 app.use(errorHandler)
 

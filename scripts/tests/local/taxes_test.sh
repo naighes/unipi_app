@@ -3,7 +3,7 @@
 if [ "$#" -ne 3 ]; then
     echo "illegal number of parameters"
     echo "command synopsis:"
-    echo "./taxes_test.sh <user> <password> <studentId>"
+    echo "./taxes_test.sh <user> <password> <careerId>"
     exit 2
 fi
 

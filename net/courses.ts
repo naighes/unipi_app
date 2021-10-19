@@ -7,9 +7,20 @@ import { ensureSession } from "./auth"
 import { decode } from 'html-entities'
 import { ensureGetElementsByTagName, ensureQuerySelectorAll } from "../utils/diagnostic"
 
-const coursesReq = (cookie: StringPairDictionary) => (subject: string): HTTPRequest => ({
+const coursesReq = (cookie: StringPairDictionary) => (subject: string) => (path: string): HTTPRequest => ({
     host: "esami.unipi.it",
-    path: `/elencoappelli.php?from=sappelli&docente=&insegnamento=${encodeURIComponent(subject).replace(/%20/g, '+')}&cds=INF-L&cerca=`,
+    path: `/elencoappelli.php?from=sappelli&docente=&insegnamento=${encodeURIComponent(subject).replace(/%20/g, '+')}&cds=${path}&cerca=`,
+    method: "GET",
+    headers: {
+        'user-agent': userAgent,
+        'cookie': formatCookie(cookie || {}),
+    },
+    query: ""
+})
+
+const pathsReq = (cookie: StringPairDictionary): HTTPRequest => ({
+    host: "esami.unipi.it",
+    path: `/elencoappelli.php`,
     method: "GET",
     headers: {
         'user-agent': userAgent,
@@ -82,7 +93,7 @@ const mapCall = (row: HTMLElement): Array<Call> => {
         })
 }
 
-const map = (body: string) => eqsa(parseHTML(body))('tr.corso')
+const mapCourses = (body: string) => eqsa(parseHTML(body))('tr.corso')
     .map(row => {
         const calls = mapCall(row)
         row.removeChild(row.firstChild)
@@ -97,13 +108,29 @@ const map = (body: string) => eqsa(parseHTML(body))('tr.corso')
         }
     })
 
-const fetchCourses = (cookie: StringPairDictionary) => (subject: string): TE.TaskEither<Error, Array<Course>> => pipe(
+const mapPaths = (body: string) => eqsa(parseHTML(body))('#cds')
+    .flatMap(x => egebtn(x)("option"))
+    .reduce((p, c) => {
+        const a = c.getAttribute("value")
+        return typeof a === "undefined" ? p : ({ ...p, [a]: c.text    })
+    }, {})
+
+const fetchCourses = (cookie: StringPairDictionary) => (subject: string) => (path: string): TE.TaskEither<Error, Array<Course>> => pipe(
     TE.tryCatch(
-        () => followRedirect(coursesReq(cookie)(subject)),
+        () => followRedirect(coursesReq(cookie)(subject)(path)),
         error => ({ name: "net_error", message: `${error}` })),
     TE.chain(ensureOk),
     TE.chain(ensureSession),
-    TE.map(x => map(x.body))
+    TE.map(x => mapCourses(x.body))
 )
 
-export { fetchCourses, Course, Call }
+const fetchPaths = (cookie: StringPairDictionary): TE.TaskEither<Error, StringPairDictionary> => pipe(
+    TE.tryCatch(
+        () => followRedirect(pathsReq(cookie)),
+        error => ({ name: "net_error", message: `${error}` })),
+    TE.chain(ensureOk),
+    TE.chain(ensureSession),
+    TE.map(x => mapPaths(x.body))
+)
+
+export { fetchCourses, fetchPaths, Course, Call }
