@@ -5,6 +5,7 @@ import url from 'url'
 import querystring from 'querystring'
 import { pipe } from 'fp-ts/function'
 import * as TE from 'fp-ts/lib/TaskEither'
+import { ensureGetElementsByTagName } from "./diagnostic"
 
 const careerSelectionReq = (cookie: StringPairDictionary): HTTPRequest => ({
     host: "www.studenti.unipi.it",
@@ -39,6 +40,8 @@ type Careers = {
     }
 }
 
+const egebtn = ensureGetElementsByTagName('careers')
+
 const map = (body: string) => {
     const tdVal = <T> (f: (e: HTMLElement) => T) => (columns: Array<HTMLElement>) => (i: number) => {
         return i < columns.length ? f(columns[i]) : undefined
@@ -51,9 +54,9 @@ const map = (body: string) => {
         })
         return hrefs.length !== 0 ? hrefs[0] : undefined
     }
-    return (parseHTML(body)?.getElementsByTagName('table') || [])
-        .flatMap(x => x.getElementsByTagName("tbody"))
-        .flatMap(x => x.getElementsByTagName("tr"))
+    return egebtn(parseHTML(body))('table')
+        .flatMap(x => egebtn(x)("tbody"))
+        .flatMap(x => egebtn(x)("tr"))
         .reduce((p, c) => {
             const columns = c.getElementsByTagName("td") || []
             const id = tdVal(x => parseInt(x.text) || 0)(columns)(0)

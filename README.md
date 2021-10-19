@@ -61,3 +61,7 @@ curl -s "https://unipi-api.herokuapp.com/careers" \
     -H "Accept: application/json" \
     -H "Authorization: Bearer eyJhbGciOiJIUzI1BiIsInR5cCI6IkpXVCJ9.eyJjb29raWUiOnsiSlNFU1NJT05JRCI6IkE0RTAxMTY5RjIxMzg1NDBDNTRBNDhCMjlGMEVBMkQ2Iiwic2hpYl9pZHBfc2Vzc2lvbiI6ImU1Y2VmFRElYmU2M2JiZDczZThjMGY4ZDYxYzZiYTEwMGQ3NGRlMjU2MGY1NzliYWZkOGRiZmRjYjZmZDZmMGMiLCJfc2hpYnNlc3Npb25fNjU3MzczNjUzMzVmNzU2ZTY5NzA2OTY4NzQ3NDcwNzMzYTJmMmY3Nzc3NzcyZTczNzQ3NTY0NjU2ZTc0NjkyZTc1NmU2OTcwNjkyZTY5NzQyZjczNjg2OTYyNjI2ZjZjNjU3NDY4IjoiX2QwN2ZlZDYzM2UzMTMzYzU3ZDVkMTIyY2QyYmVlOWNkIn0sImlhdCI6MTYzNDU2OTI0NX0.oAmk5gmfzADUBSddu7c_tc7z3zuTy5Pu_19wqwWiTDI"
 ```
+
+## available formats
+
+By default a JSON representation is returned. A very basic HTML representation is also available by issuing the request with HTTP header `Accept: text/html`.

@@ -1,10 +1,11 @@
-import { IncomingHttpHeaders } from 'http'
+import { IncomingHttpHeaders, IncomingMessage } from 'http'
 import https, { RequestOptions } from 'https'
 import url from 'url'
 import setCookieParser from 'set-cookie-parser'
 import { either as E } from "fp-ts"
 import * as TE from 'fp-ts/lib/TaskEither'
 import express from 'express'
+import moment from 'moment'
 
 interface StringPairDictionary {
     [key: string]: string
@@ -61,23 +62,33 @@ const ensureOk = (d: HTTPResponse): TE.TaskEither<Error, HTTPResponse> => TE.fro
     ? E.left({ name: "unexpected_status_code", message: `received ${d.statusCode}, expected 200` })
     : E.right(d))
 
+const printLog = (options: RequestOptions, res: IncomingMessage, buffer: Buffer | undefined) => {
+    return `${options.hostname || "-"} - - ${moment().format("DD/MMM/YYYY:hh:mm")} "${options.method || "-"}  ${options.path || "-"}" ${res.statusCode || '-'} ${buffer?.length || "-"}`
+}
+
 const fetch = (req: HTTPRequest): Promise<HTTPResponse> => {
     const options = makeOptions(req)
-    console.log(`> ${options.method} ${options.hostname} ${options.path} - cookie: ${options.headers?.cookie || ''}`)
     return new Promise((resolve, reject) => {
         const r = https.request(options, res => {
             res.setEncoding('utf8')
-            let inBuffer = ""
-            res.on('data', chunk => { inBuffer += chunk })
-            res.on('end', () => {
-                console.log(`< ${res.statusCode}`)
-                resolve({
-                    statusCode: res.statusCode,
-                    statusMessage: res.statusMessage,
-                    request: req,
-                    headers: res.headers,
-                    body: inBuffer
-                })
+            let buffers: Array<Uint8Array> = []
+            res.on('data', chunk => {
+                if (chunk instanceof Buffer) {
+                    buffers.push(chunk)
+                } else {
+                    buffers.push(Buffer.from(chunk as string, 'utf8'))
+                }
+            }).on('end', () => {
+                   const buffer = Buffer.concat(buffers)
+                   console.log(printLog(options, res, buffer))
+                   const body = buffer.toString('utf8')
+                   resolve({
+                       statusCode: res.statusCode,
+                       statusMessage: res.statusMessage,
+                       request: req,
+                       headers: res.headers,
+                       body: body
+                   })
             })
         })
 

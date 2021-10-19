@@ -49,8 +49,8 @@ const map = (courses: Array<Course>) => `<!DOCTYPE html>
 
 export const format = (c: Array<Course>) => (res: express.Response) => {
     return res.format({
-        'text/html': () => res.status(200).send(map(c)),
         'application/json': () => res.status(200).json(c),
+        'text/html': () => res.status(200).send(map(c)),
         default: () => res.status(406).send()
     })
 }

@@ -5,6 +5,7 @@ import { pipe } from 'fp-ts/function'
 import * as TE from 'fp-ts/lib/TaskEither'
 import { ensureSession } from "./auth"
 import { decode } from 'html-entities'
+import { ensureGetElementsByTagName, ensureQuerySelectorAll } from "./diagnostic"
 
 const coursesReq = (cookie: StringPairDictionary) => (subject: string): HTTPRequest => ({
     host: "esami.unipi.it",
@@ -41,10 +42,13 @@ type Call = {
     closingDates: Date | undefined
 }
 
+const eqsa = ensureQuerySelectorAll('courses')
+const egebtn = ensureGetElementsByTagName('courses')
+
 const mapCall = (row: HTMLElement): Array<Call> => {
-    return (row.querySelectorAll("table.table-appelli") || [])
-        .flatMap(x => x.getElementsByTagName("tbody") || [])
-        .flatMap(x => x.getElementsByTagName("tr") || [])
+    return eqsa(row)("table.table-appelli")
+        .flatMap(x => egebtn(x)("tbody"))
+        .flatMap(x => egebtn(x)("tr"))
         .map(r => {
             const columns = r.getElementsByTagName("td")
             const openingDates = tdVal(x => {
@@ -78,22 +82,20 @@ const mapCall = (row: HTMLElement): Array<Call> => {
         })
 }
 
-const map = (body: string) => {
-    return (parseHTML(body)?.querySelectorAll('tr.corso') || [])
-        .map(row => {
-            const calls = mapCall(row)
-            row.removeChild(row.firstChild)
-            const columns = row.getElementsByTagName("td")
-            return {
-                academicYear: tdVal(x => x.text.trim())(columns)(0),
-                subject: tdVal(x => x.text.trim())(columns)(2),
-                code: tdVal(x => x.text.trim())(columns)(3),
-                weight: tdVal(x => parseInt(x.text) || undefined)(columns)(4),
-                teacher: tdVal(x => x.text.trim())(columns)(5),
-                calls: calls
-            }
-        })
-}
+const map = (body: string) => eqsa(parseHTML(body))('tr.corso')
+    .map(row => {
+        const calls = mapCall(row)
+        row.removeChild(row.firstChild)
+        const columns = row.getElementsByTagName("td")
+        return {
+            academicYear: tdVal(x => x.text.trim())(columns)(0),
+            subject: tdVal(x => x.text.trim())(columns)(2),
+            code: tdVal(x => x.text.trim())(columns)(3),
+            weight: tdVal(x => parseInt(x.text) || undefined)(columns)(4),
+            teacher: tdVal(x => x.text.trim())(columns)(5),
+            calls: calls
+        }
+    })
 
 const fetchCourses = (cookie: StringPairDictionary) => (subject: string): TE.TaskEither<Error, Array<Course>> => pipe(
     TE.tryCatch(

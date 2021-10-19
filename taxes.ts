@@ -5,6 +5,7 @@ import moment from 'moment'
 import { pipe } from 'fp-ts/function'
 import * as TE from 'fp-ts/lib/TaskEither'
 import { ensureSession } from "./auth"
+import { ensureGetElementsByTagName } from "./diagnostic"
 
 const taxesReq = (cookie: StringPairDictionary): HTTPRequest => ({
     host: "www.studenti.unipi.it",
@@ -49,10 +50,12 @@ const parseStatus = (s: string) => {
     }
 }
 
+const egebtn = ensureGetElementsByTagName('taxes')
+
 const map = (body: string) => {
-    const entries = (parseHTML(body)?.getElementsByTagName('table') || [])
-        .flatMap(x => x.getElementsByTagName("tbody"))
-        .flatMap(x => x.getElementsByTagName("tr"))
+    const entries = egebtn(parseHTML(body))('table')
+        .flatMap(x => egebtn(x)("tbody"))
+        .flatMap(x => egebtn(x)("tr"))
         .map(row => {
             const columns = row.getElementsByTagName("td")
             const first = () => {

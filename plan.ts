@@ -4,6 +4,7 @@ import { parse as parseHTML, HTMLElement } from 'node-html-parser'
 import { pipe } from 'fp-ts/function'
 import * as TE from 'fp-ts/lib/TaskEither'
 import { ensureSession } from "./auth"
+import { ensureGetElementsByTagName, ensureQuerySelectorAll } from "./diagnostic"
 
 const planReq = (cookie: StringPairDictionary): HTTPRequest => ({
     host: "www.studenti.unipi.it",
@@ -48,14 +49,17 @@ const parseStatus = (s: string) => {
     }
 }
 
+const eqsa = ensureQuerySelectorAll('plan')
+const egebtn = ensureGetElementsByTagName('plan')
+
 const map = (body: string): Array<PlanGroup> => {
     const tdVal = <T> (f: (e: HTMLElement) => T) => (columns: Array<HTMLElement>) => (i: number) => {
         return i < columns.length ? f(columns[i]) : undefined
     }
     const doc = parseHTML(body)
-    const titles = (doc?.querySelectorAll("td.tplTitolo") || []).map(x => x.text)
-    const tables = (doc?.querySelectorAll("table.detail_table") || []).map(x => {
-        return (x.getElementsByTagName("tr") || []).splice(1).map(y => {
+    const titles = eqsa(doc)("td.tplTitolo").map(x => x.text)
+    const tables = eqsa(doc)("table.detail_table").map(x =>
+        egebtn(x)("tr").splice(1).map(y => {
             const columns = y.getElementsByTagName("td") || []
             return {
                 code: tdVal(e => e.text)(columns)(0),
@@ -64,7 +68,7 @@ const map = (body: string): Array<PlanGroup> => {
                 status: columns.length > 3 ? tdVal(e => parseStatus(e.text))(columns)(5) : PlanEntryStatus.Unknow
             }
         })
-    })
+    )
     return titles.map((x, i) => ({ name: x, entries: tables[i] }))
 }
 

@@ -5,6 +5,7 @@ import moment from 'moment'
 import { pipe } from 'fp-ts/function'
 import * as TE from 'fp-ts/lib/TaskEither'
 import { ensureSession } from "./auth"
+import { ensureGetElementsByTagName, ensureQuerySelectorAll } from "./diagnostic"
 
 const bookletReq = (cookie: StringPairDictionary): HTTPRequest => ({
     host: "www.studenti.unipi.it",
@@ -69,10 +70,13 @@ const parseStatus = (s: string) => {
     }
 }
 
+const eqsa = ensureQuerySelectorAll('booklet')
+const egebtn = ensureGetElementsByTagName('booklet')
+
 const map = (body: string) => {
-    const record = (parseHTML(body)?.querySelectorAll('table.tableLibretto') || [])
-        .flatMap(x => x.getElementsByTagName("tbody"))
-        .flatMap(x => x.getElementsByTagName("tr"))
+    const record = eqsa(parseHTML(body))('#tableLibretto')
+        .flatMap(x => egebtn(x)("tbody"))
+        .flatMap(x => egebtn(x)("tr"))
         .map(row => {
             const columns = row.getElementsByTagName("td")
             const first = (r: number) => {
