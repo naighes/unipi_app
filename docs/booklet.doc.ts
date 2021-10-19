@@ -20,12 +20,16 @@ export const bookletDoc: OpenAPIV3.PathsObject = {
         401: {
           '$ref': '#/components/responses/UnauthorizedError'
         },
+        406: {
+          '$ref': '#/components/responses/NotAcceptable'
+        },
         404: {
           description: 'could not find a booklet for the student'
         },
         200: {
           description: 'successful response',
           content: {
+            'text/html': { },
             'application/json': {
               schema: {
                 type: 'object',
@@ -38,8 +42,8 @@ export const bookletDoc: OpenAPIV3.PathsObject = {
                         code: { type: 'string', nullable: true },
                         name: { type: 'string', nullable: true },
                         year: { type: 'integer', nullable: true },
-                        weight: { type: 'integer', nullable: true },
-                        attendedOn: { type: 'string', nullable: true },
+                        weight: { type: 'integer', format: 'float', nullable: true },
+                        academicYear: { type: 'string', nullable: true },
                         score: { type: 'integer', nullable: true },
                         date: { type: 'string', format: 'date', nullable: true },
                         status: { type: 'integer', nullable: true }
@@ -56,8 +60,8 @@ export const bookletDoc: OpenAPIV3.PathsObject = {
                     "code": "728AA",
                     "name": "FONDAMENTI DELL'INFORMATICA",
                     "year": 1,
-                    "weight": 9,
-                    "attendedOn": "2020/2021",
+                    "weight": 9.0,
+                    "academicYear": "2020/2021",
                     "score": 28,
                     "date": "2021-01-14T23:00:00.000Z",
                     "status": 3
@@ -66,8 +70,8 @@ export const bookletDoc: OpenAPIV3.PathsObject = {
                     "code": "731AA",
                     "name": "LABORATORIO I",
                     "year": 1,
-                    "weight": 12,
-                    "attendedOn": "2020/2021",
+                    "weight": 12.0,
+                    "academicYear": "2020/2021",
                     "score": 30,
                     "date": "2021-09-09T22:00:00.000Z",
                     "status": 3
@@ -76,8 +80,8 @@ export const bookletDoc: OpenAPIV3.PathsObject = {
                     "code": "735AA",
                     "name": "PROGRAMMAZIONE E ALGORITMICA",
                     "year": 1,
-                    "weight": 15,
-                    "attendedOn": "2020/2021",
+                    "weight": 15.0,
+                    "academicYear": "2020/2021",
                     "score": 25,
                     "date": "2020-10-25T23:00:00.000Z",
                     "status": 3

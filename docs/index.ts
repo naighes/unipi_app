@@ -16,6 +16,9 @@ export const apiDoc: OpenAPIV3.Document = {
     responses: {
       'UnauthorizedError': {
         description: "access token is missing or invalid"
+      },
+      'NotAcceptable': {
+        description: "this resource cannot be served by the requested format"
       }
     },
     securitySchemes: {

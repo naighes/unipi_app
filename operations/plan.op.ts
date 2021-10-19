@@ -7,6 +7,7 @@ import { extractToken } from "../auth"
 import { fetchPlan, PlanGroup } from "../plan"
 import { getSecret } from "../config"
 import { pipe } from 'fp-ts/function'
+import { format } from "../views/plan.view"
 
 const parseStudentId = (r: express.Request) => {
     const n = parseInt(r.params['studentId'] || "")
@@ -17,7 +18,7 @@ const parseStudentId = (r: express.Request) => {
 
 export const planOp = async (req: express.Request, res: express.Response) => await TE.fold(
     (e: Error) => T.of(handleError(res)(e)),
-    (c: Array<PlanGroup>) => T.of(res.status(200).json(c))
+    (c: Array<PlanGroup>) => T.of(format(c)(res))
 )
 (
     pipe(

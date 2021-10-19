@@ -79,4 +79,4 @@ const fetchPlan = (cookie: StringPairDictionary) => (id: number): TE.TaskEither<
     TE.map(x => map(x.body))
 )
 
-export { fetchPlan, PlanGroup }
+export { fetchPlan, PlanGroup, PlanEntry, PlanEntryStatus }

@@ -17,6 +17,9 @@ export const planDoc: OpenAPIV3.PathsObject = {
         bearerAuth: []
       }],
       responses: {
+        406: {
+          '$ref': '#/components/responses/NotAcceptable'
+        },
         401: {
           '$ref': '#/components/responses/UnauthorizedError'
         },
@@ -26,6 +29,7 @@ export const planDoc: OpenAPIV3.PathsObject = {
         200: {
           description: 'successful response',
           content: {
+            'text/html': { },
             'application/json': {
               schema: {
                 type: 'array',

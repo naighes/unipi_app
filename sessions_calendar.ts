@@ -104,4 +104,4 @@ const fetchCourses = (cookie: StringPairDictionary) => (subject: string): TE.Tas
     TE.map(x => map(x.body))
 )
 
-export { fetchCourses, Course }
+export { fetchCourses, Course, Call }

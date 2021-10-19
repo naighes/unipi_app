@@ -12,9 +12,13 @@ export const careersDoc: OpenAPIV3.PathsObject = {
         401: {
           '$ref': '#/components/responses/UnauthorizedError'
         },
+        406: {
+          '$ref': '#/components/responses/NotAcceptable'
+        },
         200: {
           description: 'successful response',
           content: {
+            'text/html': { },
             'application/json': {
               schema: {
                 type: 'object',

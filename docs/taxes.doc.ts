@@ -23,9 +23,13 @@ export const taxesDoc: OpenAPIV3.PathsObject = {
         404: {
           description: 'could not find taxes for the student'
         },
+        406: {
+          '$ref': '#/components/responses/NotAcceptable'
+        },
         200: {
           description: 'successful response',
           content: {
+            'text/html': { },
             'application/json': {
               schema: {
                 type: 'object',

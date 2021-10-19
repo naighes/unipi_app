@@ -97,4 +97,4 @@ const fetchTaxes = (cookie: StringPairDictionary) => (id: number): TE.TaskEither
     TE.map(x => map(x.body))
 )
 
-export { fetchTaxes, TaxEntryList }
+export { fetchTaxes, TaxEntryList, TaxEntry, TaxEntryPaymentStatus }

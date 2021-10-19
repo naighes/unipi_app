@@ -39,7 +39,7 @@ type BookletEntry = {
     name: string | undefined
     year: number | undefined
     weight: number | undefined
-    attendedOn: string | undefined
+    academicYear: string | undefined
     score: number | undefined
     date: Date | undefined
     status: BookletEntryStatus | undefined
@@ -70,7 +70,7 @@ const parseStatus = (s: string) => {
 }
 
 const map = (body: string) => {
-    const record = (parseHTML(body)?.getElementsByTagName('table') || [])
+    const record = (parseHTML(body)?.querySelectorAll('table.tableLibretto') || [])
         .flatMap(x => x.getElementsByTagName("tbody"))
         .flatMap(x => x.getElementsByTagName("tr"))
         .map(row => {
@@ -93,8 +93,8 @@ const map = (body: string) => {
                 code: first(0),
                 name: first(1),
                 year: tdVal(x => parseInt(x.text) || undefined)(columns)(1),
-                weight: tdVal(x => parseInt(x.text) || undefined)(columns)(2),
-                attendedOn: tdVal(x => (x.text || "").trim())(columns)(4),
+                weight: tdVal(x => parseFloat(x.text) || undefined)(columns)(2),
+                academicYear: tdVal(x => (x.text || "").trim())(columns)(4),
                 score: parseInt((fifth(0) || "")) || undefined,
                 date: moment((fifth(1) || ""), "DD-MM-YYYY").toDate() || undefined,
                 status: third
@@ -118,4 +118,4 @@ const fetchBooklet = (cookie: StringPairDictionary) => (id: number): TE.TaskEith
     TE.map(x => map(x.body))
 )
 
-export { fetchBooklet, BookletEntryList }
+export { fetchBooklet, BookletEntryList, BookletEntry }

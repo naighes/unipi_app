@@ -7,6 +7,7 @@ import { extractToken } from "../auth"
 import { getSecret } from "../config"
 import { BookletEntryList, fetchBooklet } from "../booklet"
 import { pipe } from 'fp-ts/function'
+import { format } from "../views/booklet.view"
 
 const parseStudentId = (r: express.Request) => {
     const n = parseInt(r.params['studentId'] || "")
@@ -17,16 +18,16 @@ const parseStudentId = (r: express.Request) => {
 
 export const bookletOp = async (req: express.Request, res: express.Response) => await TE.fold(
     (e: Error) => T.of(handleError(res)(e)),
-    (c: BookletEntryList) => T.of(res.status(200).json(c))
+    (c: BookletEntryList) => T.of(format(c)(res))
 )
-(
-    pipe(
-        parseStudentId(req),
-        E.chain(id => pipe(
-            extractToken(req.headers)(getSecret()),
-            E.map(token => ({ id: id, token: token})))
-        ),
-        TE.fromEither,
-        TE.chain(r => fetchBooklet(r.token.cookie || {})(r.id))
-    )
-)()
+    (
+        pipe(
+            parseStudentId(req),
+            E.chain(id => pipe(
+                extractToken(req.headers)(getSecret()),
+                E.map(token => ({ id: id, token: token })))
+            ),
+            TE.fromEither,
+            TE.chain(r => fetchBooklet(r.token.cookie || {})(r.id))
+        )
+    )()
