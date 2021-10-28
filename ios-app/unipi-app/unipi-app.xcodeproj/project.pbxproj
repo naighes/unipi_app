@@ -1,0 +1,761 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B6C82B52272A960D009CB8CA /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B51272A960D009CB8CA /* Tests_iOS.swift */; };
+		B6C82B54272A960D009CB8CA /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B53272A960D009CB8CA /* Tests_iOSLaunchTests.swift */; };
+		B6C82B5E272A960D009CB8CA /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B5D272A960D009CB8CA /* Tests_macOS.swift */; };
+		B6C82B60272A960D009CB8CA /* Tests_macOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B5F272A960D009CB8CA /* Tests_macOSLaunchTests.swift */; };
+		B6C82B61272A960D009CB8CA /* unipi_app.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B36272A960A009CB8CA /* unipi_app.xcdatamodeld */; };
+		B6C82B62272A960D009CB8CA /* unipi_app.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B36272A960A009CB8CA /* unipi_app.xcdatamodeld */; };
+		B6C82B63272A960D009CB8CA /* unipi_appApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B38272A960A009CB8CA /* unipi_appApp.swift */; };
+		B6C82B64272A960D009CB8CA /* unipi_appApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B38272A960A009CB8CA /* unipi_appApp.swift */; };
+		B6C82B65272A960D009CB8CA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B39272A960A009CB8CA /* ContentView.swift */; };
+		B6C82B66272A960D009CB8CA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B39272A960A009CB8CA /* ContentView.swift */; };
+		B6C82B67272A960D009CB8CA /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B3A272A960A009CB8CA /* Persistence.swift */; };
+		B6C82B68272A960D009CB8CA /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B3A272A960A009CB8CA /* Persistence.swift */; };
+		B6C82B69272A960D009CB8CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6C82B3B272A960C009CB8CA /* Assets.xcassets */; };
+		B6C82B6A272A960D009CB8CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6C82B3B272A960C009CB8CA /* Assets.xcassets */; };
+		B6C82B7B272A9A22009CB8CA /* FacultiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B7A272A9A22009CB8CA /* FacultiesView.swift */; };
+		B6C82B7C272A9A22009CB8CA /* FacultiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B7A272A9A22009CB8CA /* FacultiesView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B6C82B4E272A960D009CB8CA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B6C82B31272A9609009CB8CA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B6C82B3F272A960D009CB8CA;
+			remoteInfo = "unipi-app (iOS)";
+		};
+		B6C82B5A272A960D009CB8CA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B6C82B31272A9609009CB8CA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B6C82B45272A960D009CB8CA;
+			remoteInfo = "unipi-app (macOS)";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B6C82B37272A960A009CB8CA /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
+		B6C82B38272A960A009CB8CA /* unipi_appApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = unipi_appApp.swift; sourceTree = "<group>"; };
+		B6C82B39272A960A009CB8CA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B6C82B3A272A960A009CB8CA /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		B6C82B3B272A960C009CB8CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B6C82B40272A960D009CB8CA /* unipi-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "unipi-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B6C82B46272A960D009CB8CA /* unipi-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "unipi-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B6C82B48272A960D009CB8CA /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		B6C82B4D272A960D009CB8CA /* Tests iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B6C82B51272A960D009CB8CA /* Tests_iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOS.swift; sourceTree = "<group>"; };
+		B6C82B53272A960D009CB8CA /* Tests_iOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_iOSLaunchTests.swift; sourceTree = "<group>"; };
+		B6C82B59272A960D009CB8CA /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B6C82B5D272A960D009CB8CA /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
+		B6C82B5F272A960D009CB8CA /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
+		B6C82B7A272A9A22009CB8CA /* FacultiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacultiesView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B6C82B3D272A960D009CB8CA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6C82B43272A960D009CB8CA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6C82B4A272A960D009CB8CA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6C82B56272A960D009CB8CA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B6C82B30272A9609009CB8CA = {
+			isa = PBXGroup;
+			children = (
+				B6C82B35272A960A009CB8CA /* Shared */,
+				B6C82B47272A960D009CB8CA /* macOS */,
+				B6C82B50272A960D009CB8CA /* Tests iOS */,
+				B6C82B5C272A960D009CB8CA /* Tests macOS */,
+				B6C82B41272A960D009CB8CA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B6C82B35272A960A009CB8CA /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				B6C82B38272A960A009CB8CA /* unipi_appApp.swift */,
+				B6C82B39272A960A009CB8CA /* ContentView.swift */,
+				B6C82B7A272A9A22009CB8CA /* FacultiesView.swift */,
+				B6C82B3A272A960A009CB8CA /* Persistence.swift */,
+				B6C82B3B272A960C009CB8CA /* Assets.xcassets */,
+				B6C82B36272A960A009CB8CA /* unipi_app.xcdatamodeld */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		B6C82B41272A960D009CB8CA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B6C82B40272A960D009CB8CA /* unipi-app.app */,
+				B6C82B46272A960D009CB8CA /* unipi-app.app */,
+				B6C82B4D272A960D009CB8CA /* Tests iOS.xctest */,
+				B6C82B59272A960D009CB8CA /* Tests macOS.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B6C82B47272A960D009CB8CA /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				B6C82B48272A960D009CB8CA /* macOS.entitlements */,
+			);
+			path = macOS;
+			sourceTree = "<group>";
+		};
+		B6C82B50272A960D009CB8CA /* Tests iOS */ = {
+			isa = PBXGroup;
+			children = (
+				B6C82B51272A960D009CB8CA /* Tests_iOS.swift */,
+				B6C82B53272A960D009CB8CA /* Tests_iOSLaunchTests.swift */,
+			);
+			path = "Tests iOS";
+			sourceTree = "<group>";
+		};
+		B6C82B5C272A960D009CB8CA /* Tests macOS */ = {
+			isa = PBXGroup;
+			children = (
+				B6C82B5D272A960D009CB8CA /* Tests_macOS.swift */,
+				B6C82B5F272A960D009CB8CA /* Tests_macOSLaunchTests.swift */,
+			);
+			path = "Tests macOS";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B6C82B3F272A960D009CB8CA /* unipi-app (iOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B6C82B6D272A960D009CB8CA /* Build configuration list for PBXNativeTarget "unipi-app (iOS)" */;
+			buildPhases = (
+				B6C82B3C272A960D009CB8CA /* Sources */,
+				B6C82B3D272A960D009CB8CA /* Frameworks */,
+				B6C82B3E272A960D009CB8CA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "unipi-app (iOS)";
+			productName = "unipi-app (iOS)";
+			productReference = B6C82B40272A960D009CB8CA /* unipi-app.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B6C82B45272A960D009CB8CA /* unipi-app (macOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B6C82B70272A960D009CB8CA /* Build configuration list for PBXNativeTarget "unipi-app (macOS)" */;
+			buildPhases = (
+				B6C82B42272A960D009CB8CA /* Sources */,
+				B6C82B43272A960D009CB8CA /* Frameworks */,
+				B6C82B44272A960D009CB8CA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "unipi-app (macOS)";
+			productName = "unipi-app (macOS)";
+			productReference = B6C82B46272A960D009CB8CA /* unipi-app.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B6C82B4C272A960D009CB8CA /* Tests iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B6C82B73272A960D009CB8CA /* Build configuration list for PBXNativeTarget "Tests iOS" */;
+			buildPhases = (
+				B6C82B49272A960D009CB8CA /* Sources */,
+				B6C82B4A272A960D009CB8CA /* Frameworks */,
+				B6C82B4B272A960D009CB8CA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B6C82B4F272A960D009CB8CA /* PBXTargetDependency */,
+			);
+			name = "Tests iOS";
+			productName = "Tests iOS";
+			productReference = B6C82B4D272A960D009CB8CA /* Tests iOS.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		B6C82B58272A960D009CB8CA /* Tests macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B6C82B76272A960D009CB8CA /* Build configuration list for PBXNativeTarget "Tests macOS" */;
+			buildPhases = (
+				B6C82B55272A960D009CB8CA /* Sources */,
+				B6C82B56272A960D009CB8CA /* Frameworks */,
+				B6C82B57272A960D009CB8CA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B6C82B5B272A960D009CB8CA /* PBXTargetDependency */,
+			);
+			name = "Tests macOS";
+			productName = "Tests macOS";
+			productReference = B6C82B59272A960D009CB8CA /* Tests macOS.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B6C82B31272A9609009CB8CA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1300;
+				LastUpgradeCheck = 1300;
+				TargetAttributes = {
+					B6C82B3F272A960D009CB8CA = {
+						CreatedOnToolsVersion = 13.0;
+					};
+					B6C82B45272A960D009CB8CA = {
+						CreatedOnToolsVersion = 13.0;
+					};
+					B6C82B4C272A960D009CB8CA = {
+						CreatedOnToolsVersion = 13.0;
+						TestTargetID = B6C82B3F272A960D009CB8CA;
+					};
+					B6C82B58272A960D009CB8CA = {
+						CreatedOnToolsVersion = 13.0;
+						TestTargetID = B6C82B45272A960D009CB8CA;
+					};
+				};
+			};
+			buildConfigurationList = B6C82B34272A9609009CB8CA /* Build configuration list for PBXProject "unipi-app" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B6C82B30272A9609009CB8CA;
+			productRefGroup = B6C82B41272A960D009CB8CA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B6C82B3F272A960D009CB8CA /* unipi-app (iOS) */,
+				B6C82B45272A960D009CB8CA /* unipi-app (macOS) */,
+				B6C82B4C272A960D009CB8CA /* Tests iOS */,
+				B6C82B58272A960D009CB8CA /* Tests macOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B6C82B3E272A960D009CB8CA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6C82B69272A960D009CB8CA /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6C82B44272A960D009CB8CA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6C82B6A272A960D009CB8CA /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6C82B4B272A960D009CB8CA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6C82B57272A960D009CB8CA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B6C82B3C272A960D009CB8CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6C82B7B272A9A22009CB8CA /* FacultiesView.swift in Sources */,
+				B6C82B61272A960D009CB8CA /* unipi_app.xcdatamodeld in Sources */,
+				B6C82B67272A960D009CB8CA /* Persistence.swift in Sources */,
+				B6C82B63272A960D009CB8CA /* unipi_appApp.swift in Sources */,
+				B6C82B65272A960D009CB8CA /* ContentView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6C82B42272A960D009CB8CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6C82B7C272A9A22009CB8CA /* FacultiesView.swift in Sources */,
+				B6C82B62272A960D009CB8CA /* unipi_app.xcdatamodeld in Sources */,
+				B6C82B68272A960D009CB8CA /* Persistence.swift in Sources */,
+				B6C82B64272A960D009CB8CA /* unipi_appApp.swift in Sources */,
+				B6C82B66272A960D009CB8CA /* ContentView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6C82B49272A960D009CB8CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6C82B54272A960D009CB8CA /* Tests_iOSLaunchTests.swift in Sources */,
+				B6C82B52272A960D009CB8CA /* Tests_iOS.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B6C82B55272A960D009CB8CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6C82B60272A960D009CB8CA /* Tests_macOSLaunchTests.swift in Sources */,
+				B6C82B5E272A960D009CB8CA /* Tests_macOS.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B6C82B4F272A960D009CB8CA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B6C82B3F272A960D009CB8CA /* unipi-app (iOS) */;
+			targetProxy = B6C82B4E272A960D009CB8CA /* PBXContainerItemProxy */;
+		};
+		B6C82B5B272A960D009CB8CA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B6C82B45272A960D009CB8CA /* unipi-app (macOS) */;
+			targetProxy = B6C82B5A272A960D009CB8CA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		B6C82B6B272A960D009CB8CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B6C82B6C272A960D009CB8CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		B6C82B6E272A960D009CB8CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8Q4X2Y769J;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.catania.unipi-app";
+				PRODUCT_NAME = "unipi-app";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B6C82B6F272A960D009CB8CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8Q4X2Y769J;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.catania.unipi-app";
+				PRODUCT_NAME = "unipi-app";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B6C82B71272A960D009CB8CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8Q4X2Y769J;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.catania.unipi-app";
+				PRODUCT_NAME = "unipi-app";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		B6C82B72272A960D009CB8CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8Q4X2Y769J;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.catania.unipi-app";
+				PRODUCT_NAME = "unipi-app";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		B6C82B74272A960D009CB8CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8Q4X2Y769J;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.catania.Tests-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "unipi-app (iOS)";
+			};
+			name = Debug;
+		};
+		B6C82B75272A960D009CB8CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8Q4X2Y769J;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.catania.Tests-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "unipi-app (iOS)";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B6C82B77272A960D009CB8CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8Q4X2Y769J;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.catania.Tests-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "unipi-app (macOS)";
+			};
+			name = Debug;
+		};
+		B6C82B78272A960D009CB8CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 8Q4X2Y769J;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.catania.Tests-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "unipi-app (macOS)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B6C82B34272A9609009CB8CA /* Build configuration list for PBXProject "unipi-app" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B6C82B6B272A960D009CB8CA /* Debug */,
+				B6C82B6C272A960D009CB8CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B6C82B6D272A960D009CB8CA /* Build configuration list for PBXNativeTarget "unipi-app (iOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B6C82B6E272A960D009CB8CA /* Debug */,
+				B6C82B6F272A960D009CB8CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B6C82B70272A960D009CB8CA /* Build configuration list for PBXNativeTarget "unipi-app (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B6C82B71272A960D009CB8CA /* Debug */,
+				B6C82B72272A960D009CB8CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B6C82B73272A960D009CB8CA /* Build configuration list for PBXNativeTarget "Tests iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B6C82B74272A960D009CB8CA /* Debug */,
+				B6C82B75272A960D009CB8CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B6C82B76272A960D009CB8CA /* Build configuration list for PBXNativeTarget "Tests macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B6C82B77272A960D009CB8CA /* Debug */,
+				B6C82B78272A960D009CB8CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		B6C82B36272A960A009CB8CA /* unipi_app.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B6C82B37272A960A009CB8CA /* Shared.xcdatamodel */,
+			);
+			currentVersion = B6C82B37272A960A009CB8CA /* Shared.xcdatamodel */;
+			path = unipi_app.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = B6C82B31272A9609009CB8CA /* Project object */;
+}
