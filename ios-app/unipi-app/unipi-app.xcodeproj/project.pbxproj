@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		36DA535E272AD9EB00FE2CD4 /* CredentialsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36DA535D272AD9EB00FE2CD4 /* CredentialsView.swift */; };
+		36DA535F272AD9EB00FE2CD4 /* CredentialsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36DA535D272AD9EB00FE2CD4 /* CredentialsView.swift */; };
 		B6C82B52272A960D009CB8CA /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B51272A960D009CB8CA /* Tests_iOS.swift */; };
 		B6C82B54272A960D009CB8CA /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B53272A960D009CB8CA /* Tests_iOSLaunchTests.swift */; };
 		B6C82B5E272A960D009CB8CA /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B5D272A960D009CB8CA /* Tests_macOS.swift */; };
@@ -40,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		36DA535D272AD9EB00FE2CD4 /* CredentialsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsView.swift; sourceTree = "<group>"; };
 		B6C82B37272A960A009CB8CA /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		B6C82B38272A960A009CB8CA /* unipi_appApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = unipi_appApp.swift; sourceTree = "<group>"; };
 		B6C82B3B272A960C009CB8CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -109,6 +112,7 @@
 				B6C82B7A272A9A22009CB8CA /* FacultiesView.swift */,
 				B6C82B3B272A960C009CB8CA /* Assets.xcassets */,
 				B6C82B36272A960A009CB8CA /* unipi_app.xcdatamodeld */,
+				36DA535D272AD9EB00FE2CD4 /* CredentialsView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -327,6 +331,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6C82B7B272A9A22009CB8CA /* FacultiesView.swift in Sources */,
+				36DA535E272AD9EB00FE2CD4 /* CredentialsView.swift in Sources */,
 				B6C82B61272A960D009CB8CA /* unipi_app.xcdatamodeld in Sources */,
 				B6C82B63272A960D009CB8CA /* unipi_appApp.swift in Sources */,
 			);
@@ -337,6 +342,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6C82B7C272A9A22009CB8CA /* FacultiesView.swift in Sources */,
+				36DA535F272AD9EB00FE2CD4 /* CredentialsView.swift in Sources */,
 				B6C82B62272A960D009CB8CA /* unipi_app.xcdatamodeld in Sources */,
 				B6C82B64272A960D009CB8CA /* unipi_appApp.swift in Sources */,
 			);

@@ -6,22 +6,26 @@ struct FacultiesView: View {
     let pathsOpRequest = API.PathsOp.Request()
         
     @State var data: [(String, String)] = []
-    
-    var body: some View {
-        List(data, id: \.0) { element in
-            Cell(element: element.1)
-                .onTapGesture {
-                    let defaults = UserDefaults.standard
-                    defaults.set(element.1, forKey: "facultyId")
-                    defaults.set(element.0, forKey: "facultyName")
+    @State var skip: Bool = false
 
-                    // TODO: ensure selection is not missing
-                    // TODO: feedback to user
-                    // TODO: go to the next view (type user credentials)
-                }
+    let onEntryTap: ((String, String)) -> () -> Void = { element in {
+            let defaults = UserDefaults.standard
+            defaults.set(element.1, forKey: "facultyId")
+            defaults.set(element.0, forKey: "facultyName")
+        }
+    }
+
+    var body: some View {
+        NavigationView {
+            List(data, id: \.0) {
+                element in
+                NavigationLink(destination: CredentialsView()) {
+                    Cell(element: element.1)
+                }.simultaneousGesture(TapGesture().onEnded(onEntryTap(element)))
+            }
         }.onAppear(perform: { apiClient.makeRequest(pathsOpRequest) {
             response in
-            switch response.result {        
+            switch response.result {
             case let .success(apiResponseValue):
                 switch apiResponseValue {
                 case let .status200(paths):
@@ -30,9 +34,9 @@ struct FacultiesView: View {
                     print("unexpected status code")
                 }
             case let .failure(apiError):
-                print("GetPaths failed with \(apiError)")
+                print("retrieving paths failed with error '\(apiError)'")
             }
-        }})
+        }}).navigationTitle("Choose your faculty")
     }
 }
 

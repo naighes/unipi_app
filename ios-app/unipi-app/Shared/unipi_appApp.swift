@@ -2,18 +2,22 @@ import SwiftUI
 
 @main
 struct unipi_appApp: App {
+    @State private var currentView: String = "CredentialsView"
     var body: some Scene {
         WindowGroup {
-            /* TODO
+            // TODO
             // FacultiesView will be shown just for the initialization phase.
             // once the choice will be set within UserDefaults, we can skip FacultiesView at all.
+            buildView()
+        }
+    }
 
-            if let facultyId = UserDefaults.standard.data(forKey: "facultyId") {
-                FacultiesView()
-            } else { // image is not present. set a default image
-                CredentialsView()
-            }
-            */
+    @ViewBuilder
+    func buildView() -> some View {
+        switch UserDefaults.standard.string(forKey: "facultyId") {
+        case .some:
+            CredentialsView()
+        default:
             FacultiesView()
         }
     }
