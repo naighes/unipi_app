@@ -123,3 +123,4 @@ ios-app/unipi-sdk
 # xcode
 *.xcuserstate
 /**/xcuserdata/*
+/**/xcshareddata/*

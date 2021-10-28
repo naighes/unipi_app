@@ -23,6 +23,7 @@
 		B6C82B6A272A960D009CB8CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6C82B3B272A960C009CB8CA /* Assets.xcassets */; };
 		B6C82B7B272A9A22009CB8CA /* FacultiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B7A272A9A22009CB8CA /* FacultiesView.swift */; };
 		B6C82B7C272A9A22009CB8CA /* FacultiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B7A272A9A22009CB8CA /* FacultiesView.swift */; };
+		B6C840FC272AA5F20064AB1E /* API in Frameworks */ = {isa = PBXBuildFile; productRef = B6C840FB272AA5F20064AB1E /* API */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		B6C82B5D272A960D009CB8CA /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		B6C82B5F272A960D009CB8CA /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
 		B6C82B7A272A9A22009CB8CA /* FacultiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacultiesView.swift; sourceTree = "<group>"; };
+		B6C840F9272AA54A0064AB1E /* unipi-sdk */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "unipi-sdk"; path = "../unipi-sdk"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6C840FC272AA5F20064AB1E /* API in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,11 +98,13 @@
 		B6C82B30272A9609009CB8CA = {
 			isa = PBXGroup;
 			children = (
+				B6C840F8272AA54A0064AB1E /* Packages */,
 				B6C82B35272A960A009CB8CA /* Shared */,
 				B6C82B47272A960D009CB8CA /* macOS */,
 				B6C82B50272A960D009CB8CA /* Tests iOS */,
 				B6C82B5C272A960D009CB8CA /* Tests macOS */,
 				B6C82B41272A960D009CB8CA /* Products */,
+				B6C840FA272AA5F20064AB1E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -153,6 +158,21 @@
 			path = "Tests macOS";
 			sourceTree = "<group>";
 		};
+		B6C840F8272AA54A0064AB1E /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				B6C840F9272AA54A0064AB1E /* unipi-sdk */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		B6C840FA272AA5F20064AB1E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -169,6 +189,9 @@
 			dependencies = (
 			);
 			name = "unipi-app (iOS)";
+			packageProductDependencies = (
+				B6C840FB272AA5F20064AB1E /* API */,
+			);
 			productName = "unipi-app (iOS)";
 			productReference = B6C82B40272A960D009CB8CA /* unipi-app.app */;
 			productType = "com.apple.product-type.application";
@@ -743,6 +766,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B6C840FB272AA5F20064AB1E /* API */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = API;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		B6C82B36272A960A009CB8CA /* unipi_app.xcdatamodeld */ = {
