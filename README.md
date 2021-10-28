@@ -1,18 +1,22 @@
-# unipi-api
+# SDK unipi-api
 
 A student-made HTTP API for easy access to unipi stuff.
 An always up-to-date version is hosted at https://unipi-api.herokuapp.com.
 
 [Open API 3.0](https://spec.openapis.org/oas/v3.0.0) spec available at [https://unipi-api.herokuapp.com/api-docs](https://unipi-api.herokuapp.com/api-docs).
 
-## how to build
+## how to build the API
 
-Run `./script/build.sh`.
+Run `./api/scripts/build.sh`.
 
 ## how to run
 
 You need to configure a secret by the parameter `<secret>` or via the environment variable `SECRET` in order to allow the application to work properly.
-You can run the application by typing `./script/run.sh <secret>`.
+You can run the application by typing `./api/scripts/run.sh <secret>`.
+
+## how to generate the swift SDK
+
+Run `./ios-app/scripts/generate-sdk.sh <host>`, where the host parameter is the source of API spec (e.g. `unipi-api.herokuapp.com`).
 
 ## basic usage
 
