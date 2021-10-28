@@ -15,10 +15,6 @@
 		B6C82B62272A960D009CB8CA /* unipi_app.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B36272A960A009CB8CA /* unipi_app.xcdatamodeld */; };
 		B6C82B63272A960D009CB8CA /* unipi_appApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B38272A960A009CB8CA /* unipi_appApp.swift */; };
 		B6C82B64272A960D009CB8CA /* unipi_appApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B38272A960A009CB8CA /* unipi_appApp.swift */; };
-		B6C82B65272A960D009CB8CA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B39272A960A009CB8CA /* ContentView.swift */; };
-		B6C82B66272A960D009CB8CA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B39272A960A009CB8CA /* ContentView.swift */; };
-		B6C82B67272A960D009CB8CA /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B3A272A960A009CB8CA /* Persistence.swift */; };
-		B6C82B68272A960D009CB8CA /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B3A272A960A009CB8CA /* Persistence.swift */; };
 		B6C82B69272A960D009CB8CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6C82B3B272A960C009CB8CA /* Assets.xcassets */; };
 		B6C82B6A272A960D009CB8CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6C82B3B272A960C009CB8CA /* Assets.xcassets */; };
 		B6C82B7B272A9A22009CB8CA /* FacultiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B7A272A9A22009CB8CA /* FacultiesView.swift */; };
@@ -46,8 +42,6 @@
 /* Begin PBXFileReference section */
 		B6C82B37272A960A009CB8CA /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		B6C82B38272A960A009CB8CA /* unipi_appApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = unipi_appApp.swift; sourceTree = "<group>"; };
-		B6C82B39272A960A009CB8CA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		B6C82B3A272A960A009CB8CA /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		B6C82B3B272A960C009CB8CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B6C82B40272A960D009CB8CA /* unipi-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "unipi-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6C82B46272A960D009CB8CA /* unipi-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "unipi-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -112,9 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				B6C82B38272A960A009CB8CA /* unipi_appApp.swift */,
-				B6C82B39272A960A009CB8CA /* ContentView.swift */,
 				B6C82B7A272A9A22009CB8CA /* FacultiesView.swift */,
-				B6C82B3A272A960A009CB8CA /* Persistence.swift */,
 				B6C82B3B272A960C009CB8CA /* Assets.xcassets */,
 				B6C82B36272A960A009CB8CA /* unipi_app.xcdatamodeld */,
 			);
@@ -336,9 +328,7 @@
 			files = (
 				B6C82B7B272A9A22009CB8CA /* FacultiesView.swift in Sources */,
 				B6C82B61272A960D009CB8CA /* unipi_app.xcdatamodeld in Sources */,
-				B6C82B67272A960D009CB8CA /* Persistence.swift in Sources */,
 				B6C82B63272A960D009CB8CA /* unipi_appApp.swift in Sources */,
-				B6C82B65272A960D009CB8CA /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,9 +338,7 @@
 			files = (
 				B6C82B7C272A9A22009CB8CA /* FacultiesView.swift in Sources */,
 				B6C82B62272A960D009CB8CA /* unipi_app.xcdatamodeld in Sources */,
-				B6C82B68272A960D009CB8CA /* Persistence.swift in Sources */,
 				B6C82B64272A960D009CB8CA /* unipi_appApp.swift in Sources */,
-				B6C82B66272A960D009CB8CA /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
