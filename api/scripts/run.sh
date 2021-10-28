@@ -12,3 +12,4 @@ if [ $retVal -ne 0 ]; then
 fi
 
 node ${INDEX_PATH} --secret $1
+

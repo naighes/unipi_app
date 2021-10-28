@@ -19,13 +19,12 @@ const coursesReq = (cookie: StringPairDictionary) => (subject: string) => (path:
     query: ""
 })
 
-const pathsReq = (cookie: StringPairDictionary): HTTPRequest => ({
+const pathsReq = (): HTTPRequest => ({
     host: "esami.unipi.it",
     path: `/elencoappelli.php`,
     method: "GET",
     headers: {
-        'user-agent': userAgent,
-        'cookie': formatCookie(cookie || {}),
+        'user-agent': userAgent
     },
     query: ""
 })
@@ -121,9 +120,9 @@ const fetchCourses = (cookie: StringPairDictionary) => (subject: string) => (pat
     TE.map(x => mapCourses(x.body))
 )
 
-const fetchPaths = (cookie: StringPairDictionary): TE.TaskEither<Error, StringPairDictionary> => pipe(
+const fetchPaths = (): TE.TaskEither<Error, StringPairDictionary> => pipe(
     TE.tryCatch(
-        () => followRedirect(pathsReq(cookie)),
+        () => followRedirect(pathsReq()),
         error => ({ name: "net_error", message: `${error}` })),
     TE.chain(ensureOk),
     TE.chain(ensureSession),

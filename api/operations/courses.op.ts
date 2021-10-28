@@ -8,16 +8,14 @@ import { getSecret } from "../utils/config"
 import { pipe } from 'fp-ts/function'
 import { formatCourses, formatPaths } from "../views/courses.view"
 
-const pathsOp = async (req: EX.Request, res: EX.Response): Promise<EX.Response> =>
+const pathsOp = async (_: EX.Request, res: EX.Response): Promise<EX.Response> =>
     await TE.fold(
         (e: Error) => T.of(handleError(res)(e)),
         (c: StringPairDictionary) => T.of(formatPaths(c)(res))
     )
     (
         pipe(
-            extractToken(req.headers)(getSecret()),
-            TE.fromEither,
-            TE.chain(token => fetchPaths(token.cookie || {}))
+            fetchPaths()
         )
     )()
 

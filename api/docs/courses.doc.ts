@@ -97,9 +97,6 @@ export const coursesDoc: OpenAPIV3.PathsObject = {
     get: {
       operationId: 'pathsOp',
       description: 'get a list of available courses',
-      security: [{
-        bearerAuth: []
-      }],
       responses: {
         406: {
           '$ref': '#/components/responses/NotAcceptable'
