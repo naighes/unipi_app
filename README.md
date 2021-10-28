@@ -1,4 +1,4 @@
-# SDK unipi-api
+# unipi-app
 
 A student-made HTTP API for easy access to unipi stuff.
 An always up-to-date version is hosted at https://unipi-api.herokuapp.com.
@@ -16,7 +16,7 @@ You can run the application by typing `./api/scripts/run.sh <secret>`.
 
 ## how to generate the swift SDK
 
-Run `./ios-app/scripts/generate-sdk.sh <host>`, where the host parameter is the source of API spec (e.g. `unipi-api.herokuapp.com`).
+Run `./ios-app/scripts/generate-sdk.sh <host> <protocol>`, where the **host** parameter is the source of the API spec (e.g. `unipi-api.herokuapp.com`) and **protocol** should be `http` or `https`.
 
 ## basic usage
 
@@ -68,4 +68,4 @@ curl -s "https://unipi-api.herokuapp.com/careers" \
 
 ## available formats
 
-By default a JSON representation is returned. A very basic HTML representation is also available by issuing the request with HTTP header `Accept: text/html`.
+By default a JSON representation is returned and right now it'is the only available view.

@@ -18,7 +18,6 @@ export const careersDoc: OpenAPIV3.PathsObject = {
         200: {
           description: 'successful response',
           content: {
-            'text/html': { },
             'application/json': {
               schema: {
                 type: 'array',

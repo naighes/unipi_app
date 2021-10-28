@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 function printUsage {
-    printf "usage: ./generate-sdk.sh <host>\n"
+    printf "usage: ./generate-sdk.sh <host> <protocol>\n"
 }
 
-if test "$#" -ne 1; then
+if test "$#" -ne 2; then
     echo -e "illegal number of parameters"
     printUsage
     exit 1
@@ -27,7 +27,7 @@ if [ $r1 -ne 0 ]; then
     exit $r1
 fi
 
-URL="https://$1/api-docs"
+URL="$2://$1/api-docs"
 curl -s -o ${SRC_DIR}/SwagGen/api-docs.json ${URL}
 
 r2=$?

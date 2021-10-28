@@ -29,7 +29,6 @@ export const bookletDoc: OpenAPIV3.PathsObject = {
         200: {
           description: 'successful response',
           content: {
-            'text/html': { },
             'application/json': {
               schema: {
                 type: 'object',
