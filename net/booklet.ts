@@ -1,11 +1,12 @@
 import { formatCookie, userAgent, StringPairDictionary, HTTPRequest, followRedirect, ensureOk } from "./index"
 import { fetchCareer } from "./careers"
-import { parse as parseHTML, HTMLElement } from 'node-html-parser'
+import { parse as parseHTML } from 'node-html-parser'
 import moment from 'moment'
 import { pipe } from 'fp-ts/function'
 import * as TE from 'fp-ts/lib/TaskEither'
 import { ensureSession } from "./auth"
 import { ensureGetElementsByTagName, ensureQuerySelectorAll } from "../utils/diagnostic"
+import { tdVal } from "../utils/dom"
 
 const bookletReq = (cookie: StringPairDictionary): HTTPRequest => ({
     host: "www.studenti.unipi.it",
@@ -17,10 +18,6 @@ const bookletReq = (cookie: StringPairDictionary): HTTPRequest => ({
     },
     query: ""
 })
-
-const tdVal = <T> (f: (e: HTMLElement) => T) => (columns: Array<HTMLElement>) => (i: number) => {
-    return i < columns.length ? f(columns[i]) : undefined
-}
 
 enum BookletEntryStatus {
     Planned = 1,
@@ -46,18 +43,18 @@ type BookletEntry = {
     status: BookletEntryStatus | undefined
 }
 
-const average = (entries: Array<BookletEntry>) => {
+const average = (entries: Array<BookletEntry>): number => {
     const list = entries.filter(e => typeof e.score !== "undefined")
     const sum = list.reduce((p, c) => p + (c.score || 0), 0)
     return list.length > 0 ? sum / list.length : 0
 }
 
-const collectedCredits = (entries: Array<BookletEntry>) => {
+const collectedCredits = (entries: Array<BookletEntry>): number => {
     const list = entries.filter(e => e.status === BookletEntryStatus.Passed)
     return list.reduce((p, c) => p + (c.weight || 0), 0)
 }
 
-const parseStatus = (s: string) => {
+const parseStatus = (s: string): BookletEntryStatus => {
     switch (s.toLowerCase()) {
         case "images/frequentata.gif":
             return BookletEntryStatus.Attended
@@ -73,7 +70,7 @@ const parseStatus = (s: string) => {
 const eqsa = ensureQuerySelectorAll('booklet')
 const egebtn = ensureGetElementsByTagName('booklet')
 
-const map = (body: string) => {
+const map = (body: string): BookletEntryList => {
     const record = eqsa(parseHTML(body))('#tableLibretto')
         .flatMap(x => egebtn(x)("tbody"))
         .flatMap(x => egebtn(x)("tr"))

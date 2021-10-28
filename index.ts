@@ -3,7 +3,6 @@ import { careersOp, bookletOp, taxesOp, coursesOp, authOp, planOp, pathsOp } fro
 import { apiDoc } from './docs'
 import { initialize } from 'express-openapi'
 import { config, getSecret } from './utils/config'
-import type { ErrorRequestHandler } from "express"
 import bodyParser from 'body-parser'
 
 const app = EX()
@@ -41,7 +40,7 @@ app.get('/:careerId/booklet', safe(bookletOp))
 app.get('/careers', safe(careersOp))
 app.post('/auth', safe(authOp))
 
-const errorHandler: ErrorRequestHandler = (err, _, res, _next) => {
+const errorHandler: EX.ErrorRequestHandler = (err, _, res, _next) => {
     // const status = res.statusCode === 400 ? 400 : 500
     const tryParseStatus = () => err && err.status && typeof err.status === 'number' ? parseInt(err.status) : 500
     const tryParseMessage = () => {

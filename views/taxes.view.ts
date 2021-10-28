@@ -1,10 +1,8 @@
-import express from "express"
+import EX from 'express'
 import moment from "moment"
 import { TaxEntryList, TaxEntry, TaxEntryPaymentStatus } from "../net/taxes"
 
-const mapEntries = (c: Array<TaxEntry>) => {
-    return c.map(r => {
-        return `<tr>
+const mapEntries = (c: Array<TaxEntry>): string => c.map(r => `<tr>
     <td>${r.invoiceId || ""}</td>
     <td>${r.IUVcode || "-"}</td>
     <td>${r.amount || "-"}</td>
@@ -12,11 +10,9 @@ const mapEntries = (c: Array<TaxEntry>) => {
     <td>${r.expirationDate ? moment(r.expirationDate).format('MM/DD/YYYY') || "-" : "-"}</td>
     <td>${r.reason || "-"}</td>
     <td>${r.paymentStatus ? TaxEntryPaymentStatus[r.paymentStatus] : "-"}</td>
-</tr>`
-    }).join("\n")
-}
+</tr>`).join("\n")
 
-const mapList = (list: TaxEntryList) => `<!DOCTYPE html>
+const mapList = (list: TaxEntryList): string => `<!DOCTYPE html>
 <html>
     <head>
         <title>booklet</title>
@@ -42,10 +38,8 @@ const mapList = (list: TaxEntryList) => `<!DOCTYPE html>
     </body>
 </html>`
 
-export const format = (c: TaxEntryList) => (res: express.Response) => {
-    return res.format({
-        'application/json': () => res.status(200).json(c),
-        'text/html': () => res.status(200).send(mapList(c)),
-        default: () => res.status(406).send()
-    })
-}
+export const format = (c: TaxEntryList) => (res: EX.Response): EX.Response => res.format({
+    'application/json': () => res.status(200).json(c),
+    'text/html': () => res.status(200).send(mapList(c)),
+    default: () => res.status(406).send()
+})

@@ -1,10 +1,11 @@
 import { formatCookie, userAgent, StringPairDictionary, HTTPRequest, followRedirect, ensureOk } from "./index"
 import { fetchCareer } from "./careers"
-import { parse as parseHTML, HTMLElement } from 'node-html-parser'
+import { parse as parseHTML } from 'node-html-parser'
 import { pipe } from 'fp-ts/function'
 import * as TE from 'fp-ts/lib/TaskEither'
 import { ensureSession } from "./auth"
 import { ensureGetElementsByTagName, ensureQuerySelectorAll } from "../utils/diagnostic"
+import { tdVal } from "../utils/dom"
 
 const planReq = (cookie: StringPairDictionary): HTTPRequest => ({
     host: "www.studenti.unipi.it",
@@ -36,7 +37,7 @@ type PlanEntry = {
     status: PlanEntryStatus | undefined
 }
 
-const parseStatus = (s: string) => {
+const parseStatus = (s: string): PlanEntryStatus => {
     switch (s.toLowerCase()) {
         case "pianificata":
             return PlanEntryStatus.Planned
@@ -53,9 +54,6 @@ const eqsa = ensureQuerySelectorAll('plan')
 const egebtn = ensureGetElementsByTagName('plan')
 
 const map = (body: string): Array<PlanGroup> => {
-    const tdVal = <T> (f: (e: HTMLElement) => T) => (columns: Array<HTMLElement>) => (i: number) => {
-        return i < columns.length ? f(columns[i]) : undefined
-    }
     const doc = parseHTML(body)
     const titles = eqsa(doc)("td.tplTitolo").map(x => x.text)
     const tables = eqsa(doc)("table.detail_table").map(x =>

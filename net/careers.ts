@@ -6,6 +6,7 @@ import querystring from 'querystring'
 import { pipe } from 'fp-ts/function'
 import * as TE from 'fp-ts/lib/TaskEither'
 import { ensureGetElementsByTagName } from "../utils/diagnostic"
+import { tdVal } from "../utils/dom"
 
 const careersReq = (cookie: StringPairDictionary): HTTPRequest => ({
     host: "www.studenti.unipi.it",
@@ -18,18 +19,16 @@ const careersReq = (cookie: StringPairDictionary): HTTPRequest => ({
     }
 })
 
-const careerReq = (cookie: StringPairDictionary) => (id: number): HTTPRequest => {
-    return {
-        host: "www.studenti.unipi.it",
-        path: "/auth/studente/SceltaCarrieraStudente.do",
-        query: `stu_id=${id}`,
-        method: "GET",
-        headers: {
-            'user-agent': userAgent,
-            'cookie': formatCookie(cookie || {}),
-        }
+const careerReq = (cookie: StringPairDictionary) => (id: number): HTTPRequest => ({
+    host: "www.studenti.unipi.it",
+    path: "/auth/studente/SceltaCarrieraStudente.do",
+    query: `stu_id=${id}`,
+    method: "GET",
+    headers: {
+        'user-agent': userAgent,
+        'cookie': formatCookie(cookie || {}),
     }
-}
+})
 
 type Career = {
     registrationNumber: string | undefined,
@@ -42,9 +41,6 @@ type Career = {
 const egebtn = ensureGetElementsByTagName('careers')
 
 const map = (body: string): Array<Career> => {
-    const tdVal = <T> (f: (e: HTMLElement) => T) => (columns: Array<HTMLElement>) => (i: number) => {
-        return i < columns.length ? f(columns[i]) : undefined
-    }
     const studId = (e: HTMLElement) => {
         const hrefs = (e.getElementsByTagName("a") || []).map(x => {
             const query = url.parse(x.getAttribute("href") || "").query || ""

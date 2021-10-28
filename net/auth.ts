@@ -19,33 +19,31 @@ const authReq = (): HTTPRequest => ({
     data: undefined
 })
 
-const ensureSession = (d: HTTPResponse): TE.TaskEither<Error, HTTPResponse> => {
-    return TE.fromEither(d.request.host.indexOf("unipi.idp.cineca.it") === -1
-? E.right(d)
-: E.left({ name: "session_is_expired", message: `session is expired` }))
-}
+const ensureSession = (d: HTTPResponse): TE.TaskEither<Error, HTTPResponse> =>
+    TE.fromEither(d.request.host.indexOf("unipi.idp.cineca.it") === -1
+        ? E.right(d)
+        : E.left({ name: "session_is_expired", message: `session is expired` }))
 
 const parseFormAction = (s: string): string | undefined => {
     const result = (parseHTML(s)?.getElementsByTagName('form') || []).map(x => x.getAttribute("action"))
     return result.length > 0 ? result[0] : undefined
 }
-const parseSAMLFields = (s: string): {[key: string]: string | undefined} => {
-    return (parseHTML(s)?.getElementsByTagName('form') || [])
+
+const parseSAMLFields = (s: string): {[key: string]: string | undefined} =>
+    (parseHTML(s)?.getElementsByTagName('form') || [])
         .flatMap(x => x.getElementsByTagName("input"))
         .reduce<{[key: string]: string | undefined}>((p, c) => {
             const name = c.getAttribute("name")
             const value = c.getAttribute("value")
             return name ? { ...p, [name]: value } : p
     }, {})
-}
 
-const isAuthError = (s: string) => {
-    return (parseHTML(s).getElementsByTagName('section') || [])
+const isAuthError = (s: string): boolean =>
+    (parseHTML(s).getElementsByTagName('section') || [])
         .flatMap(x => x.getElementsByTagName('p'))
         .filter(p => p.text.toUpperCase().indexOf("FAILED") >= 0 ||
                      p.text.toUpperCase().indexOf("ERROR") >= 0 ||
                      p.text.toUpperCase().indexOf("WRONG") >= 0).length > 0
-}
 
 const f1 = (res: HTTPResponse): TE.TaskEither<Error, HTTPResponse> => {
     const data = querystring.stringify({
@@ -85,7 +83,7 @@ const f1 = (res: HTTPResponse): TE.TaskEither<Error, HTTPResponse> => {
     )
 }
 
-const f2 = (usr: string) => (pwd: string) => (res: HTTPResponse) => {
+const f2 = (usr: string) => (pwd: string) => (res: HTTPResponse): TE.TaskEither<Error, HTTPResponse> => {
     const data = querystring.stringify({
         "j_username": usr,
         "j_password": pwd,
@@ -119,7 +117,7 @@ const f2 = (usr: string) => (pwd: string) => (res: HTTPResponse) => {
     )
 }
 
-const f3 = (res: HTTPResponse) => {
+const f3 = (res: HTTPResponse): TE.TaskEither<Error, HTTPResponse> => {
     const data = querystring.stringify(parseSAMLFields(res.body))
     return pipe(
         res,

@@ -1,4 +1,4 @@
-import express from "express"
+import EX from 'express'
 import { Career, fetchCareers } from "../net/careers"
 import * as T from 'fp-ts/lib/Task'
 import * as TE from 'fp-ts/lib/TaskEither'
@@ -8,8 +8,8 @@ import { getSecret } from "../utils/config"
 import { pipe } from 'fp-ts/function'
 import { format } from "../views/careers.view"
 
-export const careersOp = async (req: express.Request, res: express.Response) => {
-    return await TE.fold(
+export const careersOp = async (req: EX.Request, res: EX.Response): Promise<EX.Response> =>
+    await TE.fold(
         (e: Error) => T.of(handleError(res)(e)),
         (c: Array<Career>) => T.of(format(c)(res))
     )
@@ -20,4 +20,3 @@ export const careersOp = async (req: express.Request, res: express.Response) => 
             TE.chain(token => fetchCareers(token.cookie || {}))
         )
     )()
-}

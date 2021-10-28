@@ -1,11 +1,12 @@
 import { formatCookie, userAgent, StringPairDictionary, HTTPRequest, followRedirect, ensureOk } from "./index"
 import { fetchCareer } from "./careers"
-import { parse as parseHTML, HTMLElement } from 'node-html-parser'
+import { parse as parseHTML } from 'node-html-parser'
 import moment from 'moment'
 import { pipe } from 'fp-ts/function'
 import * as TE from 'fp-ts/lib/TaskEither'
 import { ensureSession } from "./auth"
 import { ensureGetElementsByTagName } from "../utils/diagnostic"
+import { tdVal } from "../utils/dom"
 
 const taxesReq = (cookie: StringPairDictionary): HTTPRequest => ({
     host: "www.studenti.unipi.it",
@@ -17,10 +18,6 @@ const taxesReq = (cookie: StringPairDictionary): HTTPRequest => ({
     },
     query: ""
 })
-
-const tdVal = <T> (f: (e: HTMLElement) => T) => (columns: Array<HTMLElement>) => (i: number) => {
-    return i < columns.length ? f(columns[i]) : undefined
-}
 
 enum TaxEntryPaymentStatus {
     Paid = 1,
@@ -41,7 +38,7 @@ type TaxEntry = {
     paymentStatus: TaxEntryPaymentStatus | undefined
 }
 
-const parseStatus = (s: string) => {
+const parseStatus = (s: string): TaxEntryPaymentStatus => {
     switch (s.toLowerCase()) {
         case "images/semaf_v.gif":
             return TaxEntryPaymentStatus.Paid
@@ -52,8 +49,8 @@ const parseStatus = (s: string) => {
 
 const egebtn = ensureGetElementsByTagName('taxes')
 
-const map = (body: string) => {
-    const entries = egebtn(parseHTML(body))('table')
+const map = (body: string): TaxEntryList => ({
+    entries: egebtn(parseHTML(body))('table')
         .flatMap(x => egebtn(x)("tbody"))
         .flatMap(x => egebtn(x)("tr"))
         .map(row => {
@@ -84,10 +81,7 @@ const map = (body: string) => {
                 paymentStatus: sixth()
             }
         })
-    return {
-        entries: entries
-    }
-}
+    })
 
 const fetchTaxes = (cookie: StringPairDictionary) => (id: number): TE.TaskEither<Error, TaxEntryList> => pipe(
     fetchCareer(cookie)(id),

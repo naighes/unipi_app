@@ -4,7 +4,7 @@ import url from 'url'
 import setCookieParser from 'set-cookie-parser'
 import { either as E } from "fp-ts"
 import * as TE from 'fp-ts/lib/TaskEither'
-import express from 'express'
+import EX from 'express'
 import moment from 'moment'
 
 interface StringPairDictionary {
@@ -31,7 +31,7 @@ type HTTPResponse = {
 }
 
 const cookieParser = {
-    parse: (x: string) => x.split(";").reduce((p, c) => {
+    parse: (x: string): StringPairDictionary => x.split(";").reduce((p, c) => {
         const z = c.split("=")
         return z.length !== 2 ? p : { ...p, [z[0].trim()]: z[1].trim() }
     }, {})
@@ -46,7 +46,7 @@ const mergedCookie = (reqHeaders: IncomingHttpHeaders, resHeaders: IncomingHttpH
     ...requestCookies(reqHeaders),
     ...responseCookies(resHeaders)
 })
-const formatCookie = (c: StringPairDictionary) => Object.keys(c).map(x => `${x}=${c[x]}`).join("; ")
+const formatCookie = (c: StringPairDictionary): string => Object.keys(c).map(x => `${x}=${c[x]}`).join("; ")
 
 const userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:82.0) Gecko/20100101 Firefox/82.0"
 
@@ -62,9 +62,8 @@ const ensureOk = (d: HTTPResponse): TE.TaskEither<Error, HTTPResponse> => TE.fro
     ? E.left({ name: "unexpected_status_code", message: `received ${d.statusCode}, expected 200` })
     : E.right(d))
 
-const printLog = (options: RequestOptions, res: IncomingMessage, buffer: Buffer | undefined) => {
-    return `${options.hostname || "-"} - - ${moment().format("DD/MMM/YYYY:hh:mm")} "${options.method || "-"}  ${options.path || "-"}" ${res.statusCode || '-'} ${buffer?.length || "-"}`
-}
+const printLog = (options: RequestOptions, res: IncomingMessage, buffer: Buffer | undefined) =>
+    `${options.hostname || "-"} - - ${moment().format("DD/MMM/YYYY:hh:mm")} "${options.method || "-"}  ${options.path || "-"}" ${res.statusCode || '-'} ${buffer?.length || "-"}`
 
 const fetch = (req: HTTPRequest): Promise<HTTPResponse> => {
     const options = makeOptions(req)
@@ -130,7 +129,7 @@ const followRedirect = (req: HTTPRequest): Promise<HTTPResponse> => fetch(req).t
     }
 })
 
-const handleError = (res: express.Response) => (e: Error) => {
+const handleError = (res: EX.Response) => (e: Error): EX.Response => {
     switch (e.name) {
         case "session_is_expired":
             return res.set({

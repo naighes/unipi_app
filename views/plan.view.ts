@@ -1,13 +1,13 @@
-import express from "express"
+import EX from 'express'
 import { PlanEntry, PlanGroup } from "../net/plan"
 
-const mapEntries = (entries: Array<PlanEntry>) => entries.map(r => `<tr>
+const mapEntries = (entries: Array<PlanEntry>): string => entries.map(r => `<tr>
     <td>${r.code}</td>
     <td>${r.name}</td>
     <td>${r.weight || "-"}</td>
 </tr>`).join("\n")
 
-const mapGroups = (groups: Array<PlanGroup>) => groups.map(g => `
+const mapGroups = (groups: Array<PlanGroup>): string => groups.map(g => `
     <h2>${g.name}</h2>
     <table>
         <thead>
@@ -22,7 +22,7 @@ const mapGroups = (groups: Array<PlanGroup>) => groups.map(g => `
         </tbody>
     </table>`).join("\n")
 
-const map = (groups: Array<PlanGroup>) => `<!DOCTYPE html>
+const map = (groups: Array<PlanGroup>): string => `<!DOCTYPE html>
 <html>
 <head>
     <title>plan</title>
@@ -33,10 +33,8 @@ const map = (groups: Array<PlanGroup>) => `<!DOCTYPE html>
 </body>
 </html>`
 
-export const format = (c: Array<PlanGroup>) => (res: express.Response) => {
-    return res.format({
-        'application/json': () => res.status(200).json(c),
-        'text/html': () => res.status(200).send(map(c)),
-        default: () => res.status(406).send()
-    })
-}
+export const format = (c: Array<PlanGroup>) => (res: EX.Response): EX.Response => res.format({
+    'application/json': () => res.status(200).json(c),
+    'text/html': () => res.status(200).send(map(c)),
+    default: () => res.status(406).send()
+})

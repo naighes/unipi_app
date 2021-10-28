@@ -1,4 +1,4 @@
-import express from "express"
+import EX from 'express'
 import * as T from 'fp-ts/lib/Task'
 import * as TE from 'fp-ts/lib/TaskEither'
 import { handleError, StringPairDictionary } from "../net"
@@ -8,8 +8,8 @@ import { getSecret } from "../utils/config"
 import { pipe } from 'fp-ts/function'
 import { formatCourses, formatPaths } from "../views/courses.view"
 
-const pathsOp = async (req: express.Request, res: express.Response) => {
-    return await TE.fold(
+const pathsOp = async (req: EX.Request, res: EX.Response): Promise<EX.Response> =>
+    await TE.fold(
         (e: Error) => T.of(handleError(res)(e)),
         (c: StringPairDictionary) => T.of(formatPaths(c)(res))
     )
@@ -20,12 +20,9 @@ const pathsOp = async (req: express.Request, res: express.Response) => {
             TE.chain(token => fetchPaths(token.cookie || {}))
         )
     )()
-}
 
-const coursesOp = async (req: express.Request, res: express.Response) => {
-    const subject = req.params['subject']
-    const path = req.params['path']
-    return await TE.fold(
+const coursesOp = async (req: EX.Request, res: EX.Response): Promise<EX.Response> =>
+    await TE.fold(
         (e: Error) => T.of(handleError(res)(e)),
         (c: Array<Course>) => T.of(formatCourses(c)(res))
     )
@@ -33,9 +30,8 @@ const coursesOp = async (req: express.Request, res: express.Response) => {
         pipe(
             extractToken(req.headers)(getSecret()),
             TE.fromEither,
-            TE.chain(token => fetchCourses(token.cookie || {})(subject)(path))
+            TE.chain(token => fetchCourses(token.cookie || {})(req.params['subject'])(req.params['path']))
         )
     )()
-}
 
 export { coursesOp, pathsOp }

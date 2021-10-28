@@ -1,4 +1,4 @@
-import express from "express"
+import EX from 'express'
 import moment from "moment"
 import { BookletEntry, BookletEntryList } from "../net/booklet"
 
@@ -16,7 +16,7 @@ const mapRecords = (c: Array<BookletEntry>) => {
     }).join("\n")
 }
 
-const mapList = (list: BookletEntryList) => `<!DOCTYPE html>
+const mapList = (list: BookletEntryList): string => `<!DOCTYPE html>
 <html>
     <head>
         <title>booklet</title>
@@ -42,10 +42,8 @@ const mapList = (list: BookletEntryList) => `<!DOCTYPE html>
     </body>
 </html>`
 
-export const format = (c: BookletEntryList) => (res: express.Response) => {
-    return res.format({
-        'application/json': () => res.status(200).json(c),
-        'text/html': () => res.status(200).send(mapList(c)),
-        default: () => res.status(406).send()
-    })
-}
+export const format = (c: BookletEntryList) => (res: EX.Response): EX.Response => res.format({
+    'application/json': () => res.status(200).json(c),
+    'text/html': () => res.status(200).send(mapList(c)),
+    default: () => res.status(406).send()
+})

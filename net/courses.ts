@@ -6,6 +6,7 @@ import * as TE from 'fp-ts/lib/TaskEither'
 import { ensureSession } from "./auth"
 import { decode } from 'html-entities'
 import { ensureGetElementsByTagName, ensureQuerySelectorAll } from "../utils/diagnostic"
+import { tdVal } from "../utils/dom"
 
 const coursesReq = (cookie: StringPairDictionary) => (subject: string) => (path: string): HTTPRequest => ({
     host: "esami.unipi.it",
@@ -28,10 +29,6 @@ const pathsReq = (cookie: StringPairDictionary): HTTPRequest => ({
     },
     query: ""
 })
-
-const tdVal = <T> (f: (e: HTMLElement) => T) => (columns: Array<HTMLElement>) => (i: number) => {
-    return i < columns.length ? f(columns[i]) : undefined
-}
 
 type Course = {
     academicYear: string | undefined
@@ -56,8 +53,8 @@ type Call = {
 const eqsa = ensureQuerySelectorAll('courses')
 const egebtn = ensureGetElementsByTagName('courses')
 
-const mapCall = (row: HTMLElement): Array<Call> => {
-    return eqsa(row)("table.table-appelli")
+const mapCall = (row: HTMLElement): Array<Call> =>
+    eqsa(row)("table.table-appelli")
         .flatMap(x => egebtn(x)("tbody"))
         .flatMap(x => egebtn(x)("tr"))
         .map(r => {
@@ -91,28 +88,28 @@ const mapCall = (row: HTMLElement): Array<Call> => {
                 closingDates: closingDates
             }
         })
-}
 
-const mapCourses = (body: string) => eqsa(parseHTML(body))('tr.corso')
-    .map(row => {
-        const calls = mapCall(row)
-        row.removeChild(row.firstChild)
-        const columns = row.getElementsByTagName("td")
-        return {
-            academicYear: tdVal(x => x.text.trim())(columns)(0),
-            subject: tdVal(x => x.text.trim())(columns)(2),
-            code: tdVal(x => x.text.trim())(columns)(3),
-            weight: tdVal(x => parseInt(x.text) || undefined)(columns)(4),
-            teacher: tdVal(x => x.text.trim())(columns)(5),
-            calls: calls
-        }
-    })
+const mapCourses = (body: string): Array<Course> =>
+    eqsa(parseHTML(body))('tr.corso')
+        .map(row => {
+            const calls = mapCall(row)
+            row.removeChild(row.firstChild)
+            const columns = row.getElementsByTagName("td")
+            return {
+                academicYear: tdVal(x => x.text.trim())(columns)(0),
+                subject: tdVal(x => x.text.trim())(columns)(2),
+                code: tdVal(x => x.text.trim())(columns)(3),
+                weight: tdVal(x => parseInt(x.text) || undefined)(columns)(4),
+                teacher: tdVal(x => x.text.trim())(columns)(5),
+                calls: calls
+            }
+        })
 
-const mapPaths = (body: string) => eqsa(parseHTML(body))('#cds')
+const mapPaths = (body: string): StringPairDictionary => eqsa(parseHTML(body))('#cds')
     .flatMap(x => egebtn(x)("option"))
     .reduce((p, c) => {
         const a = c.getAttribute("value")
-        return typeof a === "undefined" ? p : ({ ...p, [a]: c.text    })
+        return typeof a === "undefined" ? p : ({ ...p, [a]: c.text })
     }, {})
 
 const fetchCourses = (cookie: StringPairDictionary) => (subject: string) => (path: string): TE.TaskEither<Error, Array<Course>> => pipe(
