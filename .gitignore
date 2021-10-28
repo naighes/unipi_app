@@ -124,3 +124,5 @@ ios-app/unipi-sdk
 *.xcuserstate
 /**/xcuserdata/*
 /**/xcshareddata/*
+
+*.DS_Store
