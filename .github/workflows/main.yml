@@ -11,14 +11,17 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: login to Heroku Container registry
+      working-directory: ./api
       env: 
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: heroku container:login
     - name: build and push
+      working-directory: ./api
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: heroku container:push -a unipi-api web
     - name: release
+      working-directory: ./api
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
       run: heroku container:release -a unipi-api web
