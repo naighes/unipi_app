@@ -57,7 +57,7 @@ const mapPaths = (paths: StringPairDictionary): string => `<!DOCTYPE html>
 <body>
     <h1>courses</h1>
     <ul>
-    ${Object.keys(paths).map(c => mapPath(c, paths[c]))}
+    ${Object.keys(paths).map(c => mapPath(c, paths[c])).join("\n")}
     </ul>
 </body>
 </html>`
