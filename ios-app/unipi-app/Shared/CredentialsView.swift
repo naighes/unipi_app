@@ -28,6 +28,17 @@ struct CredentialsView: View {
         }
     }
 
+    // HACK: by using API.AuthOp.Request's convenience constructor
+    //       its body get a nil value.
+    let buildRequest: (String) -> (String) -> API.AuthOp.Request = {
+        u in {
+            p in
+            let body = API.AuthOp.Request.Body(usr: u, pwd: p)
+            let options = API.AuthOp.Request.Options(usr: u, pwd: p)
+            return API.AuthOp.Request(body: body, options: options)
+        }
+    }
+
     var body: some View {
         NavigationView {
             Form {
@@ -35,7 +46,7 @@ struct CredentialsView: View {
                 SecureField("password", text: $pwd)
                 Button("login") {
                 }.onTapGesture(perform: {
-                    apiClient.makeRequest(API.AuthOp.Request(usr: self.usr, pwd: self.pwd)) {
+                    apiClient.makeRequest(buildRequest(self.usr)(self.pwd)) {
                         response in
                         accessToken = getResult(response)
                         print(accessToken)

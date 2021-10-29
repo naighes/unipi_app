@@ -3,11 +3,15 @@ import { careersOp, bookletOp, taxesOp, coursesOp, authOp, planOp, pathsOp } fro
 import { apiDoc } from './docs'
 import { initialize } from 'express-openapi'
 import { config, getSecret } from './utils/config'
-import bodyParser from 'body-parser'
+import moment from 'moment'
 
 const app = EX()
+app.use((req: EX.Request, res: EX.Response, next: EX.NextFunction)=> {
+    console.log(`${req.hostname} - - ${moment().format("DD/MMM/YYYY:hh:mm")} "${req.method} ${req.path}" ${res.statusCode} -`)
+    next()
+})
+app.use(EX.urlencoded())
 app.use(EX.json())
-app.use(bodyParser.urlencoded({ extended: true }))
 
 initialize({
     apiDoc: apiDoc,
@@ -41,7 +45,9 @@ app.get('/careers', safe(careersOp))
 app.post('/auth', safe(authOp))
 
 const errorHandler: EX.ErrorRequestHandler = (err, _, res, _next) => {
-    // const status = res.statusCode === 400 ? 400 : 500
+    if (err) {
+        console.log(err)
+    }
     const tryParseStatus = () => err && err.status && typeof err.status === 'number' ? parseInt(err.status) : 500
     const tryParseMessage = () => {
         if (err && typeof err === 'object') {
