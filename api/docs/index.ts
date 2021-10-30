@@ -15,7 +15,26 @@ export const apiDoc: OpenAPIV3.Document = {
   components: {
     responses: {
       'UnauthorizedError': {
-        description: "access token is missing or invalid"
+        description: "access token is missing or invalid",
+        content: {
+          'application/json': {
+            schema: {
+              type: 'object',
+              properties: {
+                name: {
+                  type: 'string'
+                },
+                message: {
+                  type: 'string'
+                }
+              }
+            },
+            example: {
+              "name": "invalid_token",
+              "message": "wrong_credentials"
+            }
+          }
+        }
       },
       'NotAcceptable': {
         description: "this resource cannot be served by the requested format"

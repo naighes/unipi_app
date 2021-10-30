@@ -134,11 +134,17 @@ const handleError = (res: EX.Response) => (e: Error): EX.Response => {
         case "session_is_expired":
             return res.set({
                 'WWW-Authenticate': 'Bearer error="invalid_token", error_description="session_is_expired"'
-              }).status(401).send()
+              }).status(401).json({
+                name: "invalid_token",
+                message: "session_is_expired"
+            })
         case "wrong_credentials":
             return res.set({
                 'WWW-Authenticate': 'Bearer error="invalid_token", error_description="wrong_credentials"'
-              }).status(401).send()
+              }).status(401).json({
+                name: "invalid_token",
+                message: "wrong_credentials"
+            })
         case "not_found":
             return res.status(404).send()
         case "token_error":

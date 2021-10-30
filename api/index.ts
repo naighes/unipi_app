@@ -59,7 +59,7 @@ const errorHandler: EX.ErrorRequestHandler = (err, _, res, _next) => {
         return `${err}`
     }
     return res.status(tryParseStatus()).send({
-        name: "unhandled error",
+        name: "unhandled_error",
         message: tryParseMessage()
     })
 }

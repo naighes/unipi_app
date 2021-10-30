@@ -26,7 +26,6 @@ struct CredentialsView: View {
                 return .failure(NetError.unexpectedStatusCode(v.statusCode))
             }
         case let .failure(e):
-            print(e)
             return .failure(NetError.serverError("user authentication failed with error '\(e)'"))
         }
     }
@@ -63,7 +62,7 @@ struct CredentialsView: View {
                 UserDefaults.standard.set(facultyId, forKey: "facultyId")
             }).navigationTitle("type your credentials")
             if let error = currentError {
-                Text("\(error)" as String)
+                Text("\(error)" as String) // TODO: this text is not displayed :-/
             }
         }
     }
