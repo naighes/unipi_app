@@ -10,21 +10,24 @@ struct CredentialsView: View {
     @State private var pwd: String = ""
 
     @State var accessToken: String = ""
+    @State var currentError: Error?
 
-    let getResult: (APIResponse<API.AuthOp.Response>) -> String = {
+    let getResult: (APIResponse<API.AuthOp.Response>) -> Result<String, Error> = {
         response in
         switch response.result {
         case let .success(v):
             switch v {
             case let .status200(token):
-                return token.accessToken ?? ""
+                if let t = token.accessToken {
+                    return .success(t)
+                }
+                return .failure(NetError.missingAccessToken)
             default:
-                print("unexpected status code")
-                return ""
+                return .failure(NetError.unexpectedStatusCode(v.statusCode))
             }
         case let .failure(e):
-            print("could not authenticate user: '\(e)'")
-            return ""
+            print(e)
+            return .failure(NetError.serverError("user authentication failed with error '\(e)'"))
         }
     }
 
@@ -48,13 +51,20 @@ struct CredentialsView: View {
                 }.onTapGesture(perform: {
                     apiClient.makeRequest(buildRequest(self.usr)(self.pwd)) {
                         response in
-                        accessToken = getResult(response)
-                        print(accessToken)
+                        switch getResult(response) {
+                        case .success(let token):
+                            self.accessToken = token
+                        case .failure(let error):
+                            self.currentError = error
+                        }
                     }
                 })
             }.onAppear(perform: {
                 UserDefaults.standard.set(facultyId, forKey: "facultyId")
             }).navigationTitle("type your credentials")
+            if let error = currentError {
+                Text("\(error)" as String)
+            }
         }
     }
 }

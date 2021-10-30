@@ -5,23 +5,22 @@ struct FacultiesView: View {
     let apiClient = APIClient(baseURL: "https://unipi-api.herokuapp.com")
         
     @State var data: [(String, String)] = []
+    @State var currentError: Error?
 
-    let getResult: (APIResponse<API.PathsOp.Response>) -> [(String, String)] = {
+    let getResult: (APIResponse<API.PathsOp.Response>) -> Result<[(String, String)], Error> = {
         response in
         switch response.result {
         case let .success(v):
             switch v {
             case let .status200(paths):
-                return paths.reduce([], { $0 + [($1.key, $1.value)] }).sorted {
+                return .success(paths.reduce([], { $0 + [($1.key, $1.value)] }).sorted {
                     $0.1 < $1.1
-                }
+                })
             default:
-                print("unexpected status code")
-                return []
+                return .failure(NetError.unexpectedStatusCode(v.statusCode))
             }
         case let .failure(e):
-            print("retrieving paths failed with error '\(e)'")
-            return []
+            return .failure(NetError.serverError("retrieving paths failed with error '\(e)'"))
         }
     }
 
@@ -34,8 +33,16 @@ struct FacultiesView: View {
                 .contentShape(Rectangle())
             }.onAppear(perform: { apiClient.makeRequest(API.PathsOp.Request()) {
                 response in
-                data = getResult(response)
+                switch getResult(response) {
+                case .success(let data):
+                    self.data = data
+                case .failure(let error):
+                    self.currentError = error
+                }
             }}).navigationTitle("choose your faculty")
+            if let error = currentError {
+                Text("\(error)" as String)
+            }
         }
     }
 }

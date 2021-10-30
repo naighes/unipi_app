@@ -47,6 +47,9 @@ export const authDoc: OpenAPIV3.PathsObject = {
               }]
             }
           }
+        },
+        401: {
+          '$ref': '#/components/responses/UnauthorizedError'
         }
       }
     }
