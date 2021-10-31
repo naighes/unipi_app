@@ -44,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2BC037B7272E9A3D00B0150D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36D29B6D272D3690001D7698 /* NetError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetError.swift; sourceTree = "<group>"; };
 		36DA535D272AD9EB00FE2CD4 /* CredentialsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsView.swift; sourceTree = "<group>"; };
 		B6C82B37272A960A009CB8CA /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
@@ -95,11 +96,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2BC037B6272E9A3D00B0150D /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				2BC037B7272E9A3D00B0150D /* Info.plist */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
 		B6C82B30272A9609009CB8CA = {
 			isa = PBXGroup;
 			children = (
 				B6C840F8272AA54A0064AB1E /* Packages */,
 				B6C82B35272A960A009CB8CA /* Shared */,
+				2BC037B6272E9A3D00B0150D /* iOS */,
 				B6C82B47272A960D009CB8CA /* macOS */,
 				B6C82B50272A960D009CB8CA /* Tests iOS */,
 				B6C82B5C272A960D009CB8CA /* Tests macOS */,
@@ -509,6 +519,7 @@
 				DEVELOPMENT_TEAM = 8Q4X2Y769J;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/iOS/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -539,6 +550,7 @@
 				DEVELOPMENT_TEAM = 8Q4X2Y769J;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/iOS/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
