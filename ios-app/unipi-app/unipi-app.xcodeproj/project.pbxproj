@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2BC037F5272E9D0D00B0150D /* API in Frameworks */ = {isa = PBXBuildFile; productRef = 2BC037F4272E9D0D00B0150D /* API */; };
 		2BC037F8272EA6A600B0150D /* AlertData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC037F7272EA6A600B0150D /* AlertData.swift */; };
+		2BC037F9272EA71C00B0150D /* AlertData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC037F7272EA6A600B0150D /* AlertData.swift */; };
 		36D29B6E272D3690001D7698 /* NetError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D29B6D272D3690001D7698 /* NetError.swift */; };
 		36D29B6F272D3690001D7698 /* NetError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D29B6D272D3690001D7698 /* NetError.swift */; };
 		36DA535E272AD9EB00FE2CD4 /* CredentialsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36DA535D272AD9EB00FE2CD4 /* CredentialsView.swift */; };
@@ -379,6 +380,7 @@
 				36DA535F272AD9EB00FE2CD4 /* CredentialsView.swift in Sources */,
 				36D29B6F272D3690001D7698 /* NetError.swift in Sources */,
 				B6C82B62272A960D009CB8CA /* unipi_app.xcdatamodeld in Sources */,
+				2BC037F9272EA71C00B0150D /* AlertData.swift in Sources */,
 				B6C82B64272A960D009CB8CA /* unipi_appApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
