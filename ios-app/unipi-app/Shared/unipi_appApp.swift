@@ -2,7 +2,6 @@ import SwiftUI
 
 @main
 struct unipi_appApp: App {
-    @State private var currentView: String = "CredentialsView"
     var body: some Scene {
         WindowGroup {
             buildView()

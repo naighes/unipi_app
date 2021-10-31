@@ -5,6 +5,7 @@ struct CredentialsView: View {
     let facultyId: String
 
     let apiClient = APIClient(baseURL: "https://unipi-api.herokuapp.com")
+    let keychain = Keychain()
 
     @State private var usr: String = ""
     @State private var pwd: String = ""
@@ -52,7 +53,7 @@ struct CredentialsView: View {
                         response in
                         switch getResult(response) {
                         case .success(let token):
-                            self.accessToken = token
+                            self.keychain.accessToken = token
                         case .failure(let error):
                             self.errorData = .init(id: error.toString,
                                                       title: "Error",
