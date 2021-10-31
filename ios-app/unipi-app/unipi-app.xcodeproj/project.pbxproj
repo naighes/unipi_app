@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2BC037F5272E9D0D00B0150D /* API in Frameworks */ = {isa = PBXBuildFile; productRef = 2BC037F4272E9D0D00B0150D /* API */; };
 		36D29B6E272D3690001D7698 /* NetError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D29B6D272D3690001D7698 /* NetError.swift */; };
 		36D29B6F272D3690001D7698 /* NetError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D29B6D272D3690001D7698 /* NetError.swift */; };
 		36DA535E272AD9EB00FE2CD4 /* CredentialsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36DA535D272AD9EB00FE2CD4 /* CredentialsView.swift */; };
@@ -45,6 +46,7 @@
 
 /* Begin PBXFileReference section */
 		2BC037B7272E9A3D00B0150D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2BC037F3272E9CBC00B0150D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36D29B6D272D3690001D7698 /* NetError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetError.swift; sourceTree = "<group>"; };
 		36DA535D272AD9EB00FE2CD4 /* CredentialsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsView.swift; sourceTree = "<group>"; };
 		B6C82B37272A960A009CB8CA /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BC037F5272E9D0D00B0150D /* API in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,6 +148,7 @@
 		B6C82B47272A960D009CB8CA /* macOS */ = {
 			isa = PBXGroup;
 			children = (
+				2BC037F3272E9CBC00B0150D /* Info.plist */,
 				B6C82B48272A960D009CB8CA /* macOS.entitlements */,
 			);
 			path = macOS;
@@ -219,6 +223,9 @@
 			dependencies = (
 			);
 			name = "unipi-app (macOS)";
+			packageProductDependencies = (
+				2BC037F4272E9D0D00B0150D /* API */,
+			);
 			productName = "unipi-app (macOS)";
 			productReference = B6C82B46272A960D009CB8CA /* unipi-app.app */;
 			productType = "com.apple.product-type.application";
@@ -516,7 +523,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8Q4X2Y769J;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/iOS/Info.plist";
@@ -547,7 +554,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8Q4X2Y769J;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/iOS/Info.plist";
@@ -581,10 +588,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8Q4X2Y769J;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/macOS/Info.plist";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -609,10 +617,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8Q4X2Y769J;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "$(SRCROOT)/macOS/Info.plist";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -780,6 +789,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2BC037F4272E9D0D00B0150D /* API */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = API;
+		};
 		B6C840FB272AA5F20064AB1E /* API */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = API;
