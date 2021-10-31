@@ -10,9 +10,9 @@ struct CredentialsView: View {
     @State private var pwd: String = ""
 
     @State var accessToken: String = ""
-    @State var currentError: Error?
+    @State var errorData: AlertData?
 
-    let getResult: (APIResponse<API.AuthOp.Response>) -> Result<String, Error> = {
+    let getResult: (APIResponse<API.AuthOp.Response>) -> Result<String, NetError> = {
         response in
         switch response.result {
         case let .success(v):
@@ -54,16 +54,20 @@ struct CredentialsView: View {
                         case .success(let token):
                             self.accessToken = token
                         case .failure(let error):
-                            self.currentError = error
+                            self.errorData = .init(id: error.toString,
+                                                      title: "Error",
+                                                      message: error.toString)
                         }
                     }
                 })
-            }.onAppear(perform: {
+            }.alert(item: $errorData, content: { data in
+                Alert(title: .init(data.title),
+                      message: .init(data.message),
+                      dismissButton: .default(.init("Ok")))
+            })
+            .onAppear(perform: {
                 UserDefaults.standard.set(facultyId, forKey: "facultyId")
             }).navigationTitle("type your credentials")
-            if let error = currentError {
-                Text("\(error)" as String) // TODO: this text is not displayed :-/
-            }
         }
     }
 }

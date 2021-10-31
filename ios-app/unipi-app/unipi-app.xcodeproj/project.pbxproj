@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2BC037F5272E9D0D00B0150D /* API in Frameworks */ = {isa = PBXBuildFile; productRef = 2BC037F4272E9D0D00B0150D /* API */; };
+		2BC037F8272EA6A600B0150D /* AlertData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC037F7272EA6A600B0150D /* AlertData.swift */; };
 		36D29B6E272D3690001D7698 /* NetError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D29B6D272D3690001D7698 /* NetError.swift */; };
 		36D29B6F272D3690001D7698 /* NetError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D29B6D272D3690001D7698 /* NetError.swift */; };
 		36DA535E272AD9EB00FE2CD4 /* CredentialsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36DA535D272AD9EB00FE2CD4 /* CredentialsView.swift */; };
@@ -47,6 +48,7 @@
 /* Begin PBXFileReference section */
 		2BC037B7272E9A3D00B0150D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BC037F3272E9CBC00B0150D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2BC037F7272EA6A600B0150D /* AlertData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertData.swift; sourceTree = "<group>"; };
 		36D29B6D272D3690001D7698 /* NetError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetError.swift; sourceTree = "<group>"; };
 		36DA535D272AD9EB00FE2CD4 /* CredentialsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsView.swift; sourceTree = "<group>"; };
 		B6C82B37272A960A009CB8CA /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
@@ -107,6 +109,14 @@
 			path = iOS;
 			sourceTree = "<group>";
 		};
+		2BC037F6272EA69A00B0150D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				2BC037F7272EA6A600B0150D /* AlertData.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		B6C82B30272A9609009CB8CA = {
 			isa = PBXGroup;
 			children = (
@@ -124,6 +134,7 @@
 		B6C82B35272A960A009CB8CA /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				2BC037F6272EA69A00B0150D /* Utils */,
 				36D29B6D272D3690001D7698 /* NetError.swift */,
 				B6C82B38272A960A009CB8CA /* unipi_appApp.swift */,
 				B6C82B7A272A9A22009CB8CA /* FacultiesView.swift */,
@@ -355,6 +366,7 @@
 				36DA535E272AD9EB00FE2CD4 /* CredentialsView.swift in Sources */,
 				36D29B6E272D3690001D7698 /* NetError.swift in Sources */,
 				B6C82B61272A960D009CB8CA /* unipi_app.xcdatamodeld in Sources */,
+				2BC037F8272EA6A600B0150D /* AlertData.swift in Sources */,
 				B6C82B63272A960D009CB8CA /* unipi_appApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
