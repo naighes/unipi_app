@@ -7,7 +7,7 @@ public enum NetError: Error {
 }
 
 extension NetError {
-    var toString: String {
+    var stringValue: String {
         switch self {
         case .serverError(let message):
             return message
