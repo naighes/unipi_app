@@ -26,8 +26,16 @@
 		2BC037F5272E9D0D00B0150D /* API in Frameworks */ = {isa = PBXBuildFile; productRef = 2BC037F4272E9D0D00B0150D /* API */; };
 		2BC037F8272EA6A600B0150D /* AlertData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC037F7272EA6A600B0150D /* AlertData.swift */; };
 		2BC037F9272EA71C00B0150D /* AlertData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC037F7272EA6A600B0150D /* AlertData.swift */; };
+		36BF61FC2732A2B5008A4B8E /* CareersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BF61FB2732A2B5008A4B8E /* CareersView.swift */; };
+		36BF61FD2732A2B5008A4B8E /* CareersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BF61FB2732A2B5008A4B8E /* CareersView.swift */; };
+		36BF62032732A3FA008A4B8E /* CareersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BF62022732A3FA008A4B8E /* CareersViewModel.swift */; };
+		36BF62042732A3FA008A4B8E /* CareersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BF62022732A3FA008A4B8E /* CareersViewModel.swift */; };
+		36BF620A2732A5EC008A4B8E /* BearerTokenRequestBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BF62092732A5EC008A4B8E /* BearerTokenRequestBehaviour.swift */; };
+		36BF620B2732A5EC008A4B8E /* BearerTokenRequestBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BF62092732A5EC008A4B8E /* BearerTokenRequestBehaviour.swift */; };
 		36D29B6E272D3690001D7698 /* NetError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D29B6D272D3690001D7698 /* NetError.swift */; };
 		36D29B6F272D3690001D7698 /* NetError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D29B6D272D3690001D7698 /* NetError.swift */; };
+		36D902CE2732DFBD00E1E16B /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D902CD2732DFBD00E1E16B /* LoginRequest.swift */; };
+		36D902CF2732DFBD00E1E16B /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D902CD2732DFBD00E1E16B /* LoginRequest.swift */; };
 		36DA535E272AD9EB00FE2CD4 /* CredentialsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36DA535D272AD9EB00FE2CD4 /* CredentialsView.swift */; };
 		36DA535F272AD9EB00FE2CD4 /* CredentialsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36DA535D272AD9EB00FE2CD4 /* CredentialsView.swift */; };
 		B6C82B52272A960D009CB8CA /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B51272A960D009CB8CA /* Tests_iOS.swift */; };
@@ -73,7 +81,11 @@
 		2BC037B7272E9A3D00B0150D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BC037F3272E9CBC00B0150D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BC037F7272EA6A600B0150D /* AlertData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertData.swift; sourceTree = "<group>"; };
+		36BF61FB2732A2B5008A4B8E /* CareersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareersView.swift; sourceTree = "<group>"; };
+		36BF62022732A3FA008A4B8E /* CareersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareersViewModel.swift; sourceTree = "<group>"; };
+		36BF62092732A5EC008A4B8E /* BearerTokenRequestBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BearerTokenRequestBehaviour.swift; sourceTree = "<group>"; };
 		36D29B6D272D3690001D7698 /* NetError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetError.swift; sourceTree = "<group>"; };
+		36D902CD2732DFBD00E1E16B /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		36DA535D272AD9EB00FE2CD4 /* CredentialsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsView.swift; sourceTree = "<group>"; };
 		B6C82B37272A960A009CB8CA /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		B6C82B38272A960A009CB8CA /* unipi_appApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = unipi_appApp.swift; sourceTree = "<group>"; };
@@ -130,6 +142,7 @@
 		2B5E5317272EC082008E48E1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				36BF61FA2732A295008A4B8E /* Careers */,
 				2B780A092731C1F200E3FC86 /* Courses */,
 				2B780A052731C1D700E3FC86 /* Account */,
 				2B780A012731AABA00E3FC86 /* Main View */,
@@ -208,6 +221,24 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		36BF61FA2732A295008A4B8E /* Careers */ = {
+			isa = PBXGroup;
+			children = (
+				36BF61FB2732A2B5008A4B8E /* CareersView.swift */,
+				36BF62022732A3FA008A4B8E /* CareersViewModel.swift */,
+			);
+			path = Careers;
+			sourceTree = "<group>";
+		};
+		36D902CC2732DF9E00E1E16B /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				36BF62092732A5EC008A4B8E /* BearerTokenRequestBehaviour.swift */,
+				36D902CD2732DFBD00E1E16B /* LoginRequest.swift */,
+			);
+			path = Security;
+			sourceTree = "<group>";
+		};
 		B6C82B30272A9609009CB8CA = {
 			isa = PBXGroup;
 			children = (
@@ -225,6 +256,7 @@
 		B6C82B35272A960A009CB8CA /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				36D902CC2732DF9E00E1E16B /* Security */,
 				B6C82B38272A960A009CB8CA /* unipi_appApp.swift */,
 				2B5E5317272EC082008E48E1 /* Views */,
 				2BC037F6272EA69A00B0150D /* Utils */,
@@ -456,14 +488,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36BF61FC2732A2B5008A4B8E /* CareersView.swift in Sources */,
+				36D902CE2732DFBD00E1E16B /* LoginRequest.swift in Sources */,
 				2B780A072731C1E800E3FC86 /* AccountView.swift in Sources */,
 				2B5E532D273002BA008E48E1 /* Error+stringValue.swift in Sources */,
 				2B5E5319272EC119008E48E1 /* KeychainData.swift in Sources */,
+				36BF620A2732A5EC008A4B8E /* BearerTokenRequestBehaviour.swift in Sources */,
 				B6C82B7B272A9A22009CB8CA /* FacultiesView.swift in Sources */,
 				36DA535E272AD9EB00FE2CD4 /* CredentialsView.swift in Sources */,
 				2B780A0B2731C20D00E3FC86 /* CoursesView.swift in Sources */,
 				36D29B6E272D3690001D7698 /* NetError.swift in Sources */,
 				B6C82B61272A960D009CB8CA /* unipi_app.xcdatamodeld in Sources */,
+				36BF62032732A3FA008A4B8E /* CareersViewModel.swift in Sources */,
 				2BC037F8272EA6A600B0150D /* AlertData.swift in Sources */,
 				2B780A032731AACF00E3FC86 /* MainView.swift in Sources */,
 				B6C82B63272A960D009CB8CA /* unipi_appApp.swift in Sources */,
@@ -476,14 +512,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36BF61FD2732A2B5008A4B8E /* CareersView.swift in Sources */,
+				36D902CF2732DFBD00E1E16B /* LoginRequest.swift in Sources */,
 				2B780A082731C1E800E3FC86 /* AccountView.swift in Sources */,
 				2B5E532E273002BA008E48E1 /* Error+stringValue.swift in Sources */,
 				2B5E531A272EC119008E48E1 /* KeychainData.swift in Sources */,
+				36BF620B2732A5EC008A4B8E /* BearerTokenRequestBehaviour.swift in Sources */,
 				B6C82B7C272A9A22009CB8CA /* FacultiesView.swift in Sources */,
 				36DA535F272AD9EB00FE2CD4 /* CredentialsView.swift in Sources */,
 				2B780A0C2731C20D00E3FC86 /* CoursesView.swift in Sources */,
 				36D29B6F272D3690001D7698 /* NetError.swift in Sources */,
 				B6C82B62272A960D009CB8CA /* unipi_app.xcdatamodeld in Sources */,
+				36BF62042732A3FA008A4B8E /* CareersViewModel.swift in Sources */,
 				2BC037F9272EA71C00B0150D /* AlertData.swift in Sources */,
 				2B780A042731AACF00E3FC86 /* MainView.swift in Sources */,
 				B6C82B64272A960D009CB8CA /* unipi_appApp.swift in Sources */,
@@ -647,7 +687,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "$(SRCROOT)/iOS/Info.plist";
+				"INFOPLIST_FILE[sdk=*]" = Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

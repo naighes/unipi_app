@@ -7,6 +7,8 @@ import * as TE from 'fp-ts/lib/TaskEither'
 import EX from 'express'
 import moment from 'moment'
 
+type Fetch = (req: HTTPRequest) => Promise<HTTPResponse>
+
 interface StringPairDictionary {
     [key: string]: string
 }
@@ -65,7 +67,7 @@ const ensureOk = (d: HTTPResponse): TE.TaskEither<Error, HTTPResponse> => TE.fro
 const printLog = (options: RequestOptions, res: IncomingMessage, buffer: Buffer | undefined) =>
     `${options.hostname || "-"} - - ${moment().format("DD/MMM/YYYY:hh:mm")} "${options.method || "-"}  ${options.path || "-"}" ${res.statusCode || '-'} ${buffer?.length || "-"}`
 
-const fetch = (req: HTTPRequest): Promise<HTTPResponse> => {
+const fetch: Fetch = (req: HTTPRequest): Promise<HTTPResponse> => {
     const options = makeOptions(req)
     return new Promise((resolve, reject) => {
         const r = https.request(options, res => {
@@ -103,13 +105,13 @@ const fetch = (req: HTTPRequest): Promise<HTTPResponse> => {
     })
 }
 
-const followRedirect = (req: HTTPRequest): Promise<HTTPResponse> => fetch(req).then(res => {
+const followRedirect = (f: Fetch) => (req: HTTPRequest): Promise<HTTPResponse> => f(req).then(res => {
     const reqHeaders = req.headers || {}
     const resHeaders = res.headers || {}
     const cookie = mergedCookie(reqHeaders, resHeaders)
     if (resHeaders.location && res.statusCode === 302) {
         const q = url.parse(resHeaders.location)
-        return followRedirect({
+        return followRedirect(f)({
             host: q.host || `${res.request.host}`,
             path: q.pathname || "",
             query: q.query || "",
@@ -148,7 +150,12 @@ const handleError = (res: EX.Response) => (e: Error): EX.Response => {
         case "not_found":
             return res.status(404).send()
         case "token_error":
-            return res.status(400).send()
+            return res.set({
+                'WWW-Authenticate': 'Bearer error="invalid_token", error_description="invalid_token"'
+              }).status(401).json({
+                name: "invalid_token",
+                message: "invalid_token"
+            })
         // case "form_action_expected":
         // case "net_error":        
         // case "authentication_error":
@@ -168,5 +175,6 @@ export {
     HTTPResponse,
     StringPairDictionary,
     ensureOk,
-    handleError
+    handleError,
+    Fetch
 }

@@ -1,7 +1,7 @@
 import EX from 'express'
-import { Career } from "../net/careers"
+import { CareerList } from "../net/careers"
 
-const mapCareers = (careers: Array<Career>): string => careers.map(c => {
+const mapCareers = (careers: CareerList): string => (careers.entries || []).map(c => {
     return `<tr>
     <td>${c.registrationNumber}</td>
     <td>${c.careerId}</td>
@@ -12,7 +12,7 @@ const mapCareers = (careers: Array<Career>): string => careers.map(c => {
     }).join("\n")
 
 
-const map = (careers: Array<Career>): string => `<!DOCTYPE html>
+const map = (careers: CareerList): string => `<!DOCTYPE html>
 <html>
 <head>
     <title>careers</title>
@@ -36,7 +36,7 @@ const map = (careers: Array<Career>): string => `<!DOCTYPE html>
 </body>
 </html>`
 
-export const format = (c: Array<Career>) => (res: EX.Response): EX.Response => {
+export const format = (c: CareerList) => (res: EX.Response): EX.Response => {
     return res.format({
         'application/json': () => res.status(200).json(c),
         'text/html': () => res.status(200).send(map(c)),

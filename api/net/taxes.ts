@@ -1,4 +1,4 @@
-import { formatCookie, userAgent, StringPairDictionary, HTTPRequest, followRedirect, ensureOk } from "./index"
+import { formatCookie, userAgent, StringPairDictionary, HTTPRequest, followRedirect, ensureOk, Fetch } from "./index"
 import { fetchCareer } from "./careers"
 import { parse as parseHTML } from 'node-html-parser'
 import moment from 'moment'
@@ -83,10 +83,10 @@ const map = (body: string): TaxEntryList => ({
         })
     })
 
-const fetchTaxes = (cookie: StringPairDictionary) => (id: number): TE.TaskEither<Error, TaxEntryList> => pipe(
-    fetchCareer(cookie)(id),
+const fetchTaxes = (f: Fetch) => (cookie: StringPairDictionary) => (id: number): TE.TaskEither<Error, TaxEntryList> => pipe(
+    fetchCareer(f)(cookie)(id),
     TE.chain(_ => TE.tryCatch(
-        () => followRedirect(taxesReq(cookie)),
+        () => followRedirect(f)(taxesReq(cookie)),
         error => ({ name: "net_error", message: `${error}` }))
     ),
     TE.chain(ensureOk),

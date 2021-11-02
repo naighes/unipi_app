@@ -2,9 +2,9 @@ import EX from 'express'
 import * as T from 'fp-ts/lib/Task'
 import * as TE from 'fp-ts/lib/TaskEither'
 import * as E from 'fp-ts/lib/Either'
-import { handleError } from "../net"
+import { Fetch, handleError } from "../net"
 import { extractToken } from "../net/auth"
-import { fetchPlan, PlanGroup } from "../net/plan"
+import { fetchPlan, PlanGroupList } from "../net/plan"
 import { getSecret } from "../utils/config"
 import { pipe } from 'fp-ts/function'
 import { format } from "../views/plan.view"
@@ -16,10 +16,10 @@ const parseCareerId = (r: EX.Request): E.Either<Error, number> => {
         : E.right(n)
 }
 
-export const planOp = async (req: EX.Request, res: EX.Response): Promise<EX.Response> =>
+export const planOp = (f: Fetch) => async (req: EX.Request, res: EX.Response): Promise<EX.Response> =>
     await TE.fold(
         (e: Error) => T.of(handleError(res)(e)),
-        (c: Array<PlanGroup>) => T.of(format(c)(res))
+        (c: PlanGroupList) => T.of(format(c)(res))
     )
     (
         pipe(
@@ -29,6 +29,6 @@ export const planOp = async (req: EX.Request, res: EX.Response): Promise<EX.Resp
                 E.map(token => ({ id: id, token: token})))
             ),
             TE.fromEither,
-            TE.chain(r => fetchPlan(r.token.cookie || {})(r.id))
+            TE.chain(r => fetchPlan(f)(r.token.cookie || {})(r.id))
         )
     )()

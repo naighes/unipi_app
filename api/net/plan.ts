@@ -1,4 +1,4 @@
-import { formatCookie, userAgent, StringPairDictionary, HTTPRequest, followRedirect, ensureOk } from "./index"
+import { formatCookie, userAgent, StringPairDictionary, HTTPRequest, followRedirect, ensureOk, Fetch } from "./index"
 import { fetchCareer } from "./careers"
 import { parse as parseHTML } from 'node-html-parser'
 import { pipe } from 'fp-ts/function'
@@ -25,9 +25,13 @@ enum PlanEntryStatus {
     Unknow
 }
 
+type PlanGroupList = {
+    entries: Array<PlanGroup>
+}
+
 type PlanGroup = {
     name: string | undefined
-    entries: Array<PlanEntry>
+    planEntries: Array<PlanEntry>
 }
 
 type PlanEntry = {
@@ -53,7 +57,7 @@ const parseStatus = (s: string): PlanEntryStatus => {
 const eqsa = ensureQuerySelectorAll('plan')
 const egebtn = ensureGetElementsByTagName('plan')
 
-const map = (body: string): Array<PlanGroup> => {
+const map = (body: string): PlanGroupList => {
     const doc = parseHTML(body)
     const titles = eqsa(doc)("td.tplTitolo").map(x => x.text)
     const tables = eqsa(doc)("table.detail_table").map(x =>
@@ -67,13 +71,13 @@ const map = (body: string): Array<PlanGroup> => {
             }
         })
     )
-    return titles.map((x, i) => ({ name: x, entries: tables[i] }))
+    return { entries: titles.map((x, i) => ({ name: x, planEntries: tables[i] })) }
 }
 
-const fetchPlan = (cookie: StringPairDictionary) => (id: number): TE.TaskEither<Error, Array<PlanGroup>> => pipe(
-    fetchCareer(cookie)(id),
+const fetchPlan = (f: Fetch) => (cookie: StringPairDictionary) => (id: number): TE.TaskEither<Error, PlanGroupList> => pipe(
+    fetchCareer(f)(cookie)(id),
     TE.chain(_ => TE.tryCatch(
-        () => followRedirect(planReq(cookie)),
+        () => followRedirect(f)(planReq(cookie)),
         error => ({ name: "net_error", message: `${error}` }))
     ),
     TE.chain(ensureOk),
@@ -81,4 +85,4 @@ const fetchPlan = (cookie: StringPairDictionary) => (id: number): TE.TaskEither<
     TE.map(x => map(x.body))
 )
 
-export { fetchPlan, PlanGroup, PlanEntry, PlanEntryStatus }
+export { fetchPlan, PlanGroupList, PlanGroup, PlanEntry, PlanEntryStatus }

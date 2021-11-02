@@ -20,31 +20,38 @@ export const careersDoc: OpenAPIV3.PathsObject = {
           content: {
             'application/json': {
               schema: {
-                type: 'array',
-                items: {
-                  type: 'object',
-                  properties: {
-                    registrationNumber: { type: 'string', nullable: true },
-                    type: { type: 'string', nullable: true },
-                    name: { type: 'string', nullable: true },
-                    active: { type: 'boolean', nullable: true },
-                    careerId: { type: 'integer', nullable: true }
+                type: 'object',
+                properties: {
+                  entries: {
+                    type: 'array',
+                    items: {
+                      type: 'object',
+                      properties: {
+                        registrationNumber: { type: 'integer', nullable: true },
+                        type: { type: 'string', nullable: true },
+                        name: { type: 'string', nullable: true },
+                        active: { type: 'boolean', nullable: true },
+                        careerId: { type: 'integer', nullable: true }
+                      }
+                    }
                   }
                 }
               },
-              example: [{
-                  "registrationNumber": "777777",
+              example: {
+                entries: [{
+                  "registrationNumber": 777777,
                   "type": "Diploma Universitario",
                   "name": "INGEGNERIA LOGISTICA E DELLA PRODUZIONE",
                   "active": false,
                   "careerId": 9999999
                 }, {
-                  "registrationNumber": "11111111",
+                  "registrationNumber": 11111111,
                   "type": "Corso di Laurea",
                   "name": "INFORMATICA",
                   "active": true,
                   "careerId": 8888888
                 }]
+              }
             }
           }
         }

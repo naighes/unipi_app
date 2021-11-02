@@ -1,7 +1,7 @@
 import url from 'url'
 import querystring from 'querystring'
 import { parse as parseHTML } from 'node-html-parser'
-import { followRedirect, formatCookie, userAgent, HTTPRequest, HTTPResponse, StringPairDictionary, ensureOk } from "./index"
+import { followRedirect, formatCookie, userAgent, HTTPRequest, HTTPResponse, StringPairDictionary, ensureOk, Fetch } from "./index"
 import { either as E } from "fp-ts"
 import { pipe } from 'fp-ts/function'
 import * as TE from 'fp-ts/lib/TaskEither'
@@ -45,7 +45,7 @@ const isAuthError = (s: string): boolean =>
                      p.text.toUpperCase().indexOf("ERROR") >= 0 ||
                      p.text.toUpperCase().indexOf("WRONG") >= 0).length > 0
 
-const f1 = (res: HTTPResponse): TE.TaskEither<Error, HTTPResponse> => {
+const f1 = (f: Fetch) => (res: HTTPResponse): TE.TaskEither<Error, HTTPResponse> => {
     const data = querystring.stringify({
         "shib_idp_ls_exception.shib_idp_session_ss": "",
         "shib_idp_ls_success.shib_idp_session_ss": "false",
@@ -76,14 +76,14 @@ const f1 = (res: HTTPResponse): TE.TaskEither<Error, HTTPResponse> => {
         })),
         TE.fromEither,
         TE.chain(request => TE.tryCatch(
-            () => followRedirect(request),
+            () => followRedirect(f)(request),
             error => ({ name: "net_error", message: `${error}` }))
         ),
         TE.chain(ensureOk)
     )
 }
 
-const f2 = (usr: string) => (pwd: string) => (res: HTTPResponse): TE.TaskEither<Error, HTTPResponse> => {
+const f2 = (f: Fetch) => (usr: string) => (pwd: string) => (res: HTTPResponse): TE.TaskEither<Error, HTTPResponse> => {
     const data = querystring.stringify({
         "j_username": usr,
         "j_password": pwd,
@@ -110,14 +110,14 @@ const f2 = (usr: string) => (pwd: string) => (res: HTTPResponse): TE.TaskEither<
         })),
         TE.fromEither,
         TE.chain(request => TE.tryCatch(
-            () => followRedirect(request),
+            () => followRedirect(f)(request),
             error => ({ name: "net_error", message: `${error}` }))
         ),
         TE.chain(ensureOk)
     )
 }
 
-const f3 = (res: HTTPResponse): TE.TaskEither<Error, HTTPResponse> => {
+const f3 = (f: Fetch) => (res: HTTPResponse): TE.TaskEither<Error, HTTPResponse> => {
     const data = querystring.stringify(parseSAMLFields(res.body))
     return pipe(
         res,
@@ -139,24 +139,25 @@ const f3 = (res: HTTPResponse): TE.TaskEither<Error, HTTPResponse> => {
         })),
         TE.fromEither,
         TE.chain(request => TE.tryCatch(
-            () => followRedirect(request),
+            () => followRedirect(f)(request),
             error => ({ name: "net_error", message: `${error}` }))
         ),
         TE.chain(ensureOk)
     )
 }
 
-const fetchAuthReq = (usr: string, pwd: string): TE.TaskEither<Error, StringPairDictionary> => pipe(
+const fetchAuthReq = (f: Fetch) => (usr: string, pwd: string): TE.TaskEither<Error, StringPairDictionary> => pipe(
     TE.tryCatch(
-        () => followRedirect(authReq()),
-        (reason) => new Error(`${reason}`)
+        () => followRedirect(f)(authReq()),
+        (error) => ({ name: "net_error", message: `${error}` })
     ),
-    TE.chain(f1),
-    TE.chain(f2(usr)(pwd)),
+    TE.chain(ensureOk),
+    TE.chain(f1(f)),
+    TE.chain(f2(f)(usr)(pwd)),
     TE.chain(d => TE.fromEither(isAuthError(d.body)
         ? E.left({ name: "wrong_credentials", message: "wrong credentials" })
         : E.right(d))),
-    TE.chain(f3),
+    TE.chain(f3(f)),
     TE.map(x => x.cookie || {}),
     TE.chain(d => TE.fromEither(Object.keys(d).length < 2
         ? E.left({ name: "authentication_error", message: "authentication error" })

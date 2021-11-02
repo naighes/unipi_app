@@ -1,5 +1,5 @@
 import EX from 'express'
-import { PlanEntry, PlanGroup } from "../net/plan"
+import { PlanEntry, PlanGroupList } from "../net/plan"
 
 const mapEntries = (entries: Array<PlanEntry>): string => entries.map(r => `<tr>
     <td>${r.code}</td>
@@ -7,7 +7,7 @@ const mapEntries = (entries: Array<PlanEntry>): string => entries.map(r => `<tr>
     <td>${r.weight || "-"}</td>
 </tr>`).join("\n")
 
-const mapGroups = (groups: Array<PlanGroup>): string => groups.map(g => `
+const mapGroups = (groups: PlanGroupList): string => (groups.entries || []).map(g => `
     <h2>${g.name}</h2>
     <table>
         <thead>
@@ -18,11 +18,11 @@ const mapGroups = (groups: Array<PlanGroup>): string => groups.map(g => `
             </tr>
         </thead>
         <tbody>
-            ${mapEntries(g.entries)}
+            ${mapEntries(g.planEntries)}
         </tbody>
     </table>`).join("\n")
 
-const map = (groups: Array<PlanGroup>): string => `<!DOCTYPE html>
+const map = (groups: PlanGroupList): string => `<!DOCTYPE html>
 <html>
 <head>
     <title>plan</title>
@@ -33,7 +33,7 @@ const map = (groups: Array<PlanGroup>): string => `<!DOCTYPE html>
 </body>
 </html>`
 
-export const format = (c: Array<PlanGroup>) => (res: EX.Response): EX.Response => res.format({
+export const format = (c: PlanGroupList) => (res: EX.Response): EX.Response => res.format({
     'application/json': () => res.status(200).json(c),
     'text/html': () => res.status(200).send(map(c)),
     default: () => res.status(406).send()

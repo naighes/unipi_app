@@ -1,6 +1,6 @@
 import * as T from 'fp-ts/lib/Task'
 import * as TE from 'fp-ts/lib/TaskEither'
-import { handleError, StringPairDictionary } from "../net"
+import { Fetch, handleError, StringPairDictionary } from "../net"
 import { fetchAuthReq } from "../net/auth"
 import { getSecret } from "../utils/config"
 import { sign } from 'jsonwebtoken'
@@ -16,7 +16,7 @@ type AuthToken = {
     token_type: string
 }
 
-export const authOp = async (req: EX.Request<{}, {}, AuthBody>, res: EX.Response): Promise<EX.Response> =>
+export const authOp = (f: Fetch) => async (req: EX.Request<{}, {}, AuthBody>, res: EX.Response): Promise<EX.Response> =>
     await TE.fold(
         (e: Error) => T.of(handleError(res)(e)),
         (c: StringPairDictionary) => {
@@ -27,4 +27,4 @@ export const authOp = async (req: EX.Request<{}, {}, AuthBody>, res: EX.Response
             return T.of(res.status(200).json(token))
         }
     )
-    (fetchAuthReq(req.body?.usr || "", req.body?.pwd || ""))()
+    (fetchAuthReq(f)(req.body?.usr || "", req.body?.pwd || ""))()

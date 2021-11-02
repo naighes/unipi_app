@@ -2,7 +2,7 @@ import EX from 'express'
 import * as T from 'fp-ts/lib/Task'
 import * as TE from 'fp-ts/lib/TaskEither'
 import * as E from 'fp-ts/lib/Either'
-import { handleError } from "../net"
+import { Fetch, handleError } from "../net"
 import { extractToken } from "../net/auth"
 import { fetchTaxes, TaxEntryList } from "../net/taxes"
 import { getSecret } from "../utils/config"
@@ -16,7 +16,7 @@ const parseCareerId = (r: EX.Request) => {
         : E.right(n)
 }
 
-export const taxesOp = async (req: EX.Request, res: EX.Response): Promise<EX.Response> =>
+export const taxesOp = (f: Fetch) => async (req: EX.Request, res: EX.Response): Promise<EX.Response> =>
     await TE.fold(
         (e: Error) => T.of(handleError(res)(e)),
         (c: TaxEntryList) => T.of(format(c)(res))
@@ -29,6 +29,6 @@ export const taxesOp = async (req: EX.Request, res: EX.Response): Promise<EX.Res
                 E.map(token => ({ id: id, token: token})))
             ),
             TE.fromEither,
-            TE.chain(r => fetchTaxes(r.token.cookie || {})(r.id))
+            TE.chain(r => fetchTaxes(f)(r.token.cookie || {})(r.id))
         )
     )()

@@ -4,6 +4,7 @@ import { apiDoc } from './docs'
 import { initialize } from 'express-openapi'
 import { config, getSecret } from './utils/config'
 import moment from 'moment'
+import { fetch } from './net'
 
 const app = EX()
 app.use((req: EX.Request, res: EX.Response, next: EX.NextFunction)=> {
@@ -17,13 +18,13 @@ initialize({
     apiDoc: apiDoc,
     app: app,
     operations: {
-        careersOp,
-        bookletOp,
-        taxesOp,
-        planOp,
-        coursesOp,
-        pathsOp,
-        authOp
+        careersOp: careersOp(fetch),
+        bookletOp: bookletOp(fetch),
+        taxesOp: taxesOp(fetch),
+        planOp: planOp(fetch),
+        coursesOp: coursesOp(fetch),
+        pathsOp: pathsOp(fetch),
+        authOp: authOp(fetch)
     },
     promiseMode: true
 })
@@ -36,13 +37,13 @@ const safe = (f: (_req: EX.Request, _res: EX.Response) => Promise<EX.Response>) 
     }
 }
 
-app.get('/:careerId/plan', safe(planOp))
-app.get('/courses/:path/:subject/calendar', safe(coursesOp))
-app.get('/courses', safe(pathsOp))
-app.get('/:careerId/taxes', safe(taxesOp))
-app.get('/:careerId/booklet', safe(bookletOp))
-app.get('/careers', safe(careersOp))
-app.post('/auth', safe(authOp))
+app.get('/:careerId/plan', safe(planOp(fetch)))
+app.get('/courses/:path/:subject/calendar', safe(coursesOp(fetch)))
+app.get('/courses', safe(pathsOp(fetch)))
+app.get('/:careerId/taxes', safe(taxesOp(fetch)))
+app.get('/:careerId/booklet', safe(bookletOp(fetch)))
+app.get('/careers', safe(careersOp(fetch)))
+app.post('/auth', safe(authOp(fetch)))
 
 const errorHandler: EX.ErrorRequestHandler = (err, _, res, _next) => {
     if (err) {

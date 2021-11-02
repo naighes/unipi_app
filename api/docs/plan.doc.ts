@@ -31,29 +31,35 @@ export const planDoc: OpenAPIV3.PathsObject = {
           content: {
             'application/json': {
               schema: {
-                type: 'array',
-                items: {
-                  type: 'object',
-                  properties: {
-                    name: { type: 'string' },
-                    entries: {
-                      type: 'array',
-                      items: {
-                        type: 'object',
-                        properties: {
-                          code: { type: 'string', nullable: true },
-                          name: { type: 'string', nullable: true },
-                          weight: { type: 'integer', nullable: true },
-                          status: { type: 'integer', nullable: true }
+                type: 'object',
+                properties: {
+                  entries: {
+                    type: 'array',
+                    items: {
+                      type: 'object',
+                      properties: {
+                        name: { type: 'string' },
+                        planEntries: {
+                          type: 'array',
+                          items: {
+                            type: 'object',
+                            properties: {
+                              code: { type: 'string', nullable: true },
+                              name: { type: 'string', nullable: true },
+                              weight: { type: 'integer', nullable: true },
+                              status: { type: 'integer', nullable: true }
+                            }
+                          }
                         }
                       }
                     }
                   }
                 }
               },
-              example: [{
+              example: {
+                entries: [{
                   "name": "Attività Didattiche obbligatorie",
-                  "entries": [
+                  "planEntries": [
                     {
                       "code": "INF01",
                       "name": "TEST DI VALUTAZIONE DI INFORMATICA",
@@ -63,7 +69,7 @@ export const planDoc: OpenAPIV3.PathsObject = {
                   ]
                 }, {
                   "name": "Attività Didattiche - Anno di Corso 1",
-                  "entries": [{
+                  "planEntries": [{
                       "code": "723AA",
                       "name": "ALGEBRA LINEARE",
                       "weight": 6,
@@ -75,6 +81,7 @@ export const planDoc: OpenAPIV3.PathsObject = {
                     }]
                   }
                 ]
+              }
             }
           }
         }

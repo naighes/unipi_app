@@ -1,4 +1,4 @@
-import { formatCookie, userAgent, StringPairDictionary, HTTPRequest, followRedirect, ensureOk } from "./index"
+import { formatCookie, userAgent, StringPairDictionary, HTTPRequest, followRedirect, ensureOk, Fetch } from "./index"
 import { parse as parseHTML, HTMLElement } from 'node-html-parser'
 import moment from 'moment'
 import { pipe } from 'fp-ts/function'
@@ -28,6 +28,10 @@ const pathsReq = (): HTTPRequest => ({
     },
     query: ""
 })
+
+type CourseList = {
+    entries: Array<Course>
+}
 
 type Course = {
     academicYear: string | undefined
@@ -88,8 +92,8 @@ const mapCall = (row: HTMLElement): Array<Call> =>
             }
         })
 
-const mapCourses = (body: string): Array<Course> =>
-    eqsa(parseHTML(body))('tr.corso')
+const mapCourses = (body: string): CourseList => ({
+    entries: eqsa(parseHTML(body))('tr.corso')
         .map(row => {
             const calls = mapCall(row)
             row.removeChild(row.firstChild)
@@ -103,6 +107,7 @@ const mapCourses = (body: string): Array<Course> =>
                 calls: calls
             }
         })
+    })
 
 const mapPaths = (body: string): StringPairDictionary => eqsa(parseHTML(body))('#cds')
     .flatMap(x => egebtn(x)("option"))
@@ -111,22 +116,22 @@ const mapPaths = (body: string): StringPairDictionary => eqsa(parseHTML(body))('
         return typeof a === "undefined" ? p : ({ ...p, [a]: c.text })
     }, {})
 
-const fetchCourses = (cookie: StringPairDictionary) => (subject: string) => (path: string): TE.TaskEither<Error, Array<Course>> => pipe(
+const fetchCourses = (f: Fetch) => (cookie: StringPairDictionary) => (subject: string) => (path: string): TE.TaskEither<Error, CourseList> => pipe(
     TE.tryCatch(
-        () => followRedirect(coursesReq(cookie)(subject)(path)),
+        () => followRedirect(f)(coursesReq(cookie)(subject)(path)),
         error => ({ name: "net_error", message: `${error}` })),
     TE.chain(ensureOk),
     TE.chain(ensureSession),
     TE.map(x => mapCourses(x.body))
 )
 
-const fetchPaths = (): TE.TaskEither<Error, StringPairDictionary> => pipe(
+const fetchPaths = (f: Fetch) => (): TE.TaskEither<Error, StringPairDictionary> => pipe(
     TE.tryCatch(
-        () => followRedirect(pathsReq()),
+        () => followRedirect(f)(pathsReq()),
         error => ({ name: "net_error", message: `${error}` })),
     TE.chain(ensureOk),
     TE.chain(ensureSession),
     TE.map(x => mapPaths(x.body))
 )
 
-export { fetchCourses, fetchPaths, Course, Call }
+export { fetchCourses, fetchPaths, CourseList, Course, Call }

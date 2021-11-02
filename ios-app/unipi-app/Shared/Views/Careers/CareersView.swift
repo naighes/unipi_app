@@ -1,34 +1,35 @@
 import SwiftUI
 import API
 
-struct FacultiesView: View {
-    let careerId: Int
-    @ObservedObject var viewModel: FacultiesViewModel = FacultiesViewModel()
-        
-    @State var data: [(String, String)] = []
+struct CareersView: View {
+    @ObservedObject var viewModel: CareersViewModel = CareersViewModel()
+
+    @State var data: API.CareersOp.Response.Status200? = nil
     @State var currentError: AlertData?
     @State var isLoading: Bool = false
-    @State var facultyId: String? = nil
+    @State var careerId: Int? = nil
 
-    let userDefaults = UserDefaults.standard
+    let keychain = Keychain()
+
+    @ViewBuilder
+    func getDestinationView(_ careerId: Int) -> some View {
+        if let facultyId = UserDefaults.standard.string(forKey: String(careerId)) {
+            MainView(careerId: careerId, facultyId: facultyId)
+        }
+        FacultiesView(careerId: careerId)
+    }
 
     var body: some View {
         NavigationView {
-            List(data, id: \.0) { element in
-                Text(element.1)
+            List(data?.entries ?? [], id: \.careerId) { element in
+                Text(element.name ?? "[unknown]")
                     .onTapGesture {
-                        userDefaults.string(forKey: String(careerId))
-                        self.facultyId = element.0
+                        self.careerId = element.careerId
                     }
                     .background(
-                        NavigationLink(
-                            destination: MainView(
-                                careerId: careerId,
-                                facultyId: self.facultyId
-                            ),
-                            tag: element.0,
-                            selection: $facultyId
-                        ) { EmptyView() }
+                        NavigationLink(destination: getDestinationView(element.careerId!), // TODO
+                                       tag: element.careerId!, // TODO
+                                       selection: $careerId) { EmptyView() }
                             .buttonStyle(PlainButtonStyle())
                     )
                     .contentShape(Rectangle())
@@ -40,15 +41,19 @@ struct FacultiesView: View {
                                     dismissButton: .default(Text("ok"))) })
             .onReceive(viewModel.state,
                        perform: { state in updateState(state) })
-            .navigationTitle("choose your faculty")
+            .navigationTitle("choose your career")
             .navigationViewStyle(StackNavigationViewStyle())
         }
-        .onAppear(perform: { viewModel.getFaculties() })
+        .onAppear(perform: {
+            if let token = self.keychain.accessToken {
+                viewModel.getCareers(token: token)
+            }
+        })
     }
 }
 
-private extension FacultiesView {
-    private func updateState(_ state: FacultiesView.ViewState) {
+private extension CareersView {
+    private func updateState(_ state: CareersView.ViewState) {
         switch state {
         case .loading:
             loading()
@@ -56,29 +61,29 @@ private extension FacultiesView {
             content(data: data)
         case let .fail(error: error):
             fail(error: error)
-        case let .facultySelection(facultyId: facultyId, data: data):
-            facultySelection(facultyId: facultyId, data: data)
+        case let .careerSelection(careerId: careerId, data: data):
+            careerSelection(careerId: careerId, data: data)
         }
     }
-    
+
     private func loading() {
         self.isLoading = true
     }
-    
-    private func content(data: [(String, String)]) {
+
+    private func content(data: API.CareersOp.Response.Status200) {
         self.data = data
         self.currentError = nil
         self.isLoading = false
     }
-    
+
     private func fail(error: Error) {
         self.currentError = AlertData(id: error.stringValue,
                                       title: "error",
                                       message: error.stringValue)
         self.isLoading = false
     }
-    
-    private func facultySelection(facultyId: String, data: [(String, String)]) {
+
+    private func careerSelection(careerId: Int, data: API.CareersOp.Response.Status200) {
         self.data = data
         self.isLoading = false
         self.currentError = nil

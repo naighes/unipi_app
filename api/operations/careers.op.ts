@@ -1,22 +1,22 @@
 import EX from 'express'
-import { Career, fetchCareers } from "../net/careers"
+import { CareerList, fetchCareers } from "../net/careers"
 import * as T from 'fp-ts/lib/Task'
 import * as TE from 'fp-ts/lib/TaskEither'
-import { handleError } from "../net"
+import { Fetch, handleError } from "../net"
 import { extractToken } from "../net/auth"
 import { getSecret } from "../utils/config"
 import { pipe } from 'fp-ts/function'
 import { format } from "../views/careers.view"
 
-export const careersOp = async (req: EX.Request, res: EX.Response): Promise<EX.Response> =>
+export const careersOp = (f: Fetch) => async (req: EX.Request, res: EX.Response): Promise<EX.Response> =>
     await TE.fold(
         (e: Error) => T.of(handleError(res)(e)),
-        (c: Array<Career>) => T.of(format(c)(res))
+        (c: CareerList) => T.of(format(c)(res))
     )
     (
         pipe(
             extractToken(req.headers)(getSecret()),
             TE.fromEither,
-            TE.chain(token => fetchCareers(token.cookie || {}))
+            TE.chain(token => fetchCareers(f)(token.cookie || {}))
         )
     )()

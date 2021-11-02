@@ -1,7 +1,7 @@
 import EX from 'express'
 import moment from "moment"
 import { StringPairDictionary } from "../net"
-import { Course, Call } from "../net/courses"
+import { CourseList, Call } from "../net/courses"
 
 const mapCalls = (entries: Array<Call>): string => entries.map(c => `<tr>
 <td>${c.date ? moment(c.date).format('MM/DD/YYYY hh:mm') || "-" : "-"}</td>
@@ -14,7 +14,7 @@ const mapCalls = (entries: Array<Call>): string => entries.map(c => `<tr>
 <td>${c.notes}</td>
 </tr>`).join("\n")
 
-const mapCourse = (courses: Array<Course>): string => courses.map(c => `
+const mapCourse = (courses: CourseList): string => (courses.entries || []).map(c => `
     <h2>${c.code} ${c.subject} ${c.academicYear} (${c.weight} credits)</h2>
     <h3>teacher ${c.teacher}</h3>
     <table>
@@ -36,7 +36,7 @@ const mapCourse = (courses: Array<Course>): string => courses.map(c => `
     </table>`
 ).join("\n")
 
-const mapCourses = (courses: Array<Course>): string => `<!DOCTYPE html>
+const mapCourses = (courses: CourseList): string => `<!DOCTYPE html>
 <html>
 <head>
     <title>courses</title>
@@ -62,7 +62,7 @@ const mapPaths = (paths: StringPairDictionary): string => `<!DOCTYPE html>
 </body>
 </html>`
 
-const formatCourses = (c: Array<Course>) => (res: EX.Response): EX.Response => res.format({
+const formatCourses = (c: CourseList) => (res: EX.Response): EX.Response => res.format({
     'application/json': () => res.status(200).json(c),
     'text/html': () => res.status(200).send(mapCourses(c)),
     default: () => res.status(406).send()

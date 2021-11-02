@@ -1,4 +1,4 @@
-import { userAgent as userAgent, formatCookie, followRedirect, StringPairDictionary, HTTPRequest, ensureOk } from "./index"
+import { userAgent as userAgent, formatCookie, followRedirect, StringPairDictionary, HTTPRequest, ensureOk, Fetch } from "./index"
 import { parse as parseHTML, HTMLElement } from 'node-html-parser'
 import { ensureSession } from "./auth"
 import url from 'url'
@@ -30,8 +30,12 @@ const careerReq = (cookie: StringPairDictionary) => (id: number): HTTPRequest =>
     }
 })
 
+type CareerList = {
+    entries: Array<Career>
+}
+
 type Career = {
-    registrationNumber: string | undefined,
+    registrationNumber: number | undefined,
     type: string,
     name: string,
     active: boolean,
@@ -40,7 +44,7 @@ type Career = {
 
 const egebtn = ensureGetElementsByTagName('careers')
 
-const map = (body: string): Array<Career> => {
+const map = (body: string): CareerList => {
     const studId = (e: HTMLElement) => {
         const hrefs = (e.getElementsByTagName("a") || []).map(x => {
             const query = url.parse(x.getAttribute("href") || "").query || ""
@@ -49,7 +53,8 @@ const map = (body: string): Array<Career> => {
         })
         return hrefs.length !== 0 ? hrefs[0] : undefined
     }
-    return egebtn(parseHTML(body))('table')
+    return {
+        entries: egebtn(parseHTML(body))('table')
         .flatMap(x => egebtn(x)("tbody"))
         .flatMap(x => egebtn(x)("tr"))
         .map(c => {
@@ -67,11 +72,12 @@ const map = (body: string): Array<Career> => {
                 careerId: tdVal(studId)(columns)(4)
             }) as Career
         })
+    }
 }
 
-const fetchCareers = (cookie: StringPairDictionary): TE.TaskEither<Error, Array<Career>> => pipe(
+const fetchCareers = (f: Fetch) => (cookie: StringPairDictionary): TE.TaskEither<Error, CareerList> => pipe(
     TE.tryCatch(
-        () => followRedirect(careersReq(cookie)),
+        () => followRedirect(f)(careersReq(cookie)),
         error => ({ name: "net_error", message: `${error}` })
     ),
     TE.chain(ensureOk),
@@ -79,9 +85,9 @@ const fetchCareers = (cookie: StringPairDictionary): TE.TaskEither<Error, Array<
     TE.map(x => map(x.body))
 )
 
-const fetchCareer = (cookie: StringPairDictionary) => (careerId: number): TE.TaskEither<Error, {[s: string]: number}> => pipe(
+const fetchCareer = (f: Fetch) => (cookie: StringPairDictionary) => (careerId: number): TE.TaskEither<Error, {[s: string]: number}> => pipe(
     TE.tryCatch(
-        () => followRedirect(careerReq(cookie)(careerId)),
+        () => followRedirect(f)(careerReq(cookie)(careerId)),
         error => ({ name: "net_error", message: `${error}` })
     ),
     TE.chain(x => typeof x.statusCode !== "undefined" && x.statusCode >= 400 && x.statusCode < 500
@@ -96,5 +102,6 @@ const fetchCareer = (cookie: StringPairDictionary) => (careerId: number): TE.Tas
 export {
     fetchCareers,
     fetchCareer,
-    Career
+    Career,
+    CareerList
 }
