@@ -4,7 +4,7 @@ import SwiftUI
 struct unipi_appApp: App {
     var body: some Scene {
         WindowGroup {
-            FacultiesView()
+            MainView()
         }
     }
 }

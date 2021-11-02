@@ -6,15 +6,25 @@ struct FacultiesView: View {
         
     @State var data: [(String, String)] = []
     @State var currentError: AlertData?
-    @State var skipView: Bool = false
     @State var isLoading: Bool = false
+    @State var facultyId: String? = nil
+    
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         NavigationView {
             List(data, id: \.0) { element in
-                NavigationLink(element.1,
-                               destination: CredentialsView(facultyId: element.0),
-                               isActive: $skipView)
+                Text(element.1)
+                    .onTapGesture {
+                        self.facultyId = element.0
+                    }
+                    .background(
+                        NavigationLink(destination: CredentialsView(facultyId: element.0,
+                                                                    presentationMode: presentationMode),
+                                       tag: element.0,
+                                       selection: $facultyId) { EmptyView() }
+                            .buttonStyle(PlainButtonStyle())
+                    )
                     .contentShape(Rectangle())
             }
             .progressView(when: isLoading)
@@ -46,14 +56,12 @@ private extension FacultiesView {
     }
     
     private func loading() {
-        self.skipView = false
         self.isLoading = true
     }
     
     private func content(data: [(String, String)]) {
         self.data = data
         self.currentError = nil
-        self.skipView = false
         self.isLoading = false
     }
     
@@ -61,14 +69,13 @@ private extension FacultiesView {
         self.currentError = AlertData(id: error.stringValue,
                                       title: "Error",
                                       message: error.stringValue)
-        self.skipView = false
         self.isLoading = false
     }
     
     private func facultySelection(facultyId: String, data: [(String, String)]) {
-        self.skipView = true
-        self.isLoading = false
         self.data = data
+        self.isLoading = false
         self.currentError = nil
+//        self.facultyId = facultyId
     }
 }
