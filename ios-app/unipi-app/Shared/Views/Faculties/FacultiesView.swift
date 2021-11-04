@@ -13,7 +13,6 @@ struct FacultiesView: View {
     let userDefaults = UserDefaults.standard
 
     var body: some View {
-        NavigationView {
             List(data, id: \.0) { element in
                 Text(element.1)
                     .onTapGesture {
@@ -42,8 +41,7 @@ struct FacultiesView: View {
                        perform: { state in updateState(state) })
             .navigationTitle("choose your faculty")
             .navigationViewStyle(StackNavigationViewStyle())
-        }
-        .onAppear(perform: { viewModel.getFaculties() })
+            .onAppear(perform: { viewModel.getFaculties() })
     }
 }
 

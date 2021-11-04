@@ -23,8 +23,10 @@ struct CareersView: View {
     var body: some View {
         NavigationView {
             List(data?.entries ?? [], id: \.careerId) { element in
-                Text(element.name ?? "[unknown]")
-                    .onTapGesture {
+                HStack {
+                    Text(element.name ?? "[unknown]")
+                    Text(element.type ?? "[unknown]").font(Font(UIFont.systemFont(ofSize: 13)))
+                }.onTapGesture {
                         self.careerId = element.careerId
                     }
                     .background(
