@@ -10,7 +10,10 @@ RUN npm install
 # ---- tsc compile ----
 FROM dependencies AS tsc
 COPY . .
+# compile
 RUN /app/node_modules/typescript/bin/tsc
+# run tests
+RUN /app/node_modules/.bin/jest
 RUN rm -rf /app/node_modules
 RUN npm install --only=production
 

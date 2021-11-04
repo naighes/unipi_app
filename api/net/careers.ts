@@ -36,10 +36,10 @@ type CareerList = {
 
 type Career = {
     registrationNumber: number | undefined,
-    type: string,
-    name: string,
-    active: boolean,
-    careerId: number | undefined
+    type: string | undefined,
+    name: string | undefined,
+    active: boolean | undefined,
+    careerId: number
 }
 
 const egebtn = ensureGetElementsByTagName('careers')
@@ -59,19 +59,19 @@ const map = (body: string): CareerList => {
         .flatMap(x => egebtn(x)("tr"))
         .map(c => {
             const columns = c.getElementsByTagName("td") || []
-            const id = tdVal(x => parseInt(x.text) || 0)(columns)(0)
+            const registrationNumber = tdVal(x => parseInt(x.text) || 0)(columns)(0)
             const type = tdVal(x => x.text)(columns)(1)
             const name = tdVal(x => x.text)(columns)(2)
             const active = tdVal(x => x.text === "Attivo")(columns)(3)
 
             return ({
-                registrationNumber: id,
+                registrationNumber: registrationNumber,
                 type: type,
                 name: name,
                 active: active,
-                careerId: tdVal(studId)(columns)(4)
+                careerId: tdVal(studId)(columns)(4) || 0
             }) as Career
-        })
+        }).filter(x => x.careerId > 0)
     }
 }
 

@@ -31,7 +31,7 @@ export const careersDoc: OpenAPIV3.PathsObject = {
                         type: { type: 'string', nullable: true },
                         name: { type: 'string', nullable: true },
                         active: { type: 'boolean', nullable: true },
-                        careerId: { type: 'integer', nullable: true }
+                        careerId: { type: 'integer', nullable: false }
                       }
                     }
                   }

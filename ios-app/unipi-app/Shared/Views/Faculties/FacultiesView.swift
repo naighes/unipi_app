@@ -17,7 +17,7 @@ struct FacultiesView: View {
             List(data, id: \.0) { element in
                 Text(element.1)
                     .onTapGesture {
-                        userDefaults.string(forKey: String(careerId))
+                        userDefaults.set(element.0, forKey: String(careerId))
                         self.facultyId = element.0
                     }
                     .background(
