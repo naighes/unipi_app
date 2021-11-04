@@ -34,9 +34,8 @@ class CareersViewModel: ObservableObject {
             switch self.getResult(response) {
             case .success(let data):
                 self.privateState = .content(data: data)
-            case .failure(let error):
-                print(error)
-                // try to refresh access token
+            case .failure(_):
+                // try to refresh access token (it might be expired)
                 // TODO: this invocation MUST not be recursive: an infinite loop may occour!
                 makeLoginRequest(client: self.apiClient) {
                     result in

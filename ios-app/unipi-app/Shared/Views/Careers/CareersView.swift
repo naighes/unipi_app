@@ -12,15 +12,11 @@ struct CareersView: View {
     let keychain = Keychain()
 
     @ViewBuilder
-    func getDestinationView(_ careerId: Int?) -> some View {
-        if let careerId = self.careerId {
-            if let facultyId = UserDefaults.standard.string(forKey: String(careerId)) {
-                MainView(careerId: careerId, facultyId: facultyId)
-            } else {
-                FacultiesView(careerId: careerId)
-            }
+    func getDestinationView(_ careerId: Int) -> some View {
+        if let facultyId = UserDefaults.standard.string(forKey: String(careerId)) {
+            MainView(careerId: careerId, facultyId: facultyId)
         } else {
-            EmptyView()
+            FacultiesView(careerId: careerId)
         }
     }
 
@@ -32,8 +28,8 @@ struct CareersView: View {
                         self.careerId = element.careerId
                     }
                     .background(
-                        NavigationLink(destination: getDestinationView(element.careerId), // TODO
-                                       tag: element.careerId!, // TODO
+                        NavigationLink(destination: getDestinationView(element.careerId ?? 0),
+                                       tag: element.careerId ?? 0,
                                        selection: $careerId) { EmptyView() }
                             .buttonStyle(PlainButtonStyle())
                     )
