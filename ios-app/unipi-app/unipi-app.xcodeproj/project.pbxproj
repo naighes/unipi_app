@@ -34,6 +34,12 @@
 		36BF620B2732A5EC008A4B8E /* BearerTokenRequestBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BF62092732A5EC008A4B8E /* BearerTokenRequestBehaviour.swift */; };
 		36C5109827351BE500E388F0 /* BookletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C5109727351BE500E388F0 /* BookletViewModel.swift */; };
 		36C5109927351BE500E388F0 /* BookletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C5109727351BE500E388F0 /* BookletViewModel.swift */; };
+		36C578962735666600BB5798 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C578952735666600BB5798 /* TextView.swift */; };
+		36C578972735666600BB5798 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C578952735666600BB5798 /* TextView.swift */; };
+		36C57899273566A500BB5798 /* InterFontModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C57898273566A500BB5798 /* InterFontModifier.swift */; };
+		36C5789A273566A500BB5798 /* InterFontModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C57898273566A500BB5798 /* InterFontModifier.swift */; };
+		36C5789C2735672F00BB5798 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C5789B2735672F00BB5798 /* ColorExtension.swift */; };
+		36C5789D2735672F00BB5798 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C5789B2735672F00BB5798 /* ColorExtension.swift */; };
 		36D29B6E272D3690001D7698 /* NetError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D29B6D272D3690001D7698 /* NetError.swift */; };
 		36D29B6F272D3690001D7698 /* NetError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D29B6D272D3690001D7698 /* NetError.swift */; };
 		36D902CE2732DFBD00E1E16B /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D902CD2732DFBD00E1E16B /* LoginRequest.swift */; };
@@ -87,6 +93,9 @@
 		36BF62022732A3FA008A4B8E /* CareersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareersViewModel.swift; sourceTree = "<group>"; };
 		36BF62092732A5EC008A4B8E /* BearerTokenRequestBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BearerTokenRequestBehaviour.swift; sourceTree = "<group>"; };
 		36C5109727351BE500E388F0 /* BookletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookletViewModel.swift; sourceTree = "<group>"; };
+		36C578952735666600BB5798 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
+		36C57898273566A500BB5798 /* InterFontModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterFontModifier.swift; sourceTree = "<group>"; };
+		36C5789B2735672F00BB5798 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		36D29B6D272D3690001D7698 /* NetError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetError.swift; sourceTree = "<group>"; };
 		36D902CD2732DFBD00E1E16B /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		36DA535D272AD9EB00FE2CD4 /* CredentialsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsView.swift; sourceTree = "<group>"; };
@@ -226,6 +235,16 @@
 			path = Careers;
 			sourceTree = "<group>";
 		};
+		36C578942735664700BB5798 /* ViewHelpers */ = {
+			isa = PBXGroup;
+			children = (
+				36C578952735666600BB5798 /* TextView.swift */,
+				36C57898273566A500BB5798 /* InterFontModifier.swift */,
+				36C5789B2735672F00BB5798 /* ColorExtension.swift */,
+			);
+			path = ViewHelpers;
+			sourceTree = "<group>";
+		};
 		36D902CC2732DF9E00E1E16B /* Security */ = {
 			isa = PBXGroup;
 			children = (
@@ -252,6 +271,7 @@
 		B6C82B35272A960A009CB8CA /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				36C578942735664700BB5798 /* ViewHelpers */,
 				36D902CC2732DF9E00E1E16B /* Security */,
 				B6C82B38272A960A009CB8CA /* unipi_appApp.swift */,
 				2B5E5317272EC082008E48E1 /* Views */,
@@ -496,11 +516,14 @@
 				36D29B6E272D3690001D7698 /* NetError.swift in Sources */,
 				B6C82B61272A960D009CB8CA /* unipi_app.xcdatamodeld in Sources */,
 				36BF62032732A3FA008A4B8E /* CareersViewModel.swift in Sources */,
+				36C5789C2735672F00BB5798 /* ColorExtension.swift in Sources */,
 				2BC037F8272EA6A600B0150D /* AlertData.swift in Sources */,
 				36C5109827351BE500E388F0 /* BookletViewModel.swift in Sources */,
 				2B780A032731AACF00E3FC86 /* MainView.swift in Sources */,
 				B6C82B63272A960D009CB8CA /* unipi_appApp.swift in Sources */,
 				2B5E5324272FF3ED008E48E1 /* FacultiesViewModel.swift in Sources */,
+				36C578962735666600BB5798 /* TextView.swift in Sources */,
+				36C57899273566A500BB5798 /* InterFontModifier.swift in Sources */,
 				2B5E532A2730025E008E48E1 /* ProgressViewModifier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -521,11 +544,14 @@
 				36D29B6F272D3690001D7698 /* NetError.swift in Sources */,
 				B6C82B62272A960D009CB8CA /* unipi_app.xcdatamodeld in Sources */,
 				36BF62042732A3FA008A4B8E /* CareersViewModel.swift in Sources */,
+				36C5789D2735672F00BB5798 /* ColorExtension.swift in Sources */,
 				2BC037F9272EA71C00B0150D /* AlertData.swift in Sources */,
 				36C5109927351BE500E388F0 /* BookletViewModel.swift in Sources */,
 				2B780A042731AACF00E3FC86 /* MainView.swift in Sources */,
 				B6C82B64272A960D009CB8CA /* unipi_appApp.swift in Sources */,
 				2B5E5325272FF3ED008E48E1 /* FacultiesViewModel.swift in Sources */,
+				36C578972735666600BB5798 /* TextView.swift in Sources */,
+				36C5789A273566A500BB5798 /* InterFontModifier.swift in Sources */,
 				2B5E532B2730025E008E48E1 /* ProgressViewModifier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

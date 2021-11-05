@@ -22,30 +22,34 @@ struct CareersView: View {
 
     var body: some View {
         NavigationView {
-            List(data?.entries ?? [], id: \.careerId) { element in
-                HStack {
-                    Text(element.name ?? "[unknown]")
-                    Text(element.type ?? "[unknown]").font(Font(UIFont.systemFont(ofSize: 13)))
-                }.onTapGesture {
-                        self.careerId = element.careerId
-                    }
-                    .background(
-                        NavigationLink(destination: getDestinationView(element.careerId ?? 0),
-                                       tag: element.careerId ?? 0,
-                                       selection: $careerId) { EmptyView() }
-                            .buttonStyle(PlainButtonStyle())
-                    )
-                    .contentShape(Rectangle())
+            ZStack {
+                Color.primary_color.edgesIgnoringSafeArea(.all)
+
+                List(data?.entries ?? [], id: \.careerId) { element in
+                    HStack {
+                        Text(element.name ?? "[unknown]")
+                        Text(element.type ?? "[unknown]").font(Font(UIFont.systemFont(ofSize: 13)))
+                    }.onTapGesture {
+                            self.careerId = element.careerId
+                        }
+                        .background(
+                            NavigationLink(destination: getDestinationView(element.careerId ?? 0),
+                                           tag: element.careerId ?? 0,
+                                           selection: $careerId) { EmptyView() }
+                                .buttonStyle(PlainButtonStyle())
+                        )
+                        .contentShape(Rectangle())
+                }
+                .progressView(when: isLoading)
+                .alert(item: $currentError,
+                       content: { Alert(title: Text($0.title),
+                                        message: Text($0.message),
+                                        dismissButton: .default(Text("ok"))) })
+                .onReceive(viewModel.state,
+                           perform: { state in updateState(state) })
+                .navigationTitle("choose your career")
+                .navigationViewStyle(StackNavigationViewStyle())
             }
-            .progressView(when: isLoading)
-            .alert(item: $currentError,
-                   content: { Alert(title: Text($0.title),
-                                    message: Text($0.message),
-                                    dismissButton: .default(Text("ok"))) })
-            .onReceive(viewModel.state,
-                       perform: { state in updateState(state) })
-            .navigationTitle("choose your career")
-            .navigationViewStyle(StackNavigationViewStyle())
         }
         .onAppear(perform: {
             if let token = self.keychain.accessToken {

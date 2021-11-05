@@ -11,7 +11,26 @@ struct BookletView: View {
 
     let keychain = Keychain()
     let formatter = getDateFormatter()
-    
+
+    func getStatusImageSymbol(_ index: Int?) -> (String, Color) {
+        switch index {
+            case 1: return ("bookmark.circle", .blue) // Planned
+            case 2: return ("bookmark.circle", .yellow) // Attended
+            case 3: return ("bookmark.circle.fill", .green) // Passed
+            default: return ("questionmark.app", .gray) // Unknow
+        }
+    }
+
+    @ViewBuilder
+    func getStatusImage(_ index: Int?) -> some View {
+        Image(systemName: getStatusImageSymbol(index).0)
+            .foregroundColor(getStatusImageSymbol(index).1)
+            .frame(width: 24, height: 24)
+            .padding(16)
+            .background(Color.primary_color)
+            .cornerRadius(4)
+    }
+
     static func getDateFormatter() -> DateFormatter {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
@@ -23,28 +42,60 @@ struct BookletView: View {
     var body: some View {
         List(data?.records ?? [], id: \.code) { element in
             HStack {
-                Text(element.name ?? "[unknown]")
-                Text(element.score.flatMap({ v in String(v) }) ?? "-")
-                Text(element.date.flatMap({ v in formatter.string(from: v) }) ?? "-")
+                getStatusImage(element.status)
+                VStack(alignment: .leading, spacing: 6) {
+                    HStack {
+                        TextView(
+                            text: element.name ?? "[unknown]",
+                            type: .subtitle_1
+                        )
+                    }
+                    HStack {
+                        TextView(
+                            text: element.code ?? "",
+                            type: .body_2
+                        )
+                        Spacer()
+                        TextView(
+                            text: element.date.flatMap({ v in formatter.string(from: v) }) ?? "-",
+                            type: .body_2
+                        ).foregroundColor(Color.text_primary_color)
+                    }
+                }.padding(.leading, 4)
+
+                if let score = element.score, let value = String(score) {
+                    Text(value).padding(6)
+                        .foregroundColor(.blue)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color.blue, lineWidth: 4)
+                        ).opacity(0.8).padding(6)
+                } else {
+                    EmptyView()
+                }
+
+                Spacer()
+
             }.contentShape(Rectangle())
-        }
-        .progressView(when: isLoading)
-        .alert(item: $currentError,
-               content: { Alert(title: Text($0.title),
-                                message: Text($0.message),
-                                dismissButton: .default(Text("ok"))) })
-        .onReceive(viewModel.state,
-                   perform: { state in updateState(state) })
-        .navigationTitle("booklet")
-        .navigationViewStyle(StackNavigationViewStyle())
-        .onAppear(perform: {
-            if data == nil {
-                viewModel.getBooklet(
-                    token: keychain.accessToken!,
-                    careerId: self.careerId
-                )
-            }
-        })
+        }.padding(8)
+            .background(Color.secondary_color).cornerRadius(4)
+            .progressView(when: isLoading)
+            .alert(item: $currentError,
+                   content: { Alert(title: Text($0.title),
+                                    message: Text($0.message),
+                                    dismissButton: .default(Text("ok"))) })
+            .onReceive(viewModel.state,
+                       perform: { state in updateState(state) })
+            .navigationTitle("booklet")
+            .navigationViewStyle(StackNavigationViewStyle())
+            .onAppear(perform: {
+                if data == nil {
+                    viewModel.getBooklet(
+                        token: keychain.accessToken!,
+                        careerId: self.careerId
+                    )
+                }
+            })
     }
 }
 
