@@ -44,7 +44,7 @@ export const bookletDoc: OpenAPIV3.PathsObject = {
                         weight: { type: 'integer', format: 'float', nullable: true },
                         academicYear: { type: 'string', nullable: true },
                         score: { type: 'integer', nullable: true },
-                        date: { type: 'string', format: 'date', nullable: true },
+                        date: { type: 'string', format: 'date-time', nullable: true },
                         status: { type: 'integer', nullable: true }
                       }
                     }

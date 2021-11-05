@@ -19,10 +19,8 @@
 		2B5E532E273002BA008E48E1 /* Error+stringValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B5E532C273002BA008E48E1 /* Error+stringValue.swift */; };
 		2B780A032731AACF00E3FC86 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B780A022731AACF00E3FC86 /* MainView.swift */; };
 		2B780A042731AACF00E3FC86 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B780A022731AACF00E3FC86 /* MainView.swift */; };
-		2B780A072731C1E800E3FC86 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B780A062731C1E800E3FC86 /* AccountView.swift */; };
-		2B780A082731C1E800E3FC86 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B780A062731C1E800E3FC86 /* AccountView.swift */; };
-		2B780A0B2731C20D00E3FC86 /* CoursesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B780A0A2731C20D00E3FC86 /* CoursesView.swift */; };
-		2B780A0C2731C20D00E3FC86 /* CoursesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B780A0A2731C20D00E3FC86 /* CoursesView.swift */; };
+		2B780A072731C1E800E3FC86 /* BookletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B780A062731C1E800E3FC86 /* BookletView.swift */; };
+		2B780A082731C1E800E3FC86 /* BookletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B780A062731C1E800E3FC86 /* BookletView.swift */; };
 		2BC037F5272E9D0D00B0150D /* API in Frameworks */ = {isa = PBXBuildFile; productRef = 2BC037F4272E9D0D00B0150D /* API */; };
 		2BC037F8272EA6A600B0150D /* AlertData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC037F7272EA6A600B0150D /* AlertData.swift */; };
 		2BC037F9272EA71C00B0150D /* AlertData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC037F7272EA6A600B0150D /* AlertData.swift */; };
@@ -34,6 +32,8 @@
 		36BF62042732A3FA008A4B8E /* CareersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BF62022732A3FA008A4B8E /* CareersViewModel.swift */; };
 		36BF620A2732A5EC008A4B8E /* BearerTokenRequestBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BF62092732A5EC008A4B8E /* BearerTokenRequestBehaviour.swift */; };
 		36BF620B2732A5EC008A4B8E /* BearerTokenRequestBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BF62092732A5EC008A4B8E /* BearerTokenRequestBehaviour.swift */; };
+		36C5109827351BE500E388F0 /* BookletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C5109727351BE500E388F0 /* BookletViewModel.swift */; };
+		36C5109927351BE500E388F0 /* BookletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C5109727351BE500E388F0 /* BookletViewModel.swift */; };
 		36D29B6E272D3690001D7698 /* NetError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D29B6D272D3690001D7698 /* NetError.swift */; };
 		36D29B6F272D3690001D7698 /* NetError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D29B6D272D3690001D7698 /* NetError.swift */; };
 		36D902CE2732DFBD00E1E16B /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D902CD2732DFBD00E1E16B /* LoginRequest.swift */; };
@@ -78,8 +78,7 @@
 		2B5E53292730025E008E48E1 /* ProgressViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewModifier.swift; sourceTree = "<group>"; };
 		2B5E532C273002BA008E48E1 /* Error+stringValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+stringValue.swift"; sourceTree = "<group>"; };
 		2B780A022731AACF00E3FC86 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		2B780A062731C1E800E3FC86 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
-		2B780A0A2731C20D00E3FC86 /* CoursesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoursesView.swift; sourceTree = "<group>"; };
+		2B780A062731C1E800E3FC86 /* BookletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookletView.swift; sourceTree = "<group>"; };
 		2BC037B7272E9A3D00B0150D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BC037F3272E9CBC00B0150D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BC037F7272EA6A600B0150D /* AlertData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertData.swift; sourceTree = "<group>"; };
@@ -87,6 +86,7 @@
 		36BF61FB2732A2B5008A4B8E /* CareersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareersView.swift; sourceTree = "<group>"; };
 		36BF62022732A3FA008A4B8E /* CareersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareersViewModel.swift; sourceTree = "<group>"; };
 		36BF62092732A5EC008A4B8E /* BearerTokenRequestBehaviour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BearerTokenRequestBehaviour.swift; sourceTree = "<group>"; };
+		36C5109727351BE500E388F0 /* BookletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookletViewModel.swift; sourceTree = "<group>"; };
 		36D29B6D272D3690001D7698 /* NetError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetError.swift; sourceTree = "<group>"; };
 		36D902CD2732DFBD00E1E16B /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		36DA535D272AD9EB00FE2CD4 /* CredentialsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsView.swift; sourceTree = "<group>"; };
@@ -146,8 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				36BF61FA2732A295008A4B8E /* Careers */,
-				2B780A092731C1F200E3FC86 /* Courses */,
-				2B780A052731C1D700E3FC86 /* Account */,
+				2B780A052731C1D700E3FC86 /* Booklet */,
 				2B780A012731AABA00E3FC86 /* Main View */,
 				2B5E5327273001B0008E48E1 /* Credentials */,
 				2B5E5326273001A3008E48E1 /* Faculties */,
@@ -189,20 +188,13 @@
 			path = "Main View";
 			sourceTree = "<group>";
 		};
-		2B780A052731C1D700E3FC86 /* Account */ = {
+		2B780A052731C1D700E3FC86 /* Booklet */ = {
 			isa = PBXGroup;
 			children = (
-				2B780A062731C1E800E3FC86 /* AccountView.swift */,
+				2B780A062731C1E800E3FC86 /* BookletView.swift */,
+				36C5109727351BE500E388F0 /* BookletViewModel.swift */,
 			);
-			path = Account;
-			sourceTree = "<group>";
-		};
-		2B780A092731C1F200E3FC86 /* Courses */ = {
-			isa = PBXGroup;
-			children = (
-				2B780A0A2731C20D00E3FC86 /* CoursesView.swift */,
-			);
-			path = Courses;
+			path = Booklet;
 			sourceTree = "<group>";
 		};
 		2BC037B6272E9A3D00B0150D /* iOS */ = {
@@ -495,17 +487,17 @@
 				36BF61FC2732A2B5008A4B8E /* CareersView.swift in Sources */,
 				3648FF0C2733CADE00F4BBB0 /* CredentialsViewModel.swift in Sources */,
 				36D902CE2732DFBD00E1E16B /* LoginRequest.swift in Sources */,
-				2B780A072731C1E800E3FC86 /* AccountView.swift in Sources */,
+				2B780A072731C1E800E3FC86 /* BookletView.swift in Sources */,
 				2B5E532D273002BA008E48E1 /* Error+stringValue.swift in Sources */,
 				2B5E5319272EC119008E48E1 /* KeychainData.swift in Sources */,
 				36BF620A2732A5EC008A4B8E /* BearerTokenRequestBehaviour.swift in Sources */,
 				B6C82B7B272A9A22009CB8CA /* FacultiesView.swift in Sources */,
 				36DA535E272AD9EB00FE2CD4 /* CredentialsView.swift in Sources */,
-				2B780A0B2731C20D00E3FC86 /* CoursesView.swift in Sources */,
 				36D29B6E272D3690001D7698 /* NetError.swift in Sources */,
 				B6C82B61272A960D009CB8CA /* unipi_app.xcdatamodeld in Sources */,
 				36BF62032732A3FA008A4B8E /* CareersViewModel.swift in Sources */,
 				2BC037F8272EA6A600B0150D /* AlertData.swift in Sources */,
+				36C5109827351BE500E388F0 /* BookletViewModel.swift in Sources */,
 				2B780A032731AACF00E3FC86 /* MainView.swift in Sources */,
 				B6C82B63272A960D009CB8CA /* unipi_appApp.swift in Sources */,
 				2B5E5324272FF3ED008E48E1 /* FacultiesViewModel.swift in Sources */,
@@ -520,17 +512,17 @@
 				36BF61FD2732A2B5008A4B8E /* CareersView.swift in Sources */,
 				3648FF0D2733CADE00F4BBB0 /* CredentialsViewModel.swift in Sources */,
 				36D902CF2732DFBD00E1E16B /* LoginRequest.swift in Sources */,
-				2B780A082731C1E800E3FC86 /* AccountView.swift in Sources */,
+				2B780A082731C1E800E3FC86 /* BookletView.swift in Sources */,
 				2B5E532E273002BA008E48E1 /* Error+stringValue.swift in Sources */,
 				2B5E531A272EC119008E48E1 /* KeychainData.swift in Sources */,
 				36BF620B2732A5EC008A4B8E /* BearerTokenRequestBehaviour.swift in Sources */,
 				B6C82B7C272A9A22009CB8CA /* FacultiesView.swift in Sources */,
 				36DA535F272AD9EB00FE2CD4 /* CredentialsView.swift in Sources */,
-				2B780A0C2731C20D00E3FC86 /* CoursesView.swift in Sources */,
 				36D29B6F272D3690001D7698 /* NetError.swift in Sources */,
 				B6C82B62272A960D009CB8CA /* unipi_app.xcdatamodeld in Sources */,
 				36BF62042732A3FA008A4B8E /* CareersViewModel.swift in Sources */,
 				2BC037F9272EA71C00B0150D /* AlertData.swift in Sources */,
+				36C5109927351BE500E388F0 /* BookletViewModel.swift in Sources */,
 				2B780A042731AACF00E3FC86 /* MainView.swift in Sources */,
 				B6C82B64272A960D009CB8CA /* unipi_appApp.swift in Sources */,
 				2B5E5325272FF3ED008E48E1 /* FacultiesViewModel.swift in Sources */,

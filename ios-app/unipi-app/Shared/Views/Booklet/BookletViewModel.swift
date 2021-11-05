@@ -1,36 +1,36 @@
 import Foundation
 import API
 
-class CareersViewModel: ObservableObject {
+class BookletViewModel: ObservableObject {
     let apiClient = APIClient(baseURL: "https://unipi-api.herokuapp.com")
 
-    @Published private(set) var privateState: CareersView.ViewState = .loading
-    var state: Published<CareersView.ViewState>.Publisher { $privateState }
+    @Published private(set) var privateState: BookletView.ViewState = .idle
+    var state: Published<BookletView.ViewState>.Publisher { $privateState }
 
     let keychain = Keychain()
 
-    let getResult: (APIResponse<API.CareersOp.Response>) -> Result<API.CareersOp.Response.Status200, Error> = {
+    let getResult: (APIResponse<API.BookletOp.Response>) -> Result<API.BookletOp.Response.Status200, Error> = {
         response in
         switch response.result {
         case let .success(v):
             switch v {
-            case let .status200(careers):
-                return .success(careers)
+            case let .status200(booklet):
+                return .success(booklet)
             default:
                 return .failure(NetError.unexpectedStatusCode(v.statusCode))
             }
         case let .failure(e):
-            return .failure(NetError.serverError("retrieving careers failed with error '\(e)'"))
+            return .failure(NetError.serverError("retrieving booklet failed with error '\(e)'"))
         }
     }
 
-    func getCareers(token: String) {
+    func getBooklet(token: String, careerId: Int) {
+        self.privateState = .loading
         apiClient.makeRequest(
-            API.CareersOp.Request(),
+            API.BookletOp.Request(options: API.BookletOp.Request.Options(careerId: careerId)),
             behaviours: [BearerTokenRequestBehaviour(token: token)]
         ) { [weak self] response in
             guard let self = self else { return }
-
             switch self.getResult(response) {
             case .success(let data):
                 self.privateState = .content(data: data)
@@ -42,11 +42,11 @@ class CareersViewModel: ObservableObject {
     }
 }
 
-extension CareersView {
+extension BookletView {
     enum ViewState {
+        case idle
         case loading
-        case content(data: API.CareersOp.Response.Status200)
+        case content(data: API.BookletOp.Response.Status200)
         case fail(error: Error)
-        case careerSelection(careerId: Int, data: API.CareersOp.Response.Status200)
     }
 }

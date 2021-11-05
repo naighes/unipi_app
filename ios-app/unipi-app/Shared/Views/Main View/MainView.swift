@@ -4,14 +4,13 @@ struct MainView: View {
     @State private var showingSheet = Keychain().accessToken == nil
     let careerId: Int
     let facultyId: String?
-    
+
     var body: some View {
         TabView {
-            AccountView(showingSheet: $showingSheet)
+            BookletView(careerId: self.careerId)
                 .tabItem {
-                    Label("Account", systemImage: "person.crop.circle")
+                    Label("booklet", systemImage: "book.circle")
                 }
-            CoursesView().tabItem { Label("Courses", systemImage: "book.circle") }
         }
     }
 }

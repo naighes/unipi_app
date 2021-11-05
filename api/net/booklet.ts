@@ -70,8 +70,12 @@ const parseStatus = (s: string): BookletEntryStatus => {
 const eqsa = ensureQuerySelectorAll('booklet')
 const egebtn = ensureGetElementsByTagName('booklet')
 
-const map = (body: string): BookletEntryList => {
-    const record = eqsa(parseHTML(body))('#tableLibretto')
+const map = (body: string): TE.TaskEither<Error, BookletEntryList> => {
+    const table = eqsa(parseHTML(body))('#tableLibretto')
+    if (table.length === 0) {
+        return TE.left({ name: "not_found", message: `booklet could not be found` })
+    }
+    const records = table
         .flatMap(x => egebtn(x)("tbody"))
         .flatMap(x => egebtn(x)("tr"))
         .map(row => {
@@ -101,11 +105,11 @@ const map = (body: string): BookletEntryList => {
                 status: third
             }
         })
-    return {
-        records: record,
-        average: average(record),
-        collectedCredits: collectedCredits(record)
-    }
+    return TE.right({
+        records: records,
+        average: average(records),
+        collectedCredits: collectedCredits(records)
+    })
 }
 
 const fetchBooklet = (f: Fetch) => (cookie: StringPairDictionary) => (id: number): TE.TaskEither<Error, BookletEntryList> => pipe(
@@ -116,7 +120,7 @@ const fetchBooklet = (f: Fetch) => (cookie: StringPairDictionary) => (id: number
     ),
     TE.chain(ensureOk),
     TE.chain(ensureSession),
-    TE.map(x => map(x.body))
+    TE.chain(x => map(x.body))
 )
 
 export { fetchBooklet, BookletEntryList, BookletEntry }

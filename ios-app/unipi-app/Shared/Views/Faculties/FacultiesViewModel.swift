@@ -4,10 +4,10 @@ import API
 class FacultiesViewModel: ObservableObject {
     let apiClient = APIClient(baseURL: "https://unipi-api.herokuapp.com")
     let userDefaults = UserDefaults.standard
-    
+
     @Published private(set) var privateState: FacultiesView.ViewState = .loading
     var state: Published<FacultiesView.ViewState>.Publisher { $privateState }
-    
+
     let getResult: (APIResponse<API.PathsOp.Response>) -> Result<[(String, String)], Error> = {
         response in
         switch response.result {
@@ -24,11 +24,10 @@ class FacultiesViewModel: ObservableObject {
             return .failure(NetError.serverError("retrieving paths failed with error '\(e)'"))
         }
     }
-    
+
     func getFaculties() {
         apiClient.makeRequest(API.PathsOp.Request()) { [weak self] response in
             guard let self = self else { return }
-            
             switch self.getResult(response) {
             case .success(let data):
                 if let facultyId = self.userDefaults.string(forKey: "facultyId") {
