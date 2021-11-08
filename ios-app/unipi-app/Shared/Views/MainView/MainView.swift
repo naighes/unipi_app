@@ -11,6 +11,10 @@ struct MainView: View {
                 .tabItem {
                     Label("booklet", systemImage: "book.circle")
                 }
+            PlanView(careerId: self.careerId)
+                .tabItem {
+                    Label("plan", systemImage: "paperplane.fill")
+                }
         }
     }
 }

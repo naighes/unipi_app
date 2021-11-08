@@ -24,6 +24,10 @@
 		2BC037F5272E9D0D00B0150D /* API in Frameworks */ = {isa = PBXBuildFile; productRef = 2BC037F4272E9D0D00B0150D /* API */; };
 		2BC037F8272EA6A600B0150D /* AlertData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC037F7272EA6A600B0150D /* AlertData.swift */; };
 		2BC037F9272EA71C00B0150D /* AlertData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC037F7272EA6A600B0150D /* AlertData.swift */; };
+		362B9F82273927850030CF4F /* PlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362B9F81273927850030CF4F /* PlanView.swift */; };
+		362B9F83273927850030CF4F /* PlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362B9F81273927850030CF4F /* PlanView.swift */; };
+		362B9F85273927990030CF4F /* PlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362B9F84273927990030CF4F /* PlanViewModel.swift */; };
+		362B9F86273927990030CF4F /* PlanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 362B9F84273927990030CF4F /* PlanViewModel.swift */; };
 		3648FF0C2733CADE00F4BBB0 /* CredentialsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3648FF0B2733CADE00F4BBB0 /* CredentialsViewModel.swift */; };
 		3648FF0D2733CADE00F4BBB0 /* CredentialsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3648FF0B2733CADE00F4BBB0 /* CredentialsViewModel.swift */; };
 		36BF61FC2732A2B5008A4B8E /* CareersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BF61FB2732A2B5008A4B8E /* CareersView.swift */; };
@@ -88,6 +92,8 @@
 		2BC037B7272E9A3D00B0150D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BC037F3272E9CBC00B0150D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BC037F7272EA6A600B0150D /* AlertData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertData.swift; sourceTree = "<group>"; };
+		362B9F81273927850030CF4F /* PlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanView.swift; sourceTree = "<group>"; };
+		362B9F84273927990030CF4F /* PlanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanViewModel.swift; sourceTree = "<group>"; };
 		3648FF0B2733CADE00F4BBB0 /* CredentialsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsViewModel.swift; sourceTree = "<group>"; };
 		36BF61FB2732A2B5008A4B8E /* CareersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareersView.swift; sourceTree = "<group>"; };
 		36BF62022732A3FA008A4B8E /* CareersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareersViewModel.swift; sourceTree = "<group>"; };
@@ -154,9 +160,10 @@
 		2B5E5317272EC082008E48E1 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				362B9F80273927710030CF4F /* Plan */,
 				36BF61FA2732A295008A4B8E /* Careers */,
 				2B780A052731C1D700E3FC86 /* Booklet */,
-				2B780A012731AABA00E3FC86 /* Main View */,
+				2B780A012731AABA00E3FC86 /* MainView */,
 				2B5E5327273001B0008E48E1 /* Credentials */,
 				2B5E5326273001A3008E48E1 /* Faculties */,
 			);
@@ -189,12 +196,12 @@
 			path = ViewModifiers;
 			sourceTree = "<group>";
 		};
-		2B780A012731AABA00E3FC86 /* Main View */ = {
+		2B780A012731AABA00E3FC86 /* MainView */ = {
 			isa = PBXGroup;
 			children = (
 				2B780A022731AACF00E3FC86 /* MainView.swift */,
 			);
-			path = "Main View";
+			path = MainView;
 			sourceTree = "<group>";
 		};
 		2B780A052731C1D700E3FC86 /* Booklet */ = {
@@ -224,6 +231,15 @@
 				2B5E5318272EC119008E48E1 /* KeychainData.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		362B9F80273927710030CF4F /* Plan */ = {
+			isa = PBXGroup;
+			children = (
+				362B9F81273927850030CF4F /* PlanView.swift */,
+				362B9F84273927990030CF4F /* PlanViewModel.swift */,
+			);
+			path = Plan;
 			sourceTree = "<group>";
 		};
 		36BF61FA2732A295008A4B8E /* Careers */ = {
@@ -511,10 +527,12 @@
 				2B5E532D273002BA008E48E1 /* Error+stringValue.swift in Sources */,
 				2B5E5319272EC119008E48E1 /* KeychainData.swift in Sources */,
 				36BF620A2732A5EC008A4B8E /* BearerTokenRequestBehaviour.swift in Sources */,
+				362B9F82273927850030CF4F /* PlanView.swift in Sources */,
 				B6C82B7B272A9A22009CB8CA /* FacultiesView.swift in Sources */,
 				36DA535E272AD9EB00FE2CD4 /* CredentialsView.swift in Sources */,
 				36D29B6E272D3690001D7698 /* NetError.swift in Sources */,
 				B6C82B61272A960D009CB8CA /* unipi_app.xcdatamodeld in Sources */,
+				362B9F85273927990030CF4F /* PlanViewModel.swift in Sources */,
 				36BF62032732A3FA008A4B8E /* CareersViewModel.swift in Sources */,
 				36C5789C2735672F00BB5798 /* ColorExtension.swift in Sources */,
 				2BC037F8272EA6A600B0150D /* AlertData.swift in Sources */,
@@ -539,10 +557,12 @@
 				2B5E532E273002BA008E48E1 /* Error+stringValue.swift in Sources */,
 				2B5E531A272EC119008E48E1 /* KeychainData.swift in Sources */,
 				36BF620B2732A5EC008A4B8E /* BearerTokenRequestBehaviour.swift in Sources */,
+				362B9F83273927850030CF4F /* PlanView.swift in Sources */,
 				B6C82B7C272A9A22009CB8CA /* FacultiesView.swift in Sources */,
 				36DA535F272AD9EB00FE2CD4 /* CredentialsView.swift in Sources */,
 				36D29B6F272D3690001D7698 /* NetError.swift in Sources */,
 				B6C82B62272A960D009CB8CA /* unipi_app.xcdatamodeld in Sources */,
+				362B9F86273927990030CF4F /* PlanViewModel.swift in Sources */,
 				36BF62042732A3FA008A4B8E /* CareersViewModel.swift in Sources */,
 				36C5789D2735672F00BB5798 /* ColorExtension.swift in Sources */,
 				2BC037F9272EA71C00B0150D /* AlertData.swift in Sources */,
