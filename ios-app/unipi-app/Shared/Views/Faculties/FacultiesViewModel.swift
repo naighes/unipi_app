@@ -5,8 +5,9 @@ class FacultiesViewModel: ObservableObject {
     let apiClient = APIClient(baseURL: "https://unipi-api.herokuapp.com")
     let userDefaults = UserDefaults.standard
 
-    @Published private(set) var privateState: FacultiesView.ViewState = .loading
-    var state: Published<FacultiesView.ViewState>.Publisher { $privateState }
+    @Published var isLoading: Bool = false
+    @Published var data: [Faculty] = []
+    @Published var errorData: AlertData?
 
     let getResult: (APIResponse<API.PathsOp.Response>) -> Result<[(String, String)], Error> = {
         response in
@@ -26,27 +27,23 @@ class FacultiesViewModel: ObservableObject {
     }
 
     func getFaculties() {
+        isLoading = true
         apiClient.makeRequest(API.PathsOp.Request()) { [weak self] response in
             guard let self = self else { return }
+            self.isLoading = false
             switch self.getResult(response) {
             case .success(let data):
-                if let facultyId = self.userDefaults.string(forKey: "facultyId") {
-                    self.privateState = .facultySelection(facultyId: facultyId, data: data)
-                    return
-                }
-                self.privateState = .content(data: data)
+                self.data = data.map(Faculty.init)
             case .failure(let error):
-                self.privateState = .fail(error: error)
+                self.errorData = AlertData(error: error)
             }
         }
     }
 }
 
-extension FacultiesView {
-    enum ViewState {
-        case loading
-        case content(data: [(String, String)])
-        case fail(error: Error)
-        case facultySelection(facultyId: String, data: [(String, String)])
+extension Faculty {
+    init(_ entry: (String, String)) {
+        self.init(identifier: entry.0,
+                  name: entry.1)
     }
 }

@@ -3,11 +3,11 @@ import API
 
 class CredentialsViewModel: ObservableObject {
     let apiClient = APIClient(baseURL: "https://unipi-api.herokuapp.com")
-
-    @Published private(set) var privateState: CredentialsView.ViewState = .idle
-    var state: Published<CredentialsView.ViewState>.Publisher { $privateState }
-
     let keychain = Keychain()
+    
+    @Published var errorData: AlertData?
+    @Published var isLoading: Bool = false
+    @Published var isNavigationActive: Bool = false
 
     let getResult: (APIResponse<API.AuthOp.Response>) -> Result<API.AuthOp.Response.Status200, Error> = {
         response in
@@ -25,9 +25,9 @@ class CredentialsViewModel: ObservableObject {
     }
 
     func getAuthToken(usr: String, pwd: String) {
-        self.privateState = .loading
-        makeLoginRequest(client: self.apiClient) {
-            result in
+        isLoading = true
+        makeLoginRequest(client: self.apiClient) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case .success(let accessToken):
                 saveCredentials(self.keychain)(
@@ -35,19 +35,13 @@ class CredentialsViewModel: ObservableObject {
                     usr,
                     pwd
                 )
-                self.privateState = .loggedId(accessToken: accessToken)
+                self.isLoading = false
+                self.isNavigationActive = true
+                
             case .failure(let e):
-                self.privateState = .fail(error: e)
+                self.isLoading = false
+                self.errorData = AlertData(error: e)
             }
         }(usr, pwd)
-    }
-}
-
-extension CredentialsView {
-    enum ViewState {
-        case idle
-        case loading
-        case loggedId(accessToken: String)
-        case fail(error: Error)
     }
 }
