@@ -1,7 +1,7 @@
 import EX from 'express'
 import * as T from 'fp-ts/lib/Task'
 import * as TE from 'fp-ts/lib/TaskEither'
-import { Fetch, handleError, StringPairDictionary } from "../net"
+import { Fetch, handleError } from "../net"
 import { extractToken } from "../net/auth"
 import { fetchCourses, CourseList, fetchPaths } from "../net/courses"
 import { getSecret } from "../utils/config"
@@ -11,7 +11,7 @@ import { formatCourses, formatPaths } from "../views/courses.view"
 const pathsOp = (f: Fetch) => async (_: EX.Request, res: EX.Response): Promise<EX.Response> =>
     await TE.fold(
         (e: Error) => T.of(handleError(res)(e)),
-        (c: StringPairDictionary) => T.of(formatPaths(c)(res))
+        (c: Record<string, string>) => T.of(formatPaths(c)(res))
     )
     (
         pipe(

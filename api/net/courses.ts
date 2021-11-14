@@ -1,4 +1,4 @@
-import { formatCookie, userAgent, StringPairDictionary, HTTPRequest, followRedirect, ensureOk, Fetch } from "./index"
+import { formatCookie, userAgent, HTTPRequest, followRedirect, ensureOk, Fetch } from "./index"
 import { parse as parseHTML, HTMLElement } from 'node-html-parser'
 import moment from 'moment'
 import { pipe } from 'fp-ts/function'
@@ -8,7 +8,7 @@ import { decode } from 'html-entities'
 import { ensureGetElementsByTagName, ensureQuerySelectorAll } from "../utils/diagnostic"
 import { tdVal } from "../utils/dom"
 
-const coursesReq = (cookie: StringPairDictionary) => (subject: string) => (path: string): HTTPRequest => ({
+const coursesReq = (cookie: Record<string, string>) => (subject: string) => (path: string): HTTPRequest => ({
     host: "esami.unipi.it",
     path: `/elencoappelli.php?from=sappelli&docente=&insegnamento=${encodeURIComponent(subject).replace(/%20/g, '+')}&cds=${path}&cerca=`,
     method: "GET",
@@ -109,14 +109,14 @@ const mapCourses = (body: string): CourseList => ({
         })
     })
 
-const mapPaths = (body: string): StringPairDictionary => eqsa(parseHTML(body))('#cds')
+const mapPaths = (body: string): Record<string, string> => eqsa(parseHTML(body))('#cds')
     .flatMap(x => egebtn(x)("option"))
     .reduce((p, c) => {
         const a = c.getAttribute("value")
         return typeof a === "undefined" ? p : ({ ...p, [a]: c.text })
     }, {})
 
-const fetchCourses = (f: Fetch) => (cookie: StringPairDictionary) => (subject: string) => (path: string): TE.TaskEither<Error, CourseList> => pipe(
+const fetchCourses = (f: Fetch) => (cookie: Record<string, string>) => (subject: string) => (path: string): TE.TaskEither<Error, CourseList> => pipe(
     TE.tryCatch(
         () => followRedirect(f)(coursesReq(cookie)(subject)(path)),
         error => ({ name: "net_error", message: `${error}` })),
@@ -125,7 +125,7 @@ const fetchCourses = (f: Fetch) => (cookie: StringPairDictionary) => (subject: s
     TE.map(x => mapCourses(x.body))
 )
 
-const fetchPaths = (f: Fetch) => (): TE.TaskEither<Error, StringPairDictionary> => pipe(
+const fetchPaths = (f: Fetch) => (): TE.TaskEither<Error, Record<string, string>> => pipe(
     TE.tryCatch(
         () => followRedirect(f)(pathsReq()),
         error => ({ name: "net_error", message: `${error}` })),

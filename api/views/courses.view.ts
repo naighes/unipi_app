@@ -1,6 +1,5 @@
 import EX from 'express'
 import moment from "moment"
-import { StringPairDictionary } from "../net"
 import { CourseList, Call } from "../net/courses"
 
 const mapCalls = (entries: Array<Call>): string => entries.map(c => `<tr>
@@ -49,7 +48,7 @@ const mapCourses = (courses: CourseList): string => `<!DOCTYPE html>
 
 const mapPath = (key: string, value: string): string => `<li>${key}: ${value}</li>`
 
-const mapPaths = (paths: StringPairDictionary): string => `<!DOCTYPE html>
+const mapPaths = (paths: Record<string, string>): string => `<!DOCTYPE html>
 <html>
 <head>
     <title>courses</title>
@@ -68,7 +67,7 @@ const formatCourses = (c: CourseList) => (res: EX.Response): EX.Response => res.
     default: () => res.status(406).send()
 })
 
-const formatPaths = (c: StringPairDictionary) => (res: EX.Response): EX.Response => res.format({
+const formatPaths = (c: Record<string, string>) => (res: EX.Response): EX.Response => res.format({
     'application/json': () => res.status(200).json(c),
     'text/html': () => res.status(200).send(mapPaths(c)),
     default: () => res.status(406).send()

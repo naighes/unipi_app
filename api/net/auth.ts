@@ -1,7 +1,7 @@
 import url from 'url'
 import querystring from 'querystring'
 import { parse as parseHTML } from 'node-html-parser'
-import { followRedirect, formatCookie, userAgent, HTTPRequest, HTTPResponse, StringPairDictionary, ensureOk, Fetch } from "./index"
+import { followRedirect, formatCookie, userAgent, HTTPRequest, HTTPResponse, ensureOk, Fetch } from "./index"
 import { either as E } from "fp-ts"
 import { pipe } from 'fp-ts/function'
 import * as TE from 'fp-ts/lib/TaskEither'
@@ -146,7 +146,7 @@ const f3 = (f: Fetch) => (res: HTTPResponse): TE.TaskEither<Error, HTTPResponse>
     )
 }
 
-const fetchAuthReq = (f: Fetch) => (usr: string, pwd: string): TE.TaskEither<Error, StringPairDictionary> => pipe(
+const fetchAuthReq = (f: Fetch) => (usr: string, pwd: string): TE.TaskEither<Error, Record<string, string>> => pipe(
     TE.tryCatch(
         () => followRedirect(f)(authReq()),
         (error) => ({ name: "net_error", message: `${error}` })
@@ -165,7 +165,7 @@ const fetchAuthReq = (f: Fetch) => (usr: string, pwd: string): TE.TaskEither<Err
 )
 
 type AuthToken = {
-    cookie: StringPairDictionary
+    cookie: Record<string, string>
 }
 
 const extractToken = (headers: IncomingHttpHeaders) => (secret: string) : E.Either<Error, AuthToken> => {

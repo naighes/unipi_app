@@ -1,4 +1,4 @@
-import { formatCookie, userAgent, StringPairDictionary, HTTPRequest, followRedirect, ensureOk, Fetch } from "./index"
+import { formatCookie, userAgent, HTTPRequest, followRedirect, ensureOk, Fetch } from "./index"
 import { fetchCareer } from "./careers"
 import { parse as parseHTML } from 'node-html-parser'
 import { pipe } from 'fp-ts/function'
@@ -7,7 +7,7 @@ import { ensureSession } from "./auth"
 import { ensureGetElementsByTagName, ensureQuerySelectorAll } from "../utils/diagnostic"
 import { tdVal } from "../utils/dom"
 
-const planReq = (cookie: StringPairDictionary): HTTPRequest => ({
+const planReq = (cookie: Record<string, string>): HTTPRequest => ({
     host: "www.studenti.unipi.it",
     path: "/auth/studente/Piani/PianiHome.do",
     method: "GET",
@@ -74,7 +74,7 @@ const map = (body: string): PlanGroupList => {
     return { entries: titles.map((x, i) => ({ name: x, planEntries: tables[i] })) }
 }
 
-const fetchPlan = (f: Fetch) => (cookie: StringPairDictionary) => (id: number): TE.TaskEither<Error, PlanGroupList> => pipe(
+const fetchPlan = (f: Fetch) => (cookie: Record<string, string>) => (id: number): TE.TaskEither<Error, PlanGroupList> => pipe(
     fetchCareer(f)(cookie)(id),
     TE.chain(_ => TE.tryCatch(
         () => followRedirect(f)(planReq(cookie)),

@@ -3,15 +3,12 @@ import https, { RequestOptions } from 'https'
 import url from 'url'
 import setCookieParser from 'set-cookie-parser'
 import { either as E } from "fp-ts"
+
 import * as TE from 'fp-ts/lib/TaskEither'
 import EX from 'express'
 import moment from 'moment'
 
 type Fetch = (req: HTTPRequest) => Promise<HTTPResponse>
-
-interface StringPairDictionary {
-    [key: string]: string
-}
 
 type HTTPRequest = {
     host: string
@@ -29,18 +26,18 @@ type HTTPResponse = {
     request: HTTPRequest
     headers: IncomingHttpHeaders
     body: string
-    cookie?: StringPairDictionary
+    cookie?: Record<string, string>
 }
 
 const cookieParser = {
-    parse: (x: string): StringPairDictionary => x.split(";").reduce((p, c) => {
+    parse: (x: string): Record<string, string> => x.split(";").reduce((p, c) => {
         const z = c.split("=")
         return z.length !== 2 ? p : { ...p, [z[0].trim()]: z[1].trim() }
     }, {})
 }
 
-const requestCookies = (headers: IncomingHttpHeaders): StringPairDictionary => cookieParser.parse(headers['cookie'] || "")
-const responseCookies = (headers: IncomingHttpHeaders): StringPairDictionary => setCookieParser.parse(headers['set-cookie'] || []).reduce((p, c) => ({
+const requestCookies = (headers: IncomingHttpHeaders): Record<string, string> => cookieParser.parse(headers['cookie'] || "")
+const responseCookies = (headers: IncomingHttpHeaders): Record<string, string> => setCookieParser.parse(headers['set-cookie'] || []).reduce((p, c) => ({
     ...p,
     [c.name]: c.value
 }), {})
@@ -48,7 +45,7 @@ const mergedCookie = (reqHeaders: IncomingHttpHeaders, resHeaders: IncomingHttpH
     ...requestCookies(reqHeaders),
     ...responseCookies(resHeaders)
 })
-const formatCookie = (c: StringPairDictionary): string => Object.keys(c).map(x => `${x}=${c[x]}`).join("; ")
+const formatCookie = (c: Record<string, string>): string => Object.keys(c).map(x => `${x}=${c[x]}`).join("; ")
 
 const userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:82.0) Gecko/20100101 Firefox/82.0"
 
@@ -173,7 +170,6 @@ export {
     formatCookie,
     HTTPRequest,
     HTTPResponse,
-    StringPairDictionary,
     ensureOk,
     handleError,
     Fetch

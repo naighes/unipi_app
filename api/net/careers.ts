@@ -1,4 +1,4 @@
-import { userAgent as userAgent, formatCookie, followRedirect, StringPairDictionary, HTTPRequest, ensureOk, Fetch } from "./index"
+import { userAgent as userAgent, formatCookie, followRedirect, HTTPRequest, ensureOk, Fetch } from "./index"
 import { parse as parseHTML, HTMLElement } from 'node-html-parser'
 import { ensureSession } from "./auth"
 import url from 'url'
@@ -8,7 +8,7 @@ import * as TE from 'fp-ts/lib/TaskEither'
 import { ensureGetElementsByTagName } from "../utils/diagnostic"
 import { tdVal } from "../utils/dom"
 
-const careersReq = (cookie: StringPairDictionary): HTTPRequest => ({
+const careersReq = (cookie: Record<string, string>): HTTPRequest => ({
     host: "www.studenti.unipi.it",
     path: "/auth/Logon.do",
     query: "",
@@ -19,7 +19,7 @@ const careersReq = (cookie: StringPairDictionary): HTTPRequest => ({
     }
 })
 
-const careerReq = (cookie: StringPairDictionary) => (id: number): HTTPRequest => ({
+const careerReq = (cookie: Record<string, string>) => (id: number): HTTPRequest => ({
     host: "www.studenti.unipi.it",
     path: "/auth/studente/SceltaCarrieraStudente.do",
     query: `stu_id=${id}`,
@@ -75,7 +75,7 @@ const map = (body: string): CareerList => {
     }
 }
 
-const fetchCareers = (f: Fetch) => (cookie: StringPairDictionary): TE.TaskEither<Error, CareerList> => pipe(
+const fetchCareers = (f: Fetch) => (cookie: Record<string, string>): TE.TaskEither<Error, CareerList> => pipe(
     TE.tryCatch(
         () => followRedirect(f)(careersReq(cookie)),
         error => ({ name: "net_error", message: `${error}` })
@@ -85,7 +85,7 @@ const fetchCareers = (f: Fetch) => (cookie: StringPairDictionary): TE.TaskEither
     TE.map(x => map(x.body))
 )
 
-const fetchCareer = (f: Fetch) => (cookie: StringPairDictionary) => (careerId: number): TE.TaskEither<Error, {[s: string]: number}> => pipe(
+const fetchCareer = (f: Fetch) => (cookie: Record<string, string>) => (careerId: number): TE.TaskEither<Error, {[s: string]: number}> => pipe(
     TE.tryCatch(
         () => followRedirect(f)(careerReq(cookie)(careerId)),
         error => ({ name: "net_error", message: `${error}` })

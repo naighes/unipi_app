@@ -1,4 +1,4 @@
-import { formatCookie, userAgent, StringPairDictionary, HTTPRequest, followRedirect, ensureOk, Fetch } from "./index"
+import { formatCookie, userAgent, HTTPRequest, followRedirect, ensureOk, Fetch } from "./index"
 import { fetchCareer } from "./careers"
 import { parse as parseHTML } from 'node-html-parser'
 import moment from 'moment'
@@ -8,7 +8,7 @@ import { ensureSession } from "./auth"
 import { ensureGetElementsByTagName, ensureQuerySelectorAll } from "../utils/diagnostic"
 import { tdVal } from "../utils/dom"
 
-const bookletReq = (cookie: StringPairDictionary): HTTPRequest => ({
+const bookletReq = (cookie: Record<string, string>): HTTPRequest => ({
     host: "www.studenti.unipi.it",
     path: "/auth/studente/Libretto/LibrettoHome.do",
     method: "GET",
@@ -112,7 +112,7 @@ const map = (body: string): TE.TaskEither<Error, BookletEntryList> => {
     })
 }
 
-const fetchBooklet = (f: Fetch) => (cookie: StringPairDictionary) => (id: number): TE.TaskEither<Error, BookletEntryList> => pipe(
+const fetchBooklet = (f: Fetch) => (cookie: Record<string, string>) => (id: number): TE.TaskEither<Error, BookletEntryList> => pipe(
     fetchCareer(f)(cookie)(id),
     TE.chain(_ => TE.tryCatch(
         () => followRedirect(f)(bookletReq(cookie)),

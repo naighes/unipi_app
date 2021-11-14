@@ -1,4 +1,4 @@
-import { Fetch, HTTPRequest, HTTPResponse, StringPairDictionary } from '../net'
+import { Fetch, HTTPRequest, HTTPResponse } from '../net'
 import { fetchAuthReq } from '../net/auth'
 import * as T from 'fp-ts/lib/Task'
 import * as TE from 'fp-ts/lib/TaskEither'
@@ -30,7 +30,7 @@ test('authentication: net error', async () => {
     const f = () => inner[i++]
     const data = await TE.fold(
         (e: Error) => T.of(expect(e.name).toBe('net_error')),
-        (_: StringPairDictionary) => T.of(fail('net error was expected'))
+        (_: Record<string, string>) => T.of(fail('net error was expected'))
     )
     (fetchAuthReq(f())("", ""))()
 })
@@ -47,7 +47,7 @@ test('authentication: unexpected status code', async () => {
     const f = () => inner[i++]
     const data = await TE.fold(
         (e: Error) => T.of(expect(e.name).toBe('unexpected_status_code')),
-        (_: StringPairDictionary) => T.of(fail('unexpected status coder was expected'))
+        (_: Record<string, string>) => T.of(fail('unexpected status coder was expected'))
     )
     (fetchAuthReq(f())("", ""))()
 })
@@ -64,7 +64,7 @@ test('authentication: no form action', async () => {
     const f = () => inner[i++]
     const data = await TE.fold(
         (e: Error) => T.of(expect(e.name).toBe('form_action_expected')),
-        (_: StringPairDictionary) => T.of(fail('missing form action was expected'))
+        (_: Record<string, string>) => T.of(fail('missing form action was expected'))
     )
     (fetchAuthReq(f())("", ""))()
 })
@@ -95,7 +95,7 @@ test('authentication: wrong credentials', async () => {
         (e: Error) => {
             return T.of(expect(e.name).toBe('wrong_credentials'))
         },
-        (_: StringPairDictionary) => T.of(fail('wrong_credentials error was expected'))
+        (_: Record<string, string>) => T.of(fail('wrong_credentials error was expected'))
     )
     (fetchAuthReq(f)("", ""))()
 })
@@ -131,7 +131,7 @@ test('authentication: missing cookies', async () => {
     const f = (req: HTTPRequest): Promise<HTTPResponse> => inner[i++](req)
     await TE.fold(
         (e: Error) => T.of(expect(e.name).toBe('authentication_error')),
-        (_: StringPairDictionary) => T.of(fail('authentication_error error was expected'))
+        (_: Record<string, string>) => T.of(fail('authentication_error error was expected'))
     )
     (fetchAuthReq(f)("", ""))()
 })
@@ -167,7 +167,7 @@ test('authentication: succesfull authentication', async () => {
     const f = (req: HTTPRequest): Promise<HTTPResponse> => inner[i++](req)
     await TE.fold(
         (e: Error) => T.of(fail(`succesfull authentication was expected; got ${JSON.stringify(e)} instead`)),
-        (c: StringPairDictionary) => T.of(expect(Object.keys(c).length).toBeGreaterThan(1))
+        (c: Record<string, string>) => T.of(expect(Object.keys(c).length).toBeGreaterThan(1))
     )
     (fetchAuthReq(f)("", ""))()
 })
