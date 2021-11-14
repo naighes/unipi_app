@@ -3,12 +3,12 @@ import API
 
 class PlanViewModel: ObservableObject {
     let apiClient = APIClient(baseURL: "https://unipi-api.herokuapp.com")
-
-    @Published private(set) var privateState: PlanView.ViewState = .idle
-    var state: Published<PlanView.ViewState>.Publisher { $privateState }
-
     let keychain = Keychain()
-
+    
+    @Published var data: [Plan] = []
+    @Published var currentError: AlertData?
+    @Published var isLoading: Bool = false
+    
     let getResult: (APIResponse<API.PlanOp.Response>) -> Result<API.PlanOp.Response.Status200, Error> = {
         response in
         switch response.result {
@@ -25,28 +25,34 @@ class PlanViewModel: ObservableObject {
     }
 
     func getPlan(token: String, careerId: Int) {
-        self.privateState = .loading
+        isLoading = true
         apiClient.makeRequest(
             API.PlanOp.Request(options: API.PlanOp.Request.Options(careerId: careerId)),
             behaviours: [BearerTokenRequestBehaviour(token: token)]
         ) { [weak self] response in
             guard let self = self else { return }
+            self.isLoading = false
             switch self.getResult(response) {
             case .success(let data):
-                self.privateState = .content(data: data)
+                self.data = data.entries?.map(Plan.init) ?? []
             case .failure(let error):
                 // TODO: check if token is expired and renew it
-                self.privateState = .fail(error: error)
+                self.currentError = AlertData(error: error)
             }
         }
     }
 }
 
-extension PlanView {
-    enum ViewState {
-        case idle
-        case loading
-        case content(data: API.PlanOp.Response.Status200)
-        case fail(error: Error)
+private extension Plan {
+    init(_ entry: API.PlanOp.Response.Status200.Entries) {
+        self.init(name: entry.name ?? "[unknown]",
+                  entries: entry.planEntries?.map(PlanEntry.init) ?? [])
+    }
+}
+
+private extension PlanEntry {
+    init(_ entry: API.PlanOp.Response.Status200.Entries.PlanEntries) {
+        self.init(code: entry.code ?? "[no code]",
+                  name: entry.name ?? "[unknown]")
     }
 }

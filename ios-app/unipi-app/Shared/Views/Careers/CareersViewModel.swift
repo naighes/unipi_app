@@ -3,11 +3,12 @@ import API
 
 class CareersViewModel: ObservableObject {
     let apiClient = APIClient(baseURL: "https://unipi-api.herokuapp.com")
-
-    @Published private(set) var privateState: CareersView.ViewState = .loading
-    var state: Published<CareersView.ViewState>.Publisher { $privateState }
-
     let keychain = Keychain()
+    
+    @Published var data: [Career] = []
+    @Published var currentError: AlertData?
+    @Published var isLoading: Bool = false
+    @Published var careerId: Int? = nil
 
     let getResult: (APIResponse<API.CareersOp.Response>) -> Result<API.CareersOp.Response.Status200, Error> = {
         response in
@@ -25,28 +26,30 @@ class CareersViewModel: ObservableObject {
     }
 
     func getCareers(token: String) {
+        isLoading = true
         apiClient.makeRequest(
             API.CareersOp.Request(),
             behaviours: [BearerTokenRequestBehaviour(token: token)]
         ) { [weak self] response in
             guard let self = self else { return }
-
+            self.isLoading = false
             switch self.getResult(response) {
-            case .success(let data):
-                self.privateState = .content(data: data)
+            case .success(let data):                
+                self.data = data.entries?.map(Career.init) ?? []
             case .failure(let error):
                 // TODO: check if token is expired and renew it
-                self.privateState = .fail(error: error)
+                self.currentError = AlertData(id: error.stringValue,
+                                              title: "error",
+                                              message: error.stringValue)
             }
         }
     }
 }
 
-extension CareersView {
-    enum ViewState {
-        case loading
-        case content(data: API.CareersOp.Response.Status200)
-        case fail(error: Error)
-        case careerSelection(careerId: Int, data: API.CareersOp.Response.Status200)
+extension Career {
+    init(_ entry: API.CareersOp.Response.Status200.Entries) {
+        self.init(name: entry.name ?? "[unknown]",
+                  identifier: entry.careerId ?? 0,
+                  type: entry.type ?? "[unknown]")
     }
 }

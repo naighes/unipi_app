@@ -13,11 +13,10 @@ struct unipi_appApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if let _ = keychain.usr, let _ = keychain.pwd {
-                CareersView()
-            } else {
+            NavigationView {
                 CredentialsView()
             }
+            .navigationViewStyle(StackNavigationViewStyle())
         }
     }
 }
