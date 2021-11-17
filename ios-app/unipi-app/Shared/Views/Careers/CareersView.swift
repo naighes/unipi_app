@@ -25,7 +25,7 @@ struct CareersView: View {
 
 struct CareersBackground: View {
     var body: some View {
-        Color.primary_color.edgesIgnoringSafeArea(.all)
+        Color.blue.edgesIgnoringSafeArea(.all)
     }
 }
 
@@ -33,13 +33,18 @@ struct CareersListView: View {
     let data: [Career]
     
     var body: some View {
-        List(data, id: \.identifier) { career in
-            NavigationLink(destination: getDestinationView(career.identifier)){
-                HStack {
-                    Text(career.name)
-                    Text(career.type).font(Font(UIFont.systemFont(ofSize: 13)))
+        ScrollView {
+            LazyVStack(alignment: .leading) {
+                ForEach(data, id: \.identifier) { career in
+                    NavigationLink(destination: getDestinationView(career.identifier)){
+                        HStack {
+                            Text(career.name).foregroundColor(.white)
+                            Text(career.type).font(Font(UIFont.systemFont(ofSize: 13))).foregroundColor(.white)
+                        }
+                    }
+                    Divider()
                 }
-            }
+            }.padding(16)
         }
     }
     
@@ -50,5 +55,14 @@ struct CareersListView: View {
         } else {
             FacultiesView(careerId: careerId)
         }
+    }
+}
+
+
+struct CareersView_Previews: PreviewProvider {
+    static var previews: some View {
+        let viewModel = CareersViewModel()
+        viewModel.data = [.init(name: "Informatica", identifier: 0, type: "Magistrale")]
+        return CareersView(viewModel: viewModel)
     }
 }

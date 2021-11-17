@@ -60,6 +60,8 @@
 		36D902CF2732DFBD00E1E16B /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D902CD2732DFBD00E1E16B /* LoginRequest.swift */; };
 		36DA535E272AD9EB00FE2CD4 /* CredentialsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36DA535D272AD9EB00FE2CD4 /* CredentialsView.swift */; };
 		36DA535F272AD9EB00FE2CD4 /* CredentialsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36DA535D272AD9EB00FE2CD4 /* CredentialsView.swift */; };
+		B64400232743E0A300C57AAC /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64400222743E0A300C57AAC /* SwiftUIView.swift */; };
+		B64400242743E0A300C57AAC /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B64400222743E0A300C57AAC /* SwiftUIView.swift */; };
 		B6C82B52272A960D009CB8CA /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B51272A960D009CB8CA /* Tests_iOS.swift */; };
 		B6C82B54272A960D009CB8CA /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B53272A960D009CB8CA /* Tests_iOSLaunchTests.swift */; };
 		B6C82B5E272A960D009CB8CA /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C82B5D272A960D009CB8CA /* Tests_macOS.swift */; };
@@ -120,6 +122,7 @@
 		36D29B6D272D3690001D7698 /* NetError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetError.swift; sourceTree = "<group>"; };
 		36D902CD2732DFBD00E1E16B /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		36DA535D272AD9EB00FE2CD4 /* CredentialsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsView.swift; sourceTree = "<group>"; };
+		B64400222743E0A300C57AAC /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
 		B6C82B37272A960A009CB8CA /* Shared.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Shared.xcdatamodel; sourceTree = "<group>"; };
 		B6C82B38272A960A009CB8CA /* unipi_appApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = unipi_appApp.swift; sourceTree = "<group>"; };
 		B6C82B3B272A960C009CB8CA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -273,6 +276,7 @@
 			isa = PBXGroup;
 			children = (
 				36BF61FB2732A2B5008A4B8E /* CareersView.swift */,
+				B64400222743E0A300C57AAC /* SwiftUIView.swift */,
 				36BF62022732A3FA008A4B8E /* CareersViewModel.swift */,
 			);
 			path = Careers;
@@ -574,6 +578,7 @@
 				B6C82B63272A960D009CB8CA /* unipi_appApp.swift in Sources */,
 				2B5E5324272FF3ED008E48E1 /* FacultiesViewModel.swift in Sources */,
 				36C578962735666600BB5798 /* TextView.swift in Sources */,
+				B64400232743E0A300C57AAC /* SwiftUIView.swift in Sources */,
 				36C57899273566A500BB5798 /* InterFontModifier.swift in Sources */,
 				2B5E532A2730025E008E48E1 /* LoaderView.swift in Sources */,
 			);
@@ -609,6 +614,7 @@
 				B6C82B64272A960D009CB8CA /* unipi_appApp.swift in Sources */,
 				2B5E5325272FF3ED008E48E1 /* FacultiesViewModel.swift in Sources */,
 				36C578972735666600BB5798 /* TextView.swift in Sources */,
+				B64400242743E0A300C57AAC /* SwiftUIView.swift in Sources */,
 				36C5789A273566A500BB5798 /* InterFontModifier.swift in Sources */,
 				2B5E532B2730025E008E48E1 /* LoaderView.swift in Sources */,
 			);
