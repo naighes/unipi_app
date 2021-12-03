@@ -1,6 +1,6 @@
 # unipi-app
 
-A student-made HTTP API for easy access to unipi stuff.
+A student-made (with the precious help of my dear friend and ex-student [Gioevi90](https://github.com/Gioevi90)) HTTP API for easy access to unipi stuff.
 An always up-to-date version is hosted at https://unipi-api.herokuapp.com.
 
 [Open API 3.0](https://spec.openapis.org/oas/v3.0.0) spec available at [https://unipi-api.herokuapp.com/api-docs](https://unipi-api.herokuapp.com/api-docs).

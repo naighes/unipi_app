@@ -42,7 +42,7 @@ export const coursesDoc: OpenAPIV3.PathsObject = {
                         academicYear: { type: 'string', nullable: true },
                         subject: { type: 'string', nullable: true },
                         code: { type: 'string', nullable: true },
-                        weight: { type: 'integer', nullable: true },
+                        weight: { type: 'number', format: 'float', nullable: true },
                         teacher: { type: 'string', nullable: true },
                         calls: {
                           type: 'array',

@@ -46,7 +46,7 @@ export const planDoc: OpenAPIV3.PathsObject = {
                             properties: {
                               code: { type: 'string', nullable: true },
                               name: { type: 'string', nullable: true },
-                              weight: { type: 'integer', nullable: true },
+                              weight: { type: 'number', format: 'float', nullable: true },
                               status: { type: 'integer', nullable: true }
                             }
                           }
