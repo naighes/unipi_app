@@ -68,4 +68,5 @@ curl -s "https://unipi-api.herokuapp.com/careers" \
 
 ## available formats
 
-By default a JSON representation is returned and right now it'is the only available view.
+By default a JSON representation is returned.
+In addition, a very basic HTML view is returned upon `text/html` requests.

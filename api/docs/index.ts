@@ -5,6 +5,7 @@ import { taxesDoc } from './taxes.doc'
 import { planDoc } from './plan.doc'
 import { coursesDoc } from './courses.doc'
 import { authDoc } from './auth.doc'
+import { userDetailsDoc } from './user_details.doc'
 
 export const apiDoc: OpenAPIV3.Document = {
   openapi: '3.0.0',
@@ -53,6 +54,7 @@ export const apiDoc: OpenAPIV3.Document = {
     ...taxesDoc,
     ...planDoc,
     ...coursesDoc,
-    ...authDoc
+    ...authDoc,
+    ...userDetailsDoc
   }
 }

@@ -5,6 +5,7 @@ import { initialize } from 'express-openapi'
 import { config, getSecret } from './utils/config'
 import moment from 'moment'
 import { fetch } from './net'
+import { userDetailsOp } from './operations/user_details.op'
 
 const app = EX()
 app.use((req: EX.Request, res: EX.Response, next: EX.NextFunction)=> {
@@ -24,7 +25,8 @@ initialize({
         planOp: planOp(fetch),
         coursesOp: coursesOp(fetch),
         pathsOp: pathsOp(fetch),
-        authOp: authOp(fetch)
+        authOp: authOp(fetch),
+        userDetailsOp: userDetailsOp(fetch)
     },
     promiseMode: true
 })
@@ -42,6 +44,7 @@ app.get('/courses/:path/:subject/calendar', safe(coursesOp(fetch)))
 app.get('/courses', safe(pathsOp(fetch)))
 app.get('/:careerId/taxes', safe(taxesOp(fetch)))
 app.get('/:careerId/booklet', safe(bookletOp(fetch)))
+app.get('/:careerId/user/details', safe(userDetailsOp(fetch)))
 app.get('/careers', safe(careersOp(fetch)))
 app.post('/auth', safe(authOp(fetch)))
 
